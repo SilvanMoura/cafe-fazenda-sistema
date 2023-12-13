@@ -280,3 +280,26 @@
         </div>
     </nav>
     <!--End sidebar-menu-->
+
+    <div class="row-fluid">
+        <div id="footer" class="span12"> <a class="pecolor" href="https://github.com/SilvanMoura" target="_blank">
+                <?= date('Y'); ?> &copy; Silvan Moura - Café da Fazenda - Versão: 1.0</a></div>
+    </div>
+    <!--end-Footer-part-->
+    <script src="{{ asset('js/matrix.js') }}"></script>
+</body>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var dataTableEnabled = '1';
+        if (dataTableEnabled == '1') {
+            $('#tabela').dataTable({
+                "ordering": false,
+                "language": {
+                    "url": "{{ asset('js/dataTable_pt-br.json') }}"
+                }
+            });
+        }
+    });
+</script>
+
+</html>
