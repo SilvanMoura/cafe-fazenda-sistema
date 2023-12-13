@@ -281,9 +281,57 @@
     </nav>
     <!--End sidebar-menu-->
 
+    <div id="content">
+        <!--start-top-serch-->
+        <div id="content-header">
+            <div></div>
+            <div id="breadcrumb">
+                <a href="/" title="" class="tip-bottom">Início</a>
+
+                @if(request()->segment(1) !== null)
+                <a href="{{ '/' . request()->segment(1) }}" class="tip-bottom" title="{{ ucfirst(request()->segment(1)) }}">
+                    {{ ucfirst(request()->segment(1)) }}
+                </a>
+
+                @if(request()->segment(2) !== null)
+                <a href="{{ '/' . request()->segment(1) . '/' . request()->segment(2) . '/' . request()->segment(3) }}" class="current tip-bottom" title="{{ ucfirst(request()->segment(2)) }}">
+                    {{ ucfirst(request()->segment(2)) }}
+                </a>
+                @endif
+                @endif
+            </div>
+
+        </div>
+        <div class="container-flu">
+            <div class="row-fluid">
+
+                <div class="span12">
+                    @if($var = session()->get('success'))
+                    <script>
+                        swal("Sucesso!", "<?php echo str_replace('"', '', $var); ?>", "success");
+                    </script>
+                    @endif
+
+                    @if($var = session()->get('error'))
+                    <script>
+                        swal("Falha!", "<?php echo str_replace('"', '', $var); ?>", "error");
+                    </script>
+                    @endif
+
+                    @isset($view)
+                    {{ view($view)->render() }}
+                    @endisset
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row-fluid">
-        <div id="footer" class="span12"> <a class="pecolor" href="https://github.com/SilvanMoura" target="_blank">
-                <?= date('Y'); ?> &copy; Silvan Moura - Café da Fazenda - Versão: 1.0</a></div>
+        <div id="footer" class="span12">
+            <a class="pecolor" href="https://github.com/SilvanMoura" target="_blank">
+                <?= date('Y'); ?> &copy; Silvan Moura - Café da Fazenda - Versão: 1.0
+            </a>
+        </div>
     </div>
     <!--end-Footer-part-->
     <script src="{{ asset('js/matrix.js') }}"></script>
