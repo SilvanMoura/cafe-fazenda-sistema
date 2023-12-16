@@ -3050,12 +3050,12 @@ form {
     margin-bottom: 5px;
   }
 
-  .cardBox .card .N-tittle {
+  /* .cardBox .card .N-tittle {
     max-width: 64px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+  } */
 
   .cardBox .card-cl .clock-card .clock-flex .num {
     font-size: 1.5rem;

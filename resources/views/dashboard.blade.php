@@ -383,7 +383,6 @@
             <div class="grid-blak">
                 <a href="/clientes">
                     <div class="numbers">Clientes</div>
-                    <div class="cardName">F1</div>
                 </a>
             </div>
             <a href="/clientes">
@@ -397,7 +396,6 @@
             <div class="grid-blak">
                 <a href="/produtos">
                     <div class="numbers">Produtos</div>
-                    <div class="cardName">F2</div>
                 </a>
             </div>
             <a href="/produtos">
@@ -411,7 +409,6 @@
             <div class="grid-blak">
                 <a href="/servicos">
                     <div class="numbers">Serviços</div>
-                    <div class="cardName">F3</div>
                 </a>
             </div>
             <a href="/servicos">
@@ -425,7 +422,6 @@
             <div class="grid-blak">
                 <a href="/os">
                     <div class="numbers N-tittle">Ordens</div>
-                    <div class="cardName">F4</div>
                 </a>
             </div>
             <a href="/os">
@@ -439,7 +435,6 @@
             <div class="grid-blak">
                 <a href="/vendas">
                     <div class="numbers N-tittle">Vendas</div>
-                    <div class="cardName">F6</div>
                 </a>
             </div>
             <a href="/vendas">
@@ -452,8 +447,7 @@
         <li class="card">
             <div class="grid-blak">
                 <a href="/financeiro/lancamentos">
-                    <div class="numbers N-tittle">Lançamentos</div>
-                    <div class="cardName">F7</div>
+                    <div class="numbers">Lançamentos</div>
                 </a>
             </div>
             <a href="/financeiro/lancamentos">
