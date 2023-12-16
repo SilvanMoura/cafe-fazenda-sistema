@@ -532,21 +532,21 @@
                         <?php $diaRec = "VALOR_" . date('m') . "_REC";
                         $diaDes = "VALOR_" . date('m') . "_DES"; ?>
 
-                        <a href="/financeiro/lancamentos" class="card tip-top" title="Adicionar receita">
+                        <!-- <a href="/financeiro/lancamentos" class="card tip-top" title="Adicionar receita">
                             <div><i class='bx bxs-up-arrow-circle iconBx7'></i></div>
                             <div>
                                 <div class="cardName1 cardName2">R$ 0.00</div>
                                 <div class="cardName">Receita do dia</div>
                             </div>
-                        </a>
+                        </a> -->
 
-                        <a href="/financeiro/lancamentos" class="card tip-top" title="Adiciona despesa">
+                        <!-- <a href="/financeiro/lancamentos" class="card tip-top" title="Adiciona despesa">
                             <div><i class='bx bxs-down-arrow-circle iconBx8'></i></div>
                             <div>
                                 <div class="cardName1 cardName2">R$ 0.01</div>
                                 <div class="cardName">Despesa do dia</div>
                             </div>
-                        </a>
+                        </a> -->
 
                         <!-- php  }
                     } -->
