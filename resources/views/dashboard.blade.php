@@ -5,7 +5,7 @@
     <title>Dashboard - Café da Fazenda</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/cafe-fazenda-logo-sistema.png') }}" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/matrix-style.css') }}" />
@@ -153,7 +153,7 @@
 
 
 
-    
+
     <!--sidebar-menu-->
     <nav id="sidebar" class="menu-closed">
 
@@ -801,17 +801,16 @@
         <div class="AAA">
             <div class="widget-box0 widbox-blak">
                 <div>
-                    <h5 class="cardHeader">Produtos Com Estoque Mínimo</h5>
+                    <h5 class="cardHeader">Orçamentos</h5>
                 </div>
                 <div class="widget-content">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Cod.</th>
-                                <th>Produto</th>
-                                <th>Preço de Venda</th>
-                                <th>Estoque</th>
-                                <th class="ph3">Estoque Mínimo</th>
+                                <th>Nome</th>
+                                <th>Data Criação</th>
+                                <th>Valor</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -847,7 +846,7 @@
                             endforeach ?> -->
                             <!-- php else : ?> -->
                             <tr>
-                                <td colspan="6">Nenhum produto com estoque baixo.</td>
+                                <td colspan="6">Nenhum orçamento encontrado.</td>
                             </tr>
                             <!-- php endif ?> -->
                         </tbody>
@@ -910,7 +909,7 @@
         </div>
 
 
-        <div class="widget-box0 widbox-blak">
+        <!--<div class="widget-box0 widbox-blak">
             <div>
                 <h5 class="cardHeader">Ordens de Serviço Aguardando Peças</h5>
             </div>
@@ -926,7 +925,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- if ($ordens1 != null) : ?>
+                        if ($ordens1 != null) : ?>
                          foreach ($ordens1 as $o) : ?>
                             <tr>
                                 <td>
@@ -949,17 +948,17 @@
                                 </td>
                             </tr>
                          endforeach ?>
-                     else : ?> -->
+                     else : ?> --
                         <tr>
                             <td colspan="5">Nenhuma OS Aguardando Peças.</td>
                         </tr>
-                        <!-- endif ?> -->
+                        <!-endif ?> --
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div>-->
 
-        <div class="widget-box0 widbox-blak">
+        <!-- <div class="widget-box0 widbox-blak">
             <div>
                 <h5 class="cardHeader">Ordens de Serviço Em Andamento</h5>
             </div>
@@ -998,15 +997,15 @@
                                 </td>
                             </tr>
                          endforeach ?>
-                     else : ?> -->
+                     else : ?> --
                         <tr>
                             <td colspan="5">Nenhuma OS em Andamento.</td>
                         </tr>
-                        <!-- endif ?> -->
+                        <!-- endif ?> --
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
     </div>
     <!-- Fim Staus OS -->
 
@@ -1065,7 +1064,7 @@
     </div>
 
     <!-- Modal Estoque -->
-    <div id="atualizar-estoque" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!-- <div id="atualizar-estoque" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <form action="/produtos/atualizar_estoque" method="post" id="formEstoque">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -1092,7 +1091,7 @@
                 <button class="button btn btn-primary"><span class="button__icon"><i class="bx bx-sync"></i></span><span class="button__text2">Atualizar</span></button>
             </div>
         </form>
-    </div>
+    </div> -->
 
     <script src="{{ asset('js/jquery.validate.js') }}"></script>
     <!-- Modal Estoque-->
@@ -1256,9 +1255,7 @@
 
 
 
-
-
-    <div class="row-fluid">
+    <div class="row-fluid" style="display: flex; flex-direction: column;">
         <div id="footer" class="span12">
             <a class="pecolor" href="https://github.com/SilvanMoura" target="_blank">
                 <?= date('Y'); ?> &copy; Silvan Moura - Café da Fazenda - Versão: 1.0

@@ -267,7 +267,12 @@ h3 {
 }
 
 #footer {
-  padding: 10px 0 10px 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding-top: 7px;
+  margin-left: 3%;
   text-align: center;
   color: #f7bc4d;
   background: var(--bodycolor);
