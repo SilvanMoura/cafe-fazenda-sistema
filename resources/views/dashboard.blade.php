@@ -471,10 +471,11 @@
                     </div>
 
                     <div class="new-bottons">
+
                         <a href="/clientes/adicionar" class="card tip-top" title="Add Clientes e Fornecedores">
                             <div><i class='bx bxs-group iconBx'></i></div>
                             <div>
-                                <div class="cardName2"> 100 </div>
+                                <div class="cardName2">{{ $dashboard['clientes'] }}</div>
                                 <div class="cardName">Clientes</div>
                             </div>
                         </a>
@@ -482,7 +483,7 @@
                         <a href="/produtos/adicionar" class="card tip-top" title="Adicionar Produtos">
                             <div><i class='bx bxs-package iconBx2'></i></div>
                             <div>
-                                <div class="cardName2"> 100 </div>
+                                <div class="cardName2">{{ $dashboard['produto'] }}</div>
                                 <div class="cardName">Produtos</div>
                             </div>
                         </a>
@@ -490,15 +491,23 @@
                         <a href="/servicos/adicionar" class="card tip-top" title="Adicionar serviços">
                             <div><i class='bx bxs-stopwatch iconBx3'></i></div>
                             <div>
-                                <div class="cardName2"> 100 </div>
+                                <div class="cardName2">{{ $dashboard['osServicoNumber'] }}</div>
                                 <div class="cardName">Serviços</div>
+                            </div>
+                        </a>
+
+                        <a href="/servicos/adicionar" class="card tip-top" title="Adicionar serviços">
+                            <div><i class='bx bx-file iconBx3'></i></div>
+                            <div>
+                                <div class="cardName2">{{ $dashboard['osOrcamentoNumber'] }}</div>
+                                <div class="cardName">Orçamentos</div>
                             </div>
                         </a>
 
                         <a href="/os/adicionar" class="card tip-top" title="Adicionar OS">
                             <div><i class='bx bxs-spreadsheet iconBx4'></i></div>
                             <div>
-                                <div class="cardName2"> 100 </div>
+                                <div class="cardName2">{{ $dashboard['os'] }}</div>
                                 <div class="cardName">Ordens</div>
                             </div>
                         </a>
@@ -506,7 +515,7 @@
                         <a href="/garantias" class="card tip-top" title="Adicionar garantia">
                             <div><i class='bx bxs-receipt iconBx6'></i></div>
                             <div>
-                                <div class="cardName2"> 100 </div>
+                                <div class="cardName2">{{ $dashboard['garantiasNumber'] }}</div>
                                 <div class="cardName">Garantias</div>
                             </div>
                         </a>
@@ -514,11 +523,10 @@
                         <a href="/vendas/adicionar" class="card tip-top" title="Adicionar Vendas">
                             <div><i class='bx bxs-cart-alt iconBx5'></i></div>
                             <div>
-                                <div class="cardName2"> 100 </div>
-                                <div class="cardName">Vendas</div>
+                                <div class="cardName2">{{ $dashboard['maquinaNumber'] }}</div>
+                                <div class="cardName">Máquinas</div>
                             </div>
                         </a>
-
                         <!-- responsavel por fazer complementar a variavel "$financeiro_mes_dia->" de receita e despesa -->
                         <!-- if ($estatisticas_financeiro != null) {
                         if ($estatisticas_financeiro->total_receita != null || $estatisticas_financeiro->total_despesa != null || $estatisticas_financeiro->total_receita_pendente != null || $estatisticas_financeiro->total_despesa_pendente != null) { -->
@@ -545,6 +553,7 @@
                         <!-- php  }
                     } -->
                     </div>
+
                 </div>
             </div>
         </div>
@@ -809,46 +818,43 @@
                             <tr>
                                 <th>Cod.</th>
                                 <th>Nome</th>
-                                <th>Data Criação</th>
+                                <th>Data Avaliação</th>
                                 <th>Valor</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- php if ($produtos != null) : ?>
-                            foreach ($produtos as $p) : ?>
-                                <tr>
-                                    <td>
-                                        idProdutos
-                                    </td>
-                                    <td class="cli1">
-                                        descricao
-                                    </td>
-                                    <td>R$
-                                        precoVenda
-                                    </td>
-                                    <td>
-                                        estoque
-                                    </td>
-                                    <td class="ph3">
-                                        estoqueMinimo
-                                    </td>
-                                    <td>
-                                         if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eProduto')) : ?>
-                                            <a href="/produtos/editar/" class="btn-nwe3 tip-top" title="Editar">
-                                                <i class="bx bx-edit"></i>
-                                            </a>
-                                            <a href="#atualizar-estoque" role="button" data-toggle="modal" produto="= $p->idProdutos ?>" estoque="= $p->estoque ?>" class="btn-nwe5 tip-top" title="Atualizar Estoque">
-                                                <i class="bx bx-plus-circle"></i></a>
-                                        php endif; ?>
-                                    </td>
-                                </tr>
-                            endforeach ?> -->
-                            <!-- php else : ?> -->
+                            @if(isset($dashboard['osOrcamento']))
+                            @foreach($dashboard['osOrcamento'] as $osOrcamento)
+                            <tr>
+                                <td>
+                                    {{ $osOrcamento->id }}
+                                </td>
+                                <td class="cli1">
+                                    descricao
+                                </td>
+                                <td>
+                                    {{ $osOrcamento->data }}
+                                </td>
+                                <td>
+                                    estoque
+                                </td>
+                                <td>
+                                    <!-- if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eProduto')) : ?> -->
+                                    <a href="/produtos/editar/" class="btn-nwe3 tip-top" title="Editar">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
+                                    <!-- <a href="#atualizar-estoque" role="button" data-toggle="modal" produto="= $p->idProdutos ?>" estoque="= $p->estoque ?>" class="btn-nwe5 tip-top" title="Atualizar Estoque">
+                                                <i class="bx bx-plus-circle"></i></a> -->
+                                    <!-- php endif; ?> -->
+                                </td>
+                            </tr>
+                            @endforeach
+                            @else
                             <tr>
                                 <td colspan="6">Nenhum orçamento encontrado.</td>
                             </tr>
-                            <!-- php endif ?> -->
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -871,38 +877,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- php if ($ordens != null) : ?>
-                        php foreach ($ordens as $o) : ?>
-                            <tr>
-                                <td>
-                                    = $o->idOs ?>
-                                </td>
-                                <td>
-                                    = date('d/m/Y', strtotime($o->dataInicial)) ?>
-                                </td>
+                        @if(isset($dashboard['osServicos']))
+                        @foreach($dashboard['osServicos'] as $osServicos)
+                        <tr>
+                            <td>
+                                {{ $osServicos->id }}
+                            </td>
+                            <td>
+                            </td>
 
-                                <td>php if ($o->dataFinal != null) {
-                                    echo date('d/m/Y', strtotime($o->dataFinal));
-                                } else {
-                                    echo "";
-                                } ?></td>
+                            <td></td>
 
-                                <td class="cli1">
-                                    = $o->nomeCliente ?>
-                                </td>
-                                <td>
-                                    php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'vOs')) : ?>
-                                        <a href="= base_url() ?>index.php/os/visualizar/= $o->idOs ?>" class="btn-nwe tip-top" title="Visualizar">
-                                            <i class="bx bx-show"></i> </a>
-                                    php endif ?>
-                                </td>
-                            </tr>
-                        php endforeach ?>
-                    php else : ?> -->
+                            <td class="cli1">
+                                
+                            </td>
+                            <td>
+                                <a href="/os/visualizar/" class="btn-nwe tip-top" title="Visualizar">
+                                    <i class="bx bx-show"></i> </a>
+
+                            </td>
+                        </tr>
+                        @endforeach
+                        @else
                         <tr>
                             <td colspan="5">Nenhuma OS em aberto.</td>
                         </tr>
-                        <!-- php endif ?> -->
+                        @endif
                     </tbody>
                 </table>
             </div>
