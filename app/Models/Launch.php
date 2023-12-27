@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Launch extends Model
 {
     use HasFactory;
+
+    protected $table = 'lancamento';
 }
