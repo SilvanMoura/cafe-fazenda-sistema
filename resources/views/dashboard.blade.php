@@ -819,8 +819,8 @@
                                 <th>Cod.</th>
                                 <th>Nome</th>
                                 <th>Data Avaliação</th>
-                                <th>Valor</th>
-                                <th>Ações</th>
+                                <th>Status</th>
+                                <th>Ver</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -831,22 +831,17 @@
                                     {{ $osOrcamento->id }}
                                 </td>
                                 <td class="cli1">
-                                    descricao
+                                    {{ $osOrcamento->cliente_id }}
                                 </td>
                                 <td>
                                     {{ $osOrcamento->data }}
                                 </td>
                                 <td>
-                                    estoque
+                                    {{ $osOrcamento->status_os_id }}
                                 </td>
                                 <td>
-                                    <!-- if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eProduto')) : ?> -->
-                                    <a href="/produtos/editar/" class="btn-nwe3 tip-top" title="Editar">
-                                        <i class="bx bx-edit"></i>
-                                    </a>
-                                    <!-- <a href="#atualizar-estoque" role="button" data-toggle="modal" produto="= $p->idProdutos ?>" estoque="= $p->estoque ?>" class="btn-nwe5 tip-top" title="Atualizar Estoque">
-                                                <i class="bx bx-plus-circle"></i></a> -->
-                                    <!-- php endif; ?> -->
+                                    <a href="/os/visualizar/" class="btn-nwe tip-top" title="Visualizar">
+                                        <i class="bx bx-show"></i> </a>
                                 </td>
                             </tr>
                             @endforeach
@@ -870,10 +865,11 @@
                     <thead>
                         <tr>
                             <th>N°</th>
-                            <th>Data Inicial</th>
-                            <th>Data Final</th>
                             <th>Cliente</th>
-                            <th>Ações</th>
+                            <th>Data Avaliação</th>
+                            <th>Status</th>
+                            <th>Valor</th>
+                            <th>Ver</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -884,12 +880,18 @@
                                 {{ $osServicos->id }}
                             </td>
                             <td>
+                                {{ $osServicos->cliente_id }}
                             </td>
 
-                            <td></td>
+                            <td>
+                                {{ $osServicos->data_avaliacao }}
+                            </td>
 
                             <td class="cli1">
-                                
+                                {{ $osServicos->status_os_id }}
+                            </td>
+                            <td class="cli1">
+                                R$ {{ $osServicos->valor_os }}
                             </td>
                             <td>
                                 <a href="/os/visualizar/" class="btn-nwe tip-top" title="Visualizar">
