@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'getInfoDashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/clientes', function() { return view('customers');} )->middleware(['auth', 'verified'])->name('customers');
 //return view('dashboard');
 
 Route::middleware('auth')->group(function () {

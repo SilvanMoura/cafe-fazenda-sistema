@@ -352,7 +352,7 @@
 
     @yield('content')
 
-    <div class="row-fluid" style="display: flex; flex-direction: column;">
+    <div class="row-fluid"  >
         <div id="footer" class="span12">
             <a class="pecolor" href="https://github.com/SilvanMoura" target="_blank">
                 <?= date('Y'); ?> &copy; Silvan Moura - Café da Fazenda - Versão: 1.0
