@@ -95,6 +95,7 @@
                 <div class="alert alert-danger">teste</div>
                 <!-- } ?> -->
                 <form id="formCliente" class="form-horizontal">
+                    @csrf
                     <div class="widget-content nopadding tab-content">
                         <div class="span6">
                             <div class="control-group">
@@ -195,7 +196,7 @@
                     <div class="form-actions">
                         <div class="span12">
                             <div class="span6 offset3" style="display:flex;justify-content: center">
-                                <button type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button>
+                                <button id="btnRegister" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button>
                                 <a title="Voltar" class="button btn btn-warning" href="/clientes"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
                             </div>
                         </div>
@@ -242,6 +243,47 @@
                 $(element).parents('.control-group').addClass('success');
             }
         });
+
+        $('#btnRegister').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formCliente").valid()) {
+                var dados = $("#formCliente").serialize();
+
+                $(this).addClass('disabled');
+                $('#progress-acessar').removeClass('hide');
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/clientes/adicionar",
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.success === true) {
+                            window.location.href = "http://localhost:8000/dashboard";
+                        } else {
+                            $('#btn-acessar').removeClass('disabled');
+                            $('#progress-acessar').addClass('hide');
+
+                            $('#message').text(data.message || 'Os dados de acesso estão incorretos, por favor tente novamente!');
+                            $('#call-modal').trigger('click');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro na requisição AJAX:", error);
+                        // Adicione manipulação de erro conforme necessário
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
     });
 </script>
 
