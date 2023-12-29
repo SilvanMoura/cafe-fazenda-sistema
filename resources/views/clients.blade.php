@@ -6,9 +6,16 @@
     select {
         width: 70px;
     }
+
+    .scrollable-container {
+        height: 400px;
+        /* Altura fixa da div */
+        overflow-y: auto;
+        /* Adiciona rolagem vertical quando necessário */
+    }
 </style>
 <div style="height: 90vh;">
-    <div class="new122" style="margin: 1% 1% 0 7%">
+    <div class="new122" style="margin: 1% 1% 0 7%;">
         <div class="widget-title" style="margin: -20px 0 0">
             <span class="icon">
                 <i class="fas fa-user"></i>
@@ -25,7 +32,7 @@
 
         <div class="widget-box">
             <h5 style="padding: 3px 0"></h5>
-            <div class="widget-content nopadding tab-content">
+            <div class="widget-content nopadding tab-content scrollable-container">
                 <table id="tabela" class="table table-bordered ">
                     <thead>
                         <tr>
@@ -38,35 +45,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- ?php
 
-                    if (!$results) {
-                        echo '' -->
+
+                        @if($infoClients->count() > 0)
+                        @foreach ($infoClients as $r)
+                        <tr>
+                            <td>{{ $r->id }}</td>
+                            <td style="width:35%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">{{ $r->nome }}</a></td>
+                            @if($r->cpf != '')
+                                <td>{{ $r->cpf }}</td>
+                            @else
+                                <td>{{ $r->cnpj }}</td>
+                            @endif
+                            @if($r->celular != '')
+                                <td>{{ $r->celular }}</td>
+                            @else
+                                <td>{{ $r->telefone }}</td>
+                            @endif
+                            <td style="width:20%;">{{ $r->email }}</td>
+                            <td>
+                                <a href="{{ 'clientes/visualizar/' . $r->idClientes }}" style="margin-right: 1%" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
+                                <a href="{{ 'clientes/editar/' . $r->idClientes }}" style="margin-right: 1%" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="#modal-excluir" role="button" data-toggle="modal" cliente="{{ $r->idClientes }}" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @else
                         <tr>
                             <td colspan="6">Nenhum Cliente Cadastrado</td>
-                        </tr>'';
-                        <!-- }
-                    foreach ($results as $r) {
-                        echo '<tr>';
-                        echo '<td>' . $r->idClientes . '</td>';
-                        echo '<td><a href="clientes/visualizar/' . $r->idClientes . '" style="margin-right: 1%">' . $r->nomeCliente . '</a></td>';
-                        echo '<td>' . $r->documento . '</td>';
-                        echo '<td>' . $r->telefone . '</td>';
-                        echo '<td>' . $r->email . '</td>';
-                        echo '<td>';
-                        if ($this->permission->checkPermission($this->session->userdata('permissao'), 'vCliente')) {
-                            echo '<a href="clientes/visualizar/' . $r->idClientes . '" style="margin-right: 1%" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>';
-                            echo '<a href="mine?e=' . $r->email . '" target="new" style="margin-right: 1%" class="btn-nwe2" title="Área do cliente"><i class="bx bx-key bx-xs"></i></a>';
-                        }
-                        if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eCliente')) {
-                            echo '<a href="clientes/editar/' . $r->idClientes . '" style="margin-right: 1%" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-edit bx-xs"></i></a>';
-                        }
-                        if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dCliente')) {
-                            echo '<a href="#modal-excluir" role="button" data-toggle="modal" cliente="' . $r->idClientes . '" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a>';
-                        }
-                        echo '</td>';
-                        echo '</tr>';
-                    } ?> -->
+                        </tr>
+                        @endif
+
 
                     </tbody>
                 </table>
