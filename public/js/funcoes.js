@@ -67,7 +67,7 @@ $(document).ready(function () {
 
     function limpa_formulario_cep() {
         // Limpa valores do formulário de cep.
-        $("#rua").val("");
+        $("#endereco").val("");
         $("#bairro").val("");
         $("#cidade").val("");
         $("#estado").val("");
@@ -155,7 +155,7 @@ $(document).ready(function () {
             $("#nomeCliente").val("...");
             $("#email").val("...");
             $("#cep").val("...");
-            $("#rua").val("...");
+            $("#endereco").val("...");
             $("#numero").val("...");
             $("#bairro").val("...");
             $("#cidade").val("...");
@@ -180,7 +180,7 @@ $(document).ready(function () {
                         $("#cep").val(dados.cep.replace(/\./g, ''));
                         $("#email").val(dados.email.toLocaleLowerCase());
                         $("#telefone").val(dados.telefone.split("/")[0].replace(/\ /g, ''));
-                        $("#rua").val(capital_letter(dados.logradouro));
+                        $("#endereco").val(capital_letter(dados.logradouro));
                         $("#numero").val(dados.numero);
                         $("#bairro").val(capital_letter(dados.bairro));
                         $("#cidade").val(capital_letter(dados.municipio));
@@ -272,7 +272,7 @@ $(document).ready(function () {
             if (validacep.test(cep)) {
 
                 //Preenche os campos com "..." enquanto consulta webservice.
-                $("#rua").val("...");
+                $("#endereco").val("...");
                 $("#bairro").val("...");
                 $("#cidade").val("...");
                 $("#estado").val("...");
@@ -282,7 +282,7 @@ $(document).ready(function () {
 
                     if (!("erro" in dados)) {
                         //Atualiza os campos com os valores da consulta.
-                        $("#rua").val(dados.logradouro);
+                        $("#endereco").val(dados.logradouro);
                         $("#bairro").val(dados.bairro);
                         $("#cidade").val(dados.localidade);
                         $("#estado").val(dados.uf);

@@ -106,15 +106,15 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label for="nomeCliente" class="control-label">Nome/Razão Social<span class="required">*</span></label>
+                                <label for="nome" class="control-label">Nome/Razão Social<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input id="nomeCliente" type="text" name="nomeCliente" value="" />
+                                    <input id="nome" type="text" name="nome" value="" />
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label for="IeRg" class="control-label">I.E/RG:</label>
+                                <label for="ierg" class="control-label">I.E/RG:</label>
                                 <div class="controls">
-                                    <input class="IeRg" type="text" name="IeRg" value="" />
+                                    <input class="ierg" type="text" name="ierg" value="" />
                                 </div>
                             </div>
                             <div class="control-group">
@@ -138,8 +138,8 @@
                             <div class="control-group">
                                 <label class="control-label">Tipo de Pessoa</label>
                                 <div class="controls">
-                                    <label for="Jurídica" class="btn btn-default">Jurídica
-                                        <input type="checkbox" id="Jurídica" name="Jurídica" class="badgebox" value="j">
+                                    <label for="pessoa" class="btn btn-default">Jurídica
+                                        <input type="checkbox" id="pessoa" name="pessoa" class="badgebox" value="j">
                                         <span class="badge">&check;</span>
                                     </label>
                                 </div>
@@ -154,19 +154,13 @@
                                 </div>
                             </div>
                             <div class="control-group" class="control-label">
-                                <label for="rua" class="control-label">Rua</label>
+                                <label for="endereco" class="control-label">Rua</label>
                                 <div class="controls">
-                                    <input id="rua" type="text" name="rua" value="" />
+                                    <input id="endereco" type="text" name="endereco" value="" />
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label for="numero" class="control-label">Número</label>
-                                <div class="controls">
-                                    <input id="numero" type="text" name="numero" value="" />
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label for="complemento" class="control-label">Complemento</label>
+                                <label for="complemento" class="control-label">Número</label>
                                 <div class="controls">
                                     <input id="complemento" type="text" name="complemento" value="" />
                                 </div>
