@@ -187,9 +187,11 @@ $(document).ready(function () {
                         $("#estado").val(dados.uf);
                         if (dados.complemento != "") {
                             $("#complemento").val(capital_letter(dados.complemento));
-                        } else{
+                        } else {
                             $("#complemento").val("");
                         }
+
+                        document.getElementById('Jurídica').checked = true;
 
                         // Força uma atualizacao do endereco via cep
                         //document.getElementById("cep").focus();
