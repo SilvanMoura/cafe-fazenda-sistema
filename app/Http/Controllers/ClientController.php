@@ -16,4 +16,8 @@ class ClientController extends Controller
     public function newClientSupplier(){
         return view('newClientSupplier');
     }
+
+    public function registerClientSupplier(){
+        return "true";
+    }
 }
