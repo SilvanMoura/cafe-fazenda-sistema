@@ -12,4 +12,8 @@ class ClientController extends Controller
         $infosClients = Client::orderBy('nome', 'asc')->get();
         return view('clients', ['infoClients' => $infosClients]);
     }
+
+    public function newClientSupplier(){
+        return view('newClientSupplier');
+    }
 }
