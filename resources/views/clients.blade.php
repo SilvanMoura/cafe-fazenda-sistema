@@ -14,7 +14,7 @@
         /* Adiciona rolagem vertical quando necessário */
     }
 </style>
-<div style="height: 90vh;">
+<div style="height: 90vh; width: 99vw;">
     <div class="new122" style="margin: 1% 1% 0 7%;">
         <div class="widget-title" style="margin: -20px 0 0">
             <span class="icon">
