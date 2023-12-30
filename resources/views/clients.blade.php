@@ -64,9 +64,9 @@
                             @endif
                             <td style="width:20%;">{{ $r->email }}</td>
                             <td>
-                                <a href="{{ 'clientes/visualizar/' . $r->idClientes }}" style="margin-right: 1%" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
-                                <a href="{{ 'clientes/editar/' . $r->idClientes }}" style="margin-right: 1%" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="#modal-excluir" role="button" data-toggle="modal" cliente="{{ $r->idClientes }}" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a>
+                                <a href="{{ 'clientes/visualizar/'. $r->id }}" style="margin-right: 1%" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
+                                <a href="{{ 'clientes/editar/'. $r->id }}" style="margin-right: 1%" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="#modal-excluir" role="button" data-toggle="modal" cliente="{{ $r->id }}" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a>
                             </td>
                         </tr>
                         @endforeach

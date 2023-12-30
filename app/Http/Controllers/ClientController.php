@@ -68,4 +68,8 @@ class ClientController extends Controller
         return response()->json(['message' => 'Cliente registrado com sucesso', 'registro' => $cliente], 201);
     
     }
+
+    public function viewClientSupplier($id){
+        return view('viewClientSupplier');
+    }
 }
