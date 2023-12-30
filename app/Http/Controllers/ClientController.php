@@ -65,9 +65,7 @@ class ClientController extends Controller
             'uf' => $request->input('estado'),
         ]);
 
-        // Retorne uma resposta adequada (você pode personalizar isso conforme necessário)
         return response()->json(['message' => 'Cliente registrado com sucesso', 'registro' => $cliente], 201);
     
-        //return $request;
     }
 }

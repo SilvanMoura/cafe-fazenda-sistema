@@ -126,7 +126,7 @@
                                 $(this).addClass('disabled');
                                 $('#progress-acessar').removeClass('hide');
 
-                                // Requisição AJAX
+                                // Requisição AJAXprogress-acessar
                                 $.ajax({
                                     type: "POST",
                                     url: "http://localhost:8000/login",

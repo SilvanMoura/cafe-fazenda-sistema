@@ -192,7 +192,7 @@
                     <li class="<?php if (isset($menuClientes)) {
                                     echo 'active';
                                 }; ?>">
-                        <a class="tip-bottom" title="" href="clientes">
+                        <a class="tip-bottom" title="" href="/clientes">
                             <i class='bx bx-user iconX'></i>
                             <span class="title">Cliente / Fornecedor</span>
                             <span class="title-tooltip">Clientes</span>

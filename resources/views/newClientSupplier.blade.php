@@ -90,10 +90,9 @@
                     </span>
                     <h5>Cadastro de Cliente</h5>
                 </div>
-                <!-- ?php if ($custom_error != '') {
-                echo ' -->
-                <div class="alert alert-danger">teste</div>
-                <!-- } ?> -->
+
+                <div class="alert alert-danger hide" id="error-message"></div>
+
                 <form id="formCliente" class="form-horizontal">
                     @csrf
                     <div class="widget-content nopadding tab-content">
@@ -199,10 +198,12 @@
             </div>
         </div>
     </div>
+
 </div>
 <script src="{{ asset('js/jquery.validate.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+
         let container = document.querySelector('div');
 
         $.getJSON("{{ asset('json/estados.json') }}", function(data) {
@@ -258,14 +259,17 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.success === true) {
-                            window.location.href = "http://localhost:8000/dashboard";
+                        if (data.message === "Cliente registrado com sucesso") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cadastro Concluído',
+                                text: 'Cliente registrado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
                         } else {
-                            $('#btn-acessar').removeClass('disabled');
-                            $('#progress-acessar').addClass('hide');
-
-                            $('#message').text(data.message || 'Os dados de acesso estão incorretos, por favor tente novamente!');
-                            $('#call-modal').trigger('click');
+                            $('#error-message').text(data.message || 'Erro no cadastro. Por favor, tente novamente.');
+                            $('#error-message').removeClass('hide');
                         }
                     },
                     error: function(xhr, status, error) {
