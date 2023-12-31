@@ -109,4 +109,10 @@ class ClientController extends Controller
 
         return view('viewClientSupplier', ['infoClient' => $infoClient, 'osInfo' => $osInfo]);
     }
+
+    public function editClientSupplier()
+    {
+        $infosClients = Client::orderBy('nome', 'asc')->get();
+        return view('editClientSupplier', ['infoClients' => $infosClients]);
+    }
 }
