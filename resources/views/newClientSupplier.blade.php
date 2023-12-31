@@ -6,10 +6,6 @@
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('js/funcoes.js') }}"></script>
 <style>
-    #imgSenha {
-        width: 18px;
-        cursor: pointer;
-    }
 
     /* Hiding the checkbox, but allowing it to be focused */
     .badgebox {

@@ -110,9 +110,11 @@ class ClientController extends Controller
         return view('viewClientSupplier', ['infoClient' => $infoClient, 'osInfo' => $osInfo]);
     }
 
-    public function editClientSupplier()
+    public function editClientSupplier($id)
     {
-        $infosClients = Client::orderBy('nome', 'asc')->get();
-        return view('editClientSupplier', ['infoClients' => $infosClients]);
+        $infosClients = Client::select('*')->where('id', $id)->first();
+        $estados = json_decode(file_get_contents(public_path('json/estados.json')))->estados;
+
+        return view('editClientSupplier', ['infoClients' => $infosClients, 'estados' => $estados]);
     }
 }
