@@ -257,15 +257,15 @@
 
                 // Requisição AJAX
                 $.ajax({
-                    type: "PATCH",
-                    url: "http://localhost:8000/clientes/atualizar",
+                    type: "PUT",
+                    url: "http://localhost:8000/clientes/atualizar/{{ $infoClients->id }}",
                     data: dados,
                     dataType: 'json',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.message === "Cliente editado com sucesso") {
+                        if (data.message === "Cliente atualizado com sucesso") {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Edição Concluído',

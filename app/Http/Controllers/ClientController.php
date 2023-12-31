@@ -41,7 +41,6 @@ class ClientController extends Controller
 
         $cleanedString = preg_replace('/[^0-9]/', '', $request->input('documento'));
 
-
         if (strlen($cleanedString) === 11) {
             $cpf = $request->input('documento');
             $cnpj = '';
@@ -102,7 +101,7 @@ class ClientController extends Controller
                 $result['garantiaFinalData'] = $dataTerminoGarantia->format('Y-m-d');
 
                 $osInfo[$chave]['temGarantia'] = $dataEntrega && $dataAtual <= $dataTerminoGarantia ? 'Sim' : 'Não';
-            }else{
+            } else {
                 $osInfo[$chave]['temGarantia'] =  'Não';
             }
         }
@@ -116,5 +115,60 @@ class ClientController extends Controller
         $estados = json_decode(file_get_contents(public_path('json/estados.json')))->estados;
 
         return view('editClientSupplier', ['infoClients' => $infosClients, 'estados' => $estados]);
+    }
+
+    public function updateClientSupplier($id, Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|string',
+            'ierg' => 'nullable|string',
+            'telefone' => 'nullable|string',
+            'celular' => 'nullable|string',
+            'endereco' => 'nullable|string',
+            'bairro' => 'nullable|string',
+            'cep' => 'nullable|string',
+            'email' => 'nullable|email',
+            'cidade' => 'nullable|string',
+            'uf' => 'nullable|string',
+        ]);
+
+        $cleanedString = preg_replace('/[^0-9]/', '', $request->input('documento'));
+
+        if (strlen($cleanedString) === 11) {
+            $cpf = $request->input('documento');
+            $cnpj = '';
+        } else {
+            $cnpj = $request->input('documento');
+            $cpf = '';
+        }
+
+        $pessoaType = $request->has('pessoa') ? 'j' : 'f';
+
+        $cidade_id = City::select('id')->where('nome', $request->input('cidade'))->get();
+
+        $cliente = Client::findOrFail($id);
+
+        // Atualizar os campos necessários
+        $cliente->nome = $request->input('nome');
+        $cliente->cpf = $cpf;
+        $cliente->cnpj = $cnpj;
+        $cliente->pessoa = $pessoaType;
+        $cliente->ierg = $request->input('ierg');
+        $cliente->telefone = $request->input('telefone');
+        $cliente->celular = $request->input('celular');
+        $cliente->endereco = $request->input('endereco');
+        $cliente->complemento = $request->input('complemento');
+        $cliente->bairro = $request->input('bairro');
+        $cliente->cep = $request->input('cep');
+        $cliente->email = $request->input('email');
+
+        $cliente->cidade_id = $cidade_id[0]['id'];
+        $cliente->cidade = $request->input('cidade');
+        $cliente->uf = $request->input('estado');
+
+        // Salvar as alterações
+        $cliente->save();
+
+        return response()->json(['message' => 'Cliente atualizado com sucesso'], 201);
     }
 }
