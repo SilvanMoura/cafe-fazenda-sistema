@@ -6,6 +6,12 @@
     select {
         width: 70px;
     }
+    .scrollable-container {
+        height: 400px;
+        /* Altura fixa da div */
+        overflow-y: auto;
+        /* Adiciona rolagem vertical quando necessário */
+    }
 </style>
 <div style="height: 90vh; width: 99vw;">
     <div class="new122" style="margin: 1% 1% 0 7%;">
@@ -26,12 +32,11 @@
 
         <div class="widget-box">
             <h5 style="padding: 3px 0"></h5>
-            <div class="widget-content nopadding tab-content">
+            <div class="widget-content nopadding tab-content scrollable-container">
                 <table id="tabela" class="table table-bordered ">
                     <thead>
                         <tr>
                             <th>Cod.</th>
-                            <th>Cod. Barra</th>
                             <th>Nome</th>
                             <th>Estoque</th>
                             <th>Preço</th>
@@ -39,26 +44,27 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($infoProducts->count() > 0)
+                        @foreach($infoProducts as $r)
                         <tr>
-                            <td colspan="6">Nenhum Produto Cadastrado</td>
-                        </tr>
+                            <td>{{ $r->id }}</td>
+                            <td style="max-width: 20vw">{{ $r->nome }}</td>
+                            <td>{{ $r->estoque }}</td>
+                            <td>R$ {{ $r->valor }}</td>
 
-
-                        <tr>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td></td>
                             <td>
-
                                 <a style="margin-right: 1%" href="produtos/visualizar/' . $r->idProdutos . '" class="btn-nwe" title="Visualizar Produto"><i class="bx bx-show bx-xs"></i></a>
                                 <a style="margin-right: 1%" href="produtos/editar/' . $r->idProdutos . '" class="btn-nwe3" title="Editar Produto"><i class="bx bx-edit bx-xs"></i></a>
                                 <a style="margin-right: 1%" href="#modal-excluir" role="button" data-toggle="modal" produto="' . $r->idProdutos . '" class="btn-nwe4" title="Excluir Produto"><i class="bx bx-trash-alt bx-xs"></i></a>
                                 <a href="#atualizar-estoque" role="button" data-toggle="modal" produto="' . $r->idProdutos . '" estoque="' . $r->estoque . '" class="btn-nwe5" title="Atualizar Estoque"><i class="bx bx-plus-circle bx-xs"></i></a>
                             </td>
                         </tr>
-
+                        @endforeach
+                        @else
+                        <tr>
+                            <td colspan="6">Nenhum Produto Cadastrado</td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
