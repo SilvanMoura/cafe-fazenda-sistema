@@ -53,10 +53,10 @@
                             <td>R$ {{ $r->valor }}</td>
 
                             <td>
-                                <a style="margin-right: 1%" href="produtos/visualizar/' . $r->idProdutos . '" class="btn-nwe" title="Visualizar Produto"><i class="bx bx-show bx-xs"></i></a>
-                                <a style="margin-right: 1%" href="produtos/editar/' . $r->idProdutos . '" class="btn-nwe3" title="Editar Produto"><i class="bx bx-edit bx-xs"></i></a>
-                                <a style="margin-right: 1%" href="#modal-excluir" role="button" data-toggle="modal" produto="' . $r->idProdutos . '" class="btn-nwe4" title="Excluir Produto"><i class="bx bx-trash-alt bx-xs"></i></a>
-                                <a href="#atualizar-estoque" role="button" data-toggle="modal" produto="' . $r->idProdutos . '" estoque="' . $r->estoque . '" class="btn-nwe5" title="Atualizar Estoque"><i class="bx bx-plus-circle bx-xs"></i></a>
+                                <a style="margin-right: 1%" href="produtos/visualizar/{{ $r->id }}" class="btn-nwe" title="Visualizar Produto"><i class="bx bx-show bx-xs"></i></a>
+                                <a style="margin-right: 1%" href="produtos/editar/{{ $r->id }}" class="btn-nwe3" title="Editar Produto"><i class="bx bx-edit bx-xs"></i></a>
+                                <a style="margin-right: 1%" href="#modal-excluir" role="button" data-toggle="modal" produto="{{ $r->id }}" class="btn-nwe4" title="Excluir Produto"><i class="bx bx-trash-alt bx-xs"></i></a>
+                                <a href="#atualizar-estoque" role="button" data-toggle="modal" produto="{{ $r->id }}" estoque="' . $r->estoque . '" class="btn-nwe5" title="Atualizar Estoque"><i class="bx bx-plus-circle bx-xs"></i></a>
                             </td>
                         </tr>
                         @endforeach
