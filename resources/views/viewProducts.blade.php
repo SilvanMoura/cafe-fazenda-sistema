@@ -20,43 +20,49 @@
                             <tr>
                                 <td style="text-align: right; width: 30%"><strong>Cód.:</strong></td>
                                 <td>
-                                    codDeBarra
+                                    {{ $infoProduct->first()->id }}
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right; width: 30%"><strong>Descrição:</strong></td>
+                                <td style="text-align: right; width: 30%"><strong>Nome:</strong></td>
                                 <td>
-                                    descricao
+                                    {{ $infoProduct->first()->nome }}
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right"><strong>Unidade:</strong></td>
+                                <td style="text-align: right"><strong>Tags:</strong></td>
                                 <td>
-                                    unidade
+                                {{ $infoProduct->first()->tags }}
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right"><strong>Preço de Compra:</strong></td>
+                                <td style="text-align: right"><strong>Descrição:</strong></td>
                                 <td>R$
-                                    precoCompra
+                                {{ $infoProduct->first()->descricao }}
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right"><strong>Preço de Venda:</strong></td>
+                                <td style="text-align: right"><strong>Valor:</strong></td>
                                 <td>R$
-                                    precoVenda
+                                {{ $infoProduct->first()->valor }}
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right"><strong>Estoque:</strong></td>
+                                <td style="text-align: right"><strong>Estoque Atual:</strong></td>
                                 <td>
-                                    estoque
+                                {{ $infoProduct->first()->estoque }}
                                 </td>
                             </tr>
                             <tr>
                                 <td style="text-align: right"><strong>Estoque Mínimo:</strong></td>
                                 <td>
-                                    estoqueMinimo
+                                {{ $infoProduct->first()->estoque_minimo }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right"><strong>Nome da representação:</strong></td>
+                                <td>
+                                {{ $infoProduct->first()->nome_representacao }}
                                 </td>
                             </tr>
                         </tbody>
