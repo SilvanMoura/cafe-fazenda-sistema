@@ -28,6 +28,12 @@ class ProductController extends Controller
 
     public function editProducts($id)
     {
-        
+        $infoProduct = Product::select('*')->where('id', $id)->get();
+        foreach ($infoProduct as $chave => $valor) {
+            $representation = Representation::select('nome')->where('id', $valor['representacao_id'])->first();
+            $infoProduct[$chave]['nome_representacao'] = $representation->nome;
+        }
+
+        return view('editProduct', ['infoProduct' => $infoProduct]);
     }
 }
