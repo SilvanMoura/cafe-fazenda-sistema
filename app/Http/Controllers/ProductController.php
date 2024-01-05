@@ -22,7 +22,12 @@ class ProductController extends Controller
             $representation = Representation::select('nome')->where('id', $valor['representacao_id'])->first();
             $infoProduct[$chave]['nome_representacao'] = $representation->nome;
         }
-        //return $infoProduct;
+
         return view('viewProducts', ['infoProduct' => $infoProduct]);
+    }
+
+    public function editProducts($id)
+    {
+        
     }
 }
