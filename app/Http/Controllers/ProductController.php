@@ -40,6 +40,9 @@ class ProductController extends Controller
     }
 
     public function newProduct(){
-        return view('newProduct');
+        $representation = Representation::select('*')->get();
+        
+        //return $infoProduct;
+        return view('newProduct', ['infoProduct' => $representation]);
     }
 }

@@ -202,7 +202,7 @@
                     <li class="<?php if (isset($menuProdutos)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Produtos" href="produtos">
+                        <a class="tip-bottom" title="Produtos" href="/produtos">
                             <i class="bx bx-basket iconX"></i>
                             <span class="title">Produtos</span>
                             <span class="title-tooltip">Produtos</span>
