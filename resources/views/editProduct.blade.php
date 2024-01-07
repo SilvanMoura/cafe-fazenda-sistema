@@ -48,30 +48,30 @@
                                 <div class="control-group">
                                     <label for="codDeBarra" class="control-label">Id<span class=""></span></label>
                                     <div class="controls">
-                                        <input id="codDeBarra" disabled type="text" name="codDeBarra" value="" />
+                                        <input id="codDeBarra" disabled type="text" name="codDeBarra" value="{{ $infoProduct->first()->id }}" />
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="descricao" class="control-label">Nome<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="descricao" type="text" name="descricao" value="" />
+                                        <input id="descricao" type="text" name="descricao" value="{{ $infoProduct->first()->nome }}" />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label for="descricao" class="control-label">Tags<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="descricao" type="text" name="descricao" value="" />
+                                        <input id="descricao" type="text" name="descricao" value="{{ $infoProduct->first()->tags }}" />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label for="descricao" class="control-label">Descrição<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="descricao" type="text" name="descricao" value="" />
+                                        <input id="descricao" type="text" name="descricao" value="{{ $infoProduct->first()->descricao }}" />
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                             <div class="span6">
@@ -79,28 +79,34 @@
                                 <div class="control-group">
                                     <label for="precoVenda" class="control-label">Valor<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="precoVenda" class="money" data-affixes-stay="true" data-thousands="" data-decimal="." type="text" name="precoVenda" value="" />
+                                        <input id="precoVenda" class="money" data-affixes-stay="true" data-thousands="" data-decimal="." type="text" name="precoVenda" value="{{ $infoProduct->first()->valor }}" />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label for="unidade" class="control-label">Unidade<span class="required">*</span></label>
+                                    <label for="unidade" class="control-label">Representação<span class="required">*</span></label>
                                     <div class="controls">
-                                        <select id="unidade" name="unidade" style="width: 15em;"></select>
+                                        <select id="unidade" name="unidade" style="width: 15em;">
+                                        @foreach($infoProduct as $product)
+                                            @foreach($product->all_representation as $opcao)
+                                            <option value="{{ $opcao->id }}" @if($opcao->nome == $infoProduct->first()->nome_representacao) selected @endif>{{ $opcao->nome }}</option>
+                                            @endforeach
+                                        @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label for="estoque" class="control-label">Estoque<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="estoque" type="text" name="estoque" value="" />
+                                        <input id="estoque" type="text" name="estoque" value="{{ $infoProduct->first()->estoque }}" />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label for="estoqueMinimo" class="control-label">Estoque Mínimo</label>
                                     <div class="controls">
-                                        <input id="estoqueMinimo" type="text" name="estoqueMinimo" value="" />
+                                        <input id="estoqueMinimo" type="text" name="estoqueMinimo" value="{{ $infoProduct->first()->estoque_minimo }}" />
                                     </div>
                                 </div>
 
@@ -130,7 +136,6 @@
 <script src="{{ asset('js/jquery.validate.js') }}"></script>
 <!-- <script src="{{ asset('js/maskmoney.js') }}"></script> -->
 <script type="text/javascript">
-
     $(document).ready(function() {
         /* $(".money").maskMoney(); */
         /* $.getJSON("{{ asset('json/tabela_medidas.json') }} ", function(data) {

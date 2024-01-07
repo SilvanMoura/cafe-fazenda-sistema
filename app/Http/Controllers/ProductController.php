@@ -30,10 +30,13 @@ class ProductController extends Controller
     {
         $infoProduct = Product::select('*')->where('id', $id)->get();
         foreach ($infoProduct as $chave => $valor) {
-            $representation = Representation::select('nome')->where('id', $valor['representacao_id'])->first();
-            $infoProduct[$chave]['nome_representacao'] = $representation->nome;
+            $representation = Representation::select('*')->get();
+            $representationName = Representation::select('nome')->where('id', $valor['representacao_id'])->first();
+            $infoProduct[$chave]['all_representation'] = $representation;
+            $infoProduct[$chave]['nome_representacao'] = $representationName->nome;
         }
 
+        //return $infoProduct;
         return view('editProduct', ['infoProduct' => $infoProduct]);
     }
 }
