@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::get('/clientes/visualizar/{id}', [ClientController::class, 'viewClientSup
 Route::get('/clientes/editar/{id}', [ClientController::class, 'editClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::get('/produtos', [ProductController::class, 'getInfoProducts'])->middleware(['auth', 'verified'])->name('products');
+Route::get('/produtos/adicionar', [ProductController::class, 'newProduct'])->middleware(['auth', 'verified'])->name('clients');
 Route::get('/produtos/editar/{id}', [ProductController::class, 'editProducts'])->middleware(['auth', 'verified'])->name('products');
 Route::get('/produtos/visualizar/{id}', [ProductController::class, 'viewProducts'])->middleware(['auth', 'verified'])->name('products');
 
