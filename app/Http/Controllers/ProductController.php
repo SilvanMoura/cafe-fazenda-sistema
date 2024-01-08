@@ -45,4 +45,18 @@ class ProductController extends Controller
         //return $infoProduct;
         return view('newProduct', ['infoProduct' => $representation]);
     }
+
+    public function registerProducts(Request $request) {
+        $produto = Product::create([
+            'nome' => $request->input('nome'),
+            'tags' => $request->input('tags'),
+            'descricao' => $request->input('descricao'),
+            'representacao_id' => $request->input('representacao'),
+            'valor' => $request->input('valor'),
+            'estoque' => $request->input('estoque'),
+            'estoque_minimo' => $request->input('estoqueMinimo'),
+        ]);
+
+        return response()->json(['message' => 'Produto registrado com sucesso'], 201);
+    }
 }

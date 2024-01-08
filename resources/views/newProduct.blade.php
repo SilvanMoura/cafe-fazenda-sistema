@@ -1,6 +1,9 @@
 @extends('layouts/app')
 
 @section('content')
+
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
 <style>
     /* Hiding the checkbox, but allowing it to be focused */
     .badgebox {
@@ -46,16 +49,16 @@
                         <div class="widget-content nopadding tab-content">
                             <div class="span6">
                                 <div class="control-group">
-                                    <label for="descricao" class="control-label">Nome<span class="required">*</span></label>
+                                    <label for="nome" class="control-label">Nome<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="descricao" type="text" name="descricao" value="" />
+                                        <input id="nome" type="text" name="nome" value="" />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label for="descricao" class="control-label">Tags<span class="required">*</span></label>
+                                    <label for="tags" class="control-label">Tags<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="descricao" type="text" name="descricao" value="" />
+                                        <input id="tags" type="text" name="tags" value="" />
                                     </div>
                                 </div>
 
@@ -67,13 +70,13 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label for="unidade" class="control-label">Representação<span class="required">*</span></label>
+                                    <label for="representacao" class="control-label">Representação<span class="required">*</span></label>
                                     <div class="controls">
-                                    <select id="unidade" name="unidade" >
-            @foreach($infoProduct as $opcao)
-                    <option value="{{ $opcao->tipo }}" @if($opcao->nome == "Unid.") selected @endif>{{ $opcao->nome }}</option>
-                @endforeach
-        </select>
+                                        <select id="representacao" name="representacao">
+                                            @foreach($infoProduct as $opcao)
+                                            <option value="{{ $opcao->tipo }}" @if($opcao->nome == "Unid.") selected @endif>{{ $opcao->nome }}</option>
+                                            @endforeach
+                                        </select>
 
                                     </div>
                                 </div>
@@ -83,9 +86,9 @@
                             <div class="span6">
 
                                 <div class="control-group">
-                                    <label for="precoVenda" class="control-label">Valor<span class="required">*</span></label>
+                                    <label for="valor" class="control-label">Valor<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="precoVenda" class="money" data-affixes-stay="true" data-thousands="" data-decimal="." type="text" name="precoVenda" value="" />
+                                        <input id="valor" class="money" data-affixes-stay="true" data-thousands="" data-decimal="." type="text" name="valor" value="" />
                                     </div>
                                 </div>
 
@@ -107,13 +110,13 @@
                         </div>
 
                         <div class="form-actions">
-                        <div class="span12">
-                            <div class="span6 offset3" style="display:flex;justify-content: center">
-                                <button id="btnRegister" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button>
-                                <a title="Voltar" class="button btn btn-warning" href="/clientes"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
+                            <div class="span12">
+                                <div class="span6 offset3" style="display:flex;justify-content: center">
+                                    <button id="btnCreate" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button>
+                                    <a title="Voltar" class="button btn btn-warning" href="/produtos"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </form>
 
                 </div>
@@ -181,6 +184,50 @@
                 $(element).parents('.control-group').addClass('success');
             }
         });
+
+        $('#btnCreate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formProduto").valid()) {
+                var dados = $("#formProduto").serialize();
+
+                $(this).addClass('disabled');
+                $('#progress-acessar').removeClass('hide');
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/produtos/adicionar",
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Produto registrado com sucesso") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cadastro Concluído',
+                                text: 'Produto registrado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            $('#error-message').text(data.message || 'Erro no cadastro. Por favor, tente novamente.');
+                            $('#error-message').removeClass('hide');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro na requisição AJAX:", error);
+                        // Adicione manipulação de erro conforme necessário
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
     });
 </script>
 @endsection
