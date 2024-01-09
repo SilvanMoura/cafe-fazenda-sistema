@@ -12,6 +12,7 @@ class ProductController extends Controller
     {
         $infosProducts = Product::select('*')->orderBy('id', 'desc')->get();
         
+        //return $infosProducts;
         return view('products', ['infoProducts' => $infosProducts]);
     }
 

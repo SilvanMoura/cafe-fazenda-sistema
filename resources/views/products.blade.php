@@ -6,6 +6,7 @@
     select {
         width: 70px;
     }
+
     .scrollable-container {
         height: 400px;
         /* Altura fixa da div */
@@ -56,7 +57,9 @@
                                 <a style="margin-right: 1%" href="produtos/visualizar/{{ $r->id }}" class="btn-nwe" title="Visualizar Produto"><i class="bx bx-show bx-xs"></i></a>
                                 <a style="margin-right: 1%" href="produtos/editar/{{ $r->id }}" class="btn-nwe3" title="Editar Produto"><i class="bx bx-edit bx-xs"></i></a>
                                 <a style="margin-right: 1%" href="#modal-excluir" role="button" data-toggle="modal" produto="{{ $r->id }}" class="btn-nwe4" title="Excluir Produto"><i class="bx bx-trash-alt bx-xs"></i></a>
-                                <a href="#atualizar-estoque" role="button" data-toggle="modal" produto="{{ $r->id }}" estoque="' . $r->estoque . '" class="btn-nwe5" title="Atualizar Estoque"><i class="bx bx-plus-circle bx-xs"></i></a>
+                                <a role="button" data-toggle="modal" data-produto="{{ $r->id }}" data-estoque="{{ $r->estoque }}" class="btn-nwe5 open-edit-estoque" title="Atualizar Estoque">
+                                    <i class="bx bx-plus-circle bx-xs"></i>
+                                </a>
                             </td>
                         </tr>
                         @endforeach
@@ -92,7 +95,8 @@
 
         <!-- Modal Estoque -->
         <div id="atualizar-estoque" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <form action="produtos/atualizar_estoque" method="post" id="formEstoque">
+            <form action="{{ url('produtos/atualizar_estoque') }}" method="post" id="formEstoque">
+                @csrf
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h5 id="myModalLabel"><i class="fas fa-plus-square"></i> Atualizar Estoque</h5>
@@ -125,12 +129,29 @@
 <script src="{{ asset('js/jquery.validate.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $(document).on('click', 'a', function(event) {
-            var produto = $(this).attr('produto');
-            var estoque = $(this).attr('estoque');
+        $('.open-edit-estoque').on('click', function(event) {
+            var modal = document.getElementById("atualizar-estoque");
+            modal.classList.remove("hide", "fade");
+
+            var produto = $(this).attr('data-produto');
+            var estoque = $(this).attr('data-estoque');
             $('.idProduto').val(produto);
             $('#estoqueAtual').val(estoque);
         });
+
+        $('#atualizar-estoque').on('click', function(event) {
+            var modal = document.getElementById("atualizar-estoque");
+            modal.classList.add("hide", "fade");
+        });
+
+        /* $('#atualizar-estoque').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var produtoId = button.data('produto');
+            var estoque = button.data('estoque');
+
+            $('#idProduto').val(produtoId);
+            $('#estoqueAtual').val(estoque);
+        }); */
 
         $('#formEstoque').validate({
             rules: {
