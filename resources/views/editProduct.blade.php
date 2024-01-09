@@ -1,6 +1,9 @@
 @extends('layouts/app')
 
 @section('content')
+
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
 <style>
     /* Hiding the checkbox, but allowing it to be focused */
     .badgebox {
@@ -46,22 +49,22 @@
                         <div class="widget-content nopadding tab-content">
                             <div class="span6">
                                 <div class="control-group">
-                                    <label for="codDeBarra" class="control-label">Id<span class=""></span></label>
+                                    <label for="id" class="control-label">Id<span class=""></span></label>
                                     <div class="controls">
-                                        <input id="codDeBarra" disabled type="text" name="codDeBarra" value="{{ $infoProduct->first()->id }}" />
+                                        <input id="id" disabled type="text" name="id" value="{{ $infoProduct->first()->id }}" />
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label for="descricao" class="control-label">Nome<span class="required">*</span></label>
+                                    <label for="nome" class="control-label">Nome<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="descricao" type="text" name="descricao" value="{{ $infoProduct->first()->nome }}" />
+                                        <input id="nome" type="text" name="nome" value="{{ $infoProduct->first()->nome }}" />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label for="descricao" class="control-label">Tags<span class="required">*</span></label>
+                                    <label for="tags" class="control-label">Tags<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="descricao" type="text" name="descricao" value="{{ $infoProduct->first()->tags }}" />
+                                        <input id="tags" type="text" name="tags" value="{{ $infoProduct->first()->tags }}" />
                                     </div>
                                 </div>
 
@@ -77,16 +80,16 @@
                             <div class="span6">
 
                                 <div class="control-group">
-                                    <label for="precoVenda" class="control-label">Valor<span class="required">*</span></label>
+                                    <label for="valor" class="control-label">Valor<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input id="precoVenda" class="money" data-affixes-stay="true" data-thousands="" data-decimal="." type="text" name="precoVenda" value="{{ $infoProduct->first()->valor }}" />
+                                        <input id="Valor" class="money" data-affixes-stay="true" data-thousands="" data-decimal="." type="text" name="valor" value="{{ $infoProduct->first()->valor }}" />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label for="unidade" class="control-label">Representação<span class="required">*</span></label>
+                                    <label for="representacao" class="control-label">Representação<span class="required">*</span></label>
                                     <div class="controls">
-                                        <select id="unidade" name="unidade" style="width: 15em;">
+                                        <select id="representacao" name="representacao" style="width: 15em;">
                                         @foreach($infoProduct as $product)
                                             @foreach($product->all_representation as $opcao)
                                             <option value="{{ $opcao->id }}" @if($opcao->nome == $infoProduct->first()->nome_representacao) selected @endif>{{ $opcao->nome }}</option>
@@ -116,7 +119,7 @@
                         <div class="form-actions">
                             <div class="span12">
                                 <div class="span6 offset3" style="display: flex;justify-content: center">
-                                    <button type="submit" class="button btn btn-primary" style="max-width: 160px">
+                                    <button id="btnUpdate" type="submit" class="button btn btn-primary" style="max-width: 160px">
                                         <span class="button__icon"><i class="bx bx-sync"></i></span><span class="button__text2">Atualizar</span></button>
                                     <a href="/produtos" id="" class="button btn btn-mini btn-warning">
                                         <span class="button__icon"><i class="bx bx-undo"></i></span><span class="button__text2">Voltar</span></a>
@@ -190,6 +193,50 @@
                 $(element).parents('.control-group').addClass('success');
             }
         });
+
+        $('#btnUpdate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formProduto").valid()) {
+                var dados = $("#formProduto").serialize();
+
+                $(this).addClass('disabled');
+                $('#progress-acessar').removeClass('hide');
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8000/produtos/atualizar/{{ $infoProduct->first()->id }}",
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Produto alterado com sucesso") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Alteração Concluído',
+                                text: 'Produto alterado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');
+                            $('#error-message').removeClass('hide');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro na requisição AJAX:", error);
+                        // Adicione manipulação de erro conforme necessário
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
     });
 </script>
 @endsection

@@ -37,7 +37,7 @@
                             </tr>
                             <tr>
                                 <td style="text-align: right"><strong>Descrição:</strong></td>
-                                <td>R$
+                                <td>
                                 {{ $infoProduct->first()->descricao }}
                                 </td>
                             </tr>

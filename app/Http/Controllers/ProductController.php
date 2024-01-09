@@ -47,6 +47,7 @@ class ProductController extends Controller
     }
 
     public function registerProducts(Request $request) {
+
         $produto = Product::create([
             'nome' => $request->input('nome'),
             'tags' => $request->input('tags'),
@@ -59,4 +60,22 @@ class ProductController extends Controller
 
         return response()->json(['message' => 'Produto registrado com sucesso'], 201);
     }
+
+    public function updateProduct($id, Request $request){
+
+        $product = Product::findOrFail($id);
+
+        $product->nome = $request->input('nome');
+        $product->tags = $request->input('tags');
+        $product->descricao = $request->input('descricao');
+        $product->representacao_id = $request->input('representacao');
+        $product->valor = $request->input('valor');
+        $product->estoque = $request->input('estoque');
+        $product->estoque_minimo = $request->input('estoqueMinimo');
+
+        $product->save();
+
+        return response()->json(['message' => 'Produto alterado com sucesso'], 201);
+    }
+
 }
