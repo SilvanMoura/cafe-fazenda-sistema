@@ -79,4 +79,14 @@ class ProductController extends Controller
         return response()->json(['message' => 'Produto alterado com sucesso'], 201);
     }
 
+    public function updateProductStock($id, Request $request){
+        $product = Product::findOrFail($id);
+
+        $product->estoque = $request->input('estoqueAtual') + $request->input('novaQuantidade');
+
+        $product->save();
+
+        return response()->json(['message' => 'Estoque alterado com sucesso'], 201);
+    }
+
 }
