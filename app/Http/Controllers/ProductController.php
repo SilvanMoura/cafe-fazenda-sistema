@@ -89,4 +89,12 @@ class ProductController extends Controller
         return response()->json(['message' => 'Estoque alterado com sucesso'], 201);
     }
 
+    public function deleteProduct($id, Request $request){
+        
+        $product = Product::findOrFail($request->input('id'));
+        $product->delete();
+
+        return response()->json(['message' => 'Produto excluido com sucesso'], 201);
+    }
+
 }

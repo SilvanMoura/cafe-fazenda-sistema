@@ -42,6 +42,8 @@ Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSu
 Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct'])->middleware(['auth', 'verified'])->name('products');
 Route::put('produtos/atualizar/estoque/{id}', [ProductController::class, 'updateProductStock'])->middleware(['auth', 'verified'])->name('products');
 
+Route::delete('produtos/delete/{id}', [ProductController::class, 'deleteProduct'])->middleware(['auth', 'verified'])->name('products');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

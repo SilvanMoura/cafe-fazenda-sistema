@@ -18,11 +18,11 @@ class DashboardController extends Controller
     public function getInfoDashboard()
     {
         // Lógica para carregar dados da dashboard
-        $getClientesNumber = Client::max('id');
+        $getClientesNumber = Client::count();
 
-        $getOsNumber = Os::max('id');
+        $getOsNumber = Os::count();
 
-        $getProdutoNumber = Product::max('id');
+        $getProdutoNumber = Product::count();
 
         $getOsOrcamentosNumber = Os::where('operacao_os_id', 1)->count();
 

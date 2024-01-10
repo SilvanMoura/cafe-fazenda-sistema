@@ -87,7 +87,7 @@
                             <td>
                                 <a style="margin-right: 1%" href="produtos/visualizar/{{ $r->id }}" class="btn-nwe" title="Visualizar Produto"><i class="bx bx-show bx-xs"></i></a>
                                 <a style="margin-right: 1%" href="produtos/editar/{{ $r->id }}" class="btn-nwe3" title="Editar Produto"><i class="bx bx-edit bx-xs"></i></a>
-                                <a style="margin-right: 1%" href="#modal-excluir" role="button" data-toggle="modal" produto="{{ $r->id }}" class="btn-nwe4" title="Excluir Produto"><i class="bx bx-trash-alt bx-xs"></i></a>
+                                <a style="margin-right: 1%" href="#modal-excluir" role="button" data-toggle="modal" produto="{{ $r->id }}" class="btn-nwe4 open-modal-delete" title="Excluir Produto"><i class="bx bx-trash-alt bx-xs"></i></a>
                                 <a role="button" data-toggle="modal" data-produto="{{ $r->id }}" data-estoque="{{ $r->estoque }}" data-nome="{{ $r->nome }}" class="btn-nwe5 open-edit-estoque" title="Atualizar Estoque">
                                     <i class="bx bx-plus-circle bx-xs"></i>
                                 </a>
@@ -107,19 +107,20 @@
 
         <!-- Modal -->
         <div id="modal-excluir" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <form action="produtos/excluir" method="post">
+            <form id="formDelete">
+                @csrf
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h5 id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Produto</h5>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="idProduto" class="idProduto" name="id" value="" />
-                    <h5 style="text-align: center">Deseja realmente excluir este produto?</h5>
+                    <h5 style="text-align: center">Deseja realmente excluir o produto <span id="id-delete"></span>?</h5>
                 </div>
                 <div class="modal-footer" style="display:flex;justify-content: center">
                     <button class="button btn btn-warning" data-dismiss="modal" aria-hidden="true">
                         <span class="button__icon"><i class="bx bx-x"></i></span><span class="button__text2">Cancelar</span></button>
-                    <button class="button btn btn-danger"><span class="button__icon"><i class='bx bx-trash'></i></span> <span class="button__text2">Excluir</span></button>
+                    <button id="btnDelete" class="button btn btn-danger"><span class="button__icon"><i class='bx bx-trash'></i></span> <span class="button__text2">Excluir</span></button>
                 </div>
             </form>
         </div>
@@ -201,6 +202,16 @@
             $('#quantity').text('1');
         });
 
+        $('.open-modal-delete').on('click', function(event) {
+            var modal = document.getElementById("modal-excluir");
+            modal.classList.remove("hide", "fade");
+
+            var produto = $(this).attr('produto');
+
+            $('#idProduto').val(produto);
+            $('#id-delete').text(produto);
+        });
+
         $('.close-btn').on('click', function(event) {
             var modal = document.getElementById("atualizar-estoque");
             modal.classList.add("hide", "fade");
@@ -264,6 +275,53 @@
                                 icon: 'success',
                                 title: 'Alteração Concluído',
                                 text: 'Estoque alterado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');
+                            $('#error-message').removeClass('hide');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro na requisição AJAX:", error);
+                        // Adicione manipulação de erro conforme necessário
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
+
+        $('#btnDelete').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formDelete").valid()) {
+
+                var dados = $("#formDelete").serializeArray();
+                
+                $(this).addClass('disabled');
+                $('#progress-acessar').removeClass('hide');
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:8000/produtos/delete/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Produto excluido com sucesso") {
+                            var modal = document.getElementById("modal-excluir");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Exclusão Concluído',
+                                text: 'Produto excluido com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
