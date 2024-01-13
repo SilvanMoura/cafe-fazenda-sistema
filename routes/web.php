@@ -35,11 +35,14 @@ Route::get('/produtos/editar/{id}', [ProductController::class, 'editProducts'])-
 Route::get('/produtos/visualizar/{id}', [ProductController::class, 'viewProducts'])->middleware(['auth', 'verified'])->name('products');
 
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
+
 Route::post('/produtos/adicionar', [ProductController::class, 'registerProducts'])->middleware(['auth', 'verified'])->name('products');
 
 
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
+
 Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct'])->middleware(['auth', 'verified'])->name('products');
+
 Route::put('produtos/atualizar/estoque/{id}', [ProductController::class, 'updateProductStock'])->middleware(['auth', 'verified'])->name('products');
 
 Route::delete('produtos/delete/{id}', [ProductController::class, 'deleteProduct'])->middleware(['auth', 'verified'])->name('products');
