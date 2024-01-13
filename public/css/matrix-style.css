@@ -4297,3 +4297,8 @@ fieldset[disabled] .btn-info.active {
 .table td {
   border-left: 0px solid #ddd;
 }
+
+.btn-alt{
+  width: 13px;
+  align-items: center;
+}
