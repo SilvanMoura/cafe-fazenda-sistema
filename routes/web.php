@@ -5,7 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
-use App\Models\Product;
+
 use Illuminate\Support\Facades\Route;
 
 /*
