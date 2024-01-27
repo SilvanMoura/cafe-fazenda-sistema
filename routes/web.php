@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\OsController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,8 @@ Route::get('/produtos/editar/{id}', [ProductController::class, 'editProducts'])-
 Route::get('/produtos/visualizar/{id}', [ProductController::class, 'viewProducts'])->middleware(['auth', 'verified'])->name('products');
 
 Route::get('/servicos', [ServiceController::class, 'getInfoServices'])->middleware(['auth', 'verified'])->name('services');
+
+Route::get('/os', [OsController::class, 'getInfoOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
