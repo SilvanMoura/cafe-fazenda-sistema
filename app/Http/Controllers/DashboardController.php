@@ -98,7 +98,6 @@ class DashboardController extends Controller
             $getValorOs = Product_os::select('valor_unitario')->where('os_id', $valor['id'])->sum('valor_unitario');
             $getOsServicos[$i]['valor_os'] = $clienteId ? $getValorOs : null;
 
-
             $getOsServicos[$i]['cliente_id'] = $clienteId ? $clienteId->nome : null;
             $getOsServicos[$i]['maquina_id'] = $maquinaId ? $maquinaId->nomemodelo : null;
             $getOsServicos[$i]['operacao_os_id'] = $operacaoOsId ? $operacaoOsId->nome : null;

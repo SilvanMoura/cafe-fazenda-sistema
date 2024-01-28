@@ -1,78 +1,93 @@
 @extends('layouts/app')
 
 @section('content')
-<div style="margin-left: 7%; width: 91vw; min-height: 90vh">
-    <a href="clientes/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
-        <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
-            Os's
-        </span>
-    </a>
-    <div class="widget-box">
 
-        <div class="widget-content tab-content">
-            <div id="tab2" class="tab-pane" style="min-height: 300px">
-                <div class="accordion" id="collapse-group">
+<style>
+    select {
+        width: 70px;
+    }
 
-                    <div class="accordion-group widget-box">
-                        <div class="accordion-heading">
-                            <div class="widget-title">
-                                <a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse">
-                                    <span><i class='bx bx-receipt icon-cli'></i></span>
-                                    <h5 style="padding-left: 28px">Serviços</h5>
-                                </a>
-                            </div>
-                        </div>
-                        <div> <!-- class="collapse in accordion-body" id="collapseGOne" -->
-                            <div class="widget-content">
-                                <table class="table table-bordered ">
-                                    <thead>
-                                        <tr>
-                                            <th>N°</th>
-                                            <th>Nome</th>
-                                            <th>Status</th>
-                                            <th>Data Avaliação</th>
-                                            <th>Avaliação</th>
-                                            <th>Valor</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        <tr>
-                                            <td style="width:5%"></td>
-                                            <td style="width:15%"></td>
-                                            <td style="width:10%"></td>
-                                            <td style="width:10%"></td>
-                                            <td style="width:33%"></td>
-                                            <td style="width:7%">R$ </td>
+    .scrollable-container {
+        height: 400px;
+        /* Altura fixa da div */
+        overflow-y: auto;
+        /* Adiciona rolagem vertical quando necessário */
+    }
+</style>
+<div style="height: 90vh; width: 99vw;">
+    <div class="new122" style="margin: 1% 1% 0 7%;">
+        <div class="widget-title" style="margin: -20px 0 0">
+            <span class="icon">
+                <i class="fas fa-user"></i>
+            </span>
+            <h5>Ordens de Serviço</h5>
+        </div>
+        <!-- php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aCliente')) { ?> -->
+        <a href="servico/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
+            <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
+                Ordem de Serviço
+            </span>
+        </a>
+        <!-- ?php } ?> -->
 
-                                            <td>
+        <div class="widget-box">
+            <h5 style="padding: 3px 0"></h5>
+            <div class="widget-content nopadding tab-content scrollable-container">
+                <table id="tabela" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Máquina</th>
+                            <th>Status</th>
+                            <th>Tipo</th>
+                            <th>Avaliação</th>
+                            <th>Valor</th>
+                            <th>Data Entrega</th>
+                            <th>Garantia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                                                <a href="os/visualizar/" style="margin-right: 1%" class="btn btn-alt tip-top" title="Ver mais detalhes">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="os/editar/" class="btn btn-alt btn-info tip-top" title="Editar OS">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="6">Nenhuma OS Cadastrada</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                        @if($getOS->count() > 0)
+                        @foreach ($getOS as $r)
+                        <tr>
 
-                </div>
+                            <td style="width:5%;">{{ $r->id }}</td>
+                            <td style="width:25%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">{{ $r->cliente_id }}</a></td>
+                            <td style="width:12%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">{{ $r->maquina_id }}</a></td>
+                            <td style="width:10%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">{{ $r->status_os_id }}</a></td>
+                            <td style="width:6%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">{{ $r->operacao_os_id }}</a></td>
+                            <td style="width:6%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">{{ $r->data_avaliacao }}</a></td>
+                            <td style="width:7%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">R$ {{ $r->valor_os }}</a></td>
+
+                            <td style="width:8%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">{{ $r->data_entrega }}</a></td>
+                            @if( $r->garantia != null)
+                            <td style="width:9%;"><a href="{{ 'clientes/visualizar/'.$r->id }}"> {{ $r->garantiaFinalData }}</a></td>
+                            @else
+                            <td style="width:9%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">sem garantia</a></td>
+                            @endif
+                            <td style="width:6%;">
+                                <a href="{{ 'clientes/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
+                                <a href="{{ 'clientes/editar/'. $r->id }}" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-printer bx-xs"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @else
+                        <tr>
+                            <td colspan="6">Nenhum Cliente Cadastrado</td>
+                        </tr>
+                        @endif
+
+
+                    </tbody>
+                </table>
             </div>
         </div>
+        <!-- <php echo $this->pagination->create_links(); ?> -->
+
     </div>
-    <div class="modal-footer" style="display:flex;justify-content: center;">
-        <a title="Voltar" class="button btn btn-mini btn-warning" style="min-width: 140px; top:10px" href="/dashboard">
-            <span class="button__icon"><i class="bx bx-undo"></i></span><span class="button__text2">Voltar</span></a>
-    </div>
-    </div>
-    @endsection
+</div>
+
+@endsection

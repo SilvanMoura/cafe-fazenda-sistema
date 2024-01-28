@@ -134,7 +134,7 @@
                         </div>
                     </a>
 
-                    <a href="/os/adicionar" class="card tip-top" title="Adicionar OS">
+                    <a href="/servicos/adicionar" class="card tip-top" title="Adicionar OS">
                         <div><i class='bx bxs-spreadsheet iconBx4'></i></div>
                         <div>
                             <div class="cardName2">{{ $dashboard['os'] }}</div>
