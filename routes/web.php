@@ -6,7 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\OsController;
-
+use App\Http\Controllers\MachineController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,10 +40,11 @@ Route::get('/servicos', [ServiceController::class, 'getInfoServices'])->middlewa
 
 Route::get('/os', [OsController::class, 'getInfoOs'])->middleware(['auth', 'verified'])->name('os');
 
+Route::get('/maquinas', [MachineController::class, 'getInfoMachines'])->middleware(['auth', 'verified'])->name('machines');
+
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::post('/produtos/adicionar', [ProductController::class, 'registerProducts'])->middleware(['auth', 'verified'])->name('products');
-
 
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
