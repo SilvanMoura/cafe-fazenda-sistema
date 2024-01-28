@@ -63,11 +63,11 @@
 
     <li class="card">
         <div class="grid-blak">
-            <a href="/vendas">
-                <div class="numbers N-tittle">Vendas</div>
+            <a href="/maquinas">
+                <div class="numbers N-tittle">Máquinas</div>
             </a>
         </div>
-        <a href="/vendas">
+        <a href="/maquinas">
             <div class="lord-icon05">
                 <i class='bx bx-cart-alt iconBx05'></i></span>
             </div>
@@ -150,7 +150,7 @@
                         </div>
                     </a>
 
-                    <a href="/vendas/adicionar" class="card tip-top" title="Adicionar Vendas">
+                    <a href="/maquina/adicionar" class="card tip-top" title="Adicionar Máquina">
                         <div><i class='bx bxs-cart-alt iconBx5'></i></div>
                         <div>
                             <div class="cardName2">{{ $dashboard['maquinaNumber'] }}</div>
