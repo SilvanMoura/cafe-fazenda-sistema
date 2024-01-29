@@ -76,7 +76,7 @@
                         @endforeach
                         @else
                         <tr>
-                            <td colspan="6">Nenhum Cliente Cadastrado</td>
+                            <td colspan="6">Nenhum OS Cadastrado</td>
                         </tr>
                         @endif
 

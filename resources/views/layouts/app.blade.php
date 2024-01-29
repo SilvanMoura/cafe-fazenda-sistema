@@ -23,6 +23,10 @@
     <script type="text/javascript" src="{{ asset('js/funcoesGlobal.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/sweetalert.min.js') }}"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    
     <script type="text/javascript">
         shortcut.add("escape", function() {
             location.href = '/';
@@ -352,7 +356,7 @@
 
     @yield('content')
 
-    <div class="row-fluid"  >
+    <div class="row-fluid">
         <div id="footer" class="span12">
             <a class="pecolor" href="https://github.com/SilvanMoura" target="_blank">
                 <?= date('Y'); ?> &copy; Silvan Moura - Café da Fazenda - Versão: 1.0
