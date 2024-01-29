@@ -134,11 +134,11 @@
             @csrf
             <div class="modal-header">
                 <button type="button" class="close close-delete" data-dismiss="modal" aria-hidden="true">×</button>
-                <h5 id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Produto</h5>
+                <h5 id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Máquina</h5>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="idMachine" class="idMachine" name="id" value="" />
-                <h5 style="text-align: center">Deseja realmente excluir o produto <span id="id-delete"></span>?</h5>
+                <h5 style="text-align: center">Deseja realmente excluir a máquina <span id="id-delete"></span>?</h5>
             </div>
             <div class="modal-footer" style="display:flex;justify-content: center">
                 <button type="button" class="button btn btn-warning close-delete" data-dismiss="modal" aria-hidden="true"><span class="button__icon"><i class="bx bx-x"></i></span><span class="button__text2">Cancelar</span></button>
@@ -172,14 +172,10 @@
                     </div>
                 </div>
 
-                <div class="control-group" style="width: 42%">
-                    <label for="Manufacturer" class="control-label">Novo Fabricante</label>
+                <div class="control-group">
+                    <label for="nameFacturer" class="control-label">Nome do Fabricate</label>
                     <div class="controls">
-                        <select id="Manufacturer" class="js-example-basic-single" style="width: 100%">
-                            @foreach($manufactures as $f)
-                            <option value="{{ $f->id }}">{{ $f->nome }}</option>
-                            @endforeach
-                        </select>
+                        <input id="nameFacturer" type="text" name="nameFacturer" value="" />
                     </div>
                 </div>
 
