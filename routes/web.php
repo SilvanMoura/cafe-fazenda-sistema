@@ -48,6 +48,8 @@ Route::get('/fabricantes', [ManufacturersController::class, 'getInfoManufacturer
 
 Route::get('/representacoes', [RepresentationController::class, 'getInfoRepresentation'])->middleware(['auth', 'verified'])->name('representation');
 
+Route::get('/cidades', [CityController::class, 'getInfoCity'])->middleware(['auth', 'verified'])->name('city');
+
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::post('/produtos/adicionar', [ProductController::class, 'registerProducts'])->middleware(['auth', 'verified'])->name('products');
