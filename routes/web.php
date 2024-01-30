@@ -46,7 +46,7 @@ Route::get('/maquinas', [MachineController::class, 'getInfoMachines'])->middlewa
 
 Route::get('/fabricantes', [ManufacturersController::class, 'getInfoManufacturers'])->middleware(['auth', 'verified'])->name('manufacturers');
 
-Route::get('/representacao', [RepresentationController::class, 'getInfoRepresentation'])->middleware(['auth', 'verified'])->name('representation');
+Route::get('/representacoes', [RepresentationController::class, 'getInfoRepresentation'])->middleware(['auth', 'verified'])->name('representation');
 
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 

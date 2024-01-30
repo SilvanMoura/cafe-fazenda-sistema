@@ -54,8 +54,8 @@
                             <td style="width:5%;">{{ $r->id }}</td>
                             <td style="width:85%;">{{ $r->nome }}</td>
                             <td style="width:6%;">
-                                <a href="#modal-edit" role="button" data-toggle="modal" data-manufacturerId="{{ $r->id }}" data-manufacturerName="{{ $r->nome }}" class="btn-nwe3 open-edit-manufacturer" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="#modal-delete" role="button" data-toggle="modal" data-manufacturerId="{{ $r->id }}" data-manufacturerName="{{ $r->nome }}" class="btn-nwe4 open-delete-manufacturer" title="Excluir Máquina"><i class="bx bx-trash-alt bx-xs"></i></a>
+                                <a href="#modal-edit" role="button" data-toggle="modal" data-manufacturerId="{{ $r->id }}" data-manufacturerName="{{ $r->nome }}" class="btn-nwe3 open-edit-manufacturer" title="Editar Fabricante"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="#modal-delete" role="button" data-toggle="modal" data-manufacturerId="{{ $r->id }}" data-manufacturerName="{{ $r->nome }}" class="btn-nwe4 open-delete-manufacturer" title="Excluir Fabricante"><i class="bx bx-trash-alt bx-xs"></i></a>
                             </td>
                         </tr>
                         @endforeach
