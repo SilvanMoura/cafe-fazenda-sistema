@@ -10,6 +10,7 @@ use App\Http\Controllers\OsController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\ManufacturersController;
 use App\Http\Controllers\RepresentationController;
+use App\Http\Controllers\ExplodedMachineController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +51,8 @@ Route::get('/fabricantes', [ManufacturersController::class, 'getInfoManufacturer
 Route::get('/representacoes', [RepresentationController::class, 'getInfoRepresentation'])->middleware(['auth', 'verified'])->name('representation');
 
 Route::get('/cidades', [CityController::class, 'getInfoCity'])->middleware(['auth', 'verified'])->name('city');
+
+Route::get('/maquinas-explodidas', [ExplodedMachineController::class, 'getInfoExplodedMachine'])->middleware(['auth', 'verified'])->name('exploded-machine');
 
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
