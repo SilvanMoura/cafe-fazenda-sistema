@@ -10,7 +10,7 @@ class ExplodedMachineController extends Controller
 {
     public function getInfoExplodedMachine(){
         $getExplanation = Exploded_machine::orderByDesc('id')->get();
-        $manufactures = Manufacturer::select('*')->get();
+        $manufacturers = Manufacturer::select('*')->get();
 
         foreach ($getExplanation as $key => $explanation) {
             $explanation = Manufacturer::select('nome')->where('id', $explanation->fabricante_id)->first();
@@ -18,7 +18,7 @@ class ExplodedMachineController extends Controller
             $getExplanation[$key]['fabricante_id'] = $explanation->nome;
         }
 
-        //return $getExplanation;
-        return view('exploded-machine', ["infEexplanation" => $getExplanation, "manufactures" => $manufactures]);
+        //return $manufacturers;
+        return view('exploded-machine', ["infoEexplanation" => $getExplanation, "manufacturers" => $manufacturers]);
     }
 }
