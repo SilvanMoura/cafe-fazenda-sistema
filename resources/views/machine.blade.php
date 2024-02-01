@@ -215,8 +215,6 @@
             $('#machineNameModelo').val(machineName);
             $('#NumberSerie').val(machineNumber);
             $('#machineManufacturer').val(machineManufacturer);
-
-
         });
 
         $('.open-modal-delete').on('click', function(event) {
@@ -247,6 +245,50 @@
         $('.close-delete').on('click', function(event) {
             var modal = document.getElementById("delete-machine");
             modal.classList.add("hide", "fade");
+        })
+
+        $('#btnCreate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formCreate").valid()) {
+                var dados = $("#formCreate").serialize();
+
+                $(this).addClass('disabled');
+                $('#progress-acessar').removeClass('hide');
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/maquinas/adicionar",
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Máquina registrada com sucesso") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cadastro Concluído',
+                                text: 'Máquina registrada com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            $('#error-message').text(data.message || 'Erro no cadastro. Por favor, tente novamente.');
+                            $('#error-message').removeClass('hide');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro na requisição AJAX:", error);
+                        // Adicione manipulação de erro conforme necessário
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
         })
     });
 </script>
