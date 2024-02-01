@@ -281,7 +281,7 @@
                         if (data.message === "Máquina registrada com sucesso") {
                             var modal = document.getElementById("create-machine");
                             modal.classList.add("hide", "fade");
-                            
+
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Cadastro Concluído',
@@ -291,6 +291,53 @@
                             });
                         } else {
                             $('#error-message').text(data.message || 'Erro no cadastro. Por favor, tente novamente.');
+                            $('#error-message').removeClass('hide');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro na requisição AJAX:", error);
+                        // Adicione manipulação de erro conforme necessário
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
+
+        $('#btnDelete').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formDelete").valid()) {
+
+                var dados = $("#formDelete").serializeArray();
+
+                $(this).addClass('disabled');
+                $('#progress-acessar').removeClass('hide');
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:8000/maquina/delete/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Máquina excluida com sucesso") {
+                            var modal = document.getElementById("delete-machine");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Exclusão Concluída',
+                                text: 'Máquina excluida com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');
                             $('#error-message').removeClass('hide');
                         }
                     },
