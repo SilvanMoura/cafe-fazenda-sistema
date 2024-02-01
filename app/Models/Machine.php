@@ -10,4 +10,12 @@ class Machine extends Model
     use HasFactory;
 
     protected $table = 'maquina';
+
+    protected $fillable = [
+        'nomemodelo',
+        'numeroserie',
+        'fabricante_id'
+    ];
+
+    public $timestamps = false;
 }

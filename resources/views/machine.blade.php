@@ -202,6 +202,7 @@
 </div>
 
 <script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#Manufacturer').select2({
@@ -278,6 +279,9 @@
                     },
                     success: function(data) {
                         if (data.message === "Máquina registrada com sucesso") {
+                            var modal = document.getElementById("create-machine");
+                            modal.classList.add("hide", "fade");
+                            
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Cadastro Concluído',
