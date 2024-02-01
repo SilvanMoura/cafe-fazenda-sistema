@@ -33,4 +33,11 @@ class MachineController extends Controller
 
         return response()->json(['message' => 'Máquina registrada com sucesso'], 201);
     }
+
+    public function deleteMachine(Request $request){
+        $machine = Machine::findOrFail($request->input('id'));
+        $machine->delete();
+
+        return response()->json(['message' => 'Máquina excluida com sucesso'], 201);
+    }
 }

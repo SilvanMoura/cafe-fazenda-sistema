@@ -136,8 +136,9 @@
                 <button type="button" class="close close-delete" data-dismiss="modal" aria-hidden="true">×</button>
                 <h5 id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Máquina</h5>
             </div>
+
             <div class="modal-body">
-                <input type="hidden" id="idMachine" class="idMachine" name="id" value="" />
+                <input type="hidden" id="idMachine-delete" class="idMachine-delete" name="id" value="" />
                 <h5 style="text-align: center">Deseja realmente excluir a máquina <span id="id-delete"></span>?</h5>
             </div>
             <div class="modal-footer" style="display:flex;justify-content: center">
@@ -234,7 +235,7 @@
 
             var machineId = $(this).attr('data-machineId');
 
-            $('#idMachine').val(machineId);
+            $('#idMachine-delete').val(machineId);
             $('#id-delete').text(machineId);
         });
 
@@ -319,7 +320,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "DELETE",
-                    url: "http://localhost:8000/maquina/delete/" + dados[1]['value'],
+                    url: "http://localhost:8000/maquinas/delete/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
