@@ -95,9 +95,9 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="NumberSerie" class="control-label">Nº Série</label>
+                        <label for="numberSerie" class="control-label">Nº Série</label>
                         <div class="controls">
-                            <input id="NumberSerie" type="text" name="NumberSerie" value="" />
+                            <input id="numberSerie" type="text" name="numberSerie" value="" />
                         </div>
                     </div>
 
@@ -157,7 +157,6 @@
 
             <div class="modal-body">
 
-                <input type="hidden" id="idMachine" class="idMachine" name="id" value="" />
                 <div class="control-group">
                     <label for="machineNameModelo" class="control-label">Nome/Modelo</label>
                     <div class="controls">
@@ -166,16 +165,21 @@
                 </div>
 
                 <div class="control-group">
-                    <label for="NumberSerie" class="control-label">Nº Série</label>
+                    <label for="numberSerie" class="control-label">Nº Série</label>
                     <div class="controls">
-                        <input id="NumberSerie" type="text" name="NumberSerie" value="" />
+                        <input id="numberSerie" type="text" name="numberSerie" value="" />
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <label for="nameFacturer" class="control-label">Nome do Fabricate</label>
+                <div class="control-group" style="width: 42%">
+                    <label for="Manufacturers" class="control-label">Novo Fabricante</label>
                     <div class="controls">
-                        <input id="nameFacturer" type="text" name="nameFacturer" value="" />
+                        <select id="Manufacturers" class="js-example-basic-single" style="width: 100%">
+                            <option>Selecione</option>
+                            @foreach($manufactures as $f)
+                            <option value="{{ $f->id }}">{{ $f->nome }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -183,6 +187,7 @@
                     <button id="btnCreate" class="button btn btn-success"><span class="button__icon"><i class="bx bx-plus"></i></span><span class="button__text2">Adicionar</span></button>
                     <button type="button" class="button btn btn-warning close-btn close-create" data-dismiss="modal" aria-hidden="true"><span class="button__icon"><i class="bx bx-x"></i></span><span class="button__text2">Cancelar</span></button>
                 </div>
+            </div>
         </form>
     </div>
 
@@ -196,11 +201,16 @@
 </div>
 </div>
 
+<script src="{{ asset('js/jquery.validate.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#Manufacturer').select2({
             tags: true
         });
+        $('#Manufacturers').select2({
+            tags: true
+        });
+
 
         $('.open-edit-machine').on('click', function(event) {
             var modal = document.getElementById("edit-machine");
@@ -213,7 +223,7 @@
 
             $('#idMachine').val(machineId);
             $('#machineNameModelo').val(machineName);
-            $('#NumberSerie').val(machineNumber);
+            $('#numberSerie').val(machineNumber);
             $('#machineManufacturer').val(machineManufacturer);
         });
 
@@ -252,10 +262,10 @@
 
             // Validação do formulário usando o plugin validate
             if ($("#formCreate").valid()) {
-                var dados = $("#formCreate").serialize();
+                var selectedManufacturer = $('#Manufacturers').val();
 
-                $(this).addClass('disabled');
-                $('#progress-acessar').removeClass('hide');
+                // Serializar dados incluindo o valor selecionado
+                var dados = $("#formCreate").serialize() + '&manufacturer=' + selectedManufacturer;
 
                 // Requisição AJAX
                 $.ajax({

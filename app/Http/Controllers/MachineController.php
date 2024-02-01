@@ -23,4 +23,14 @@ class MachineController extends Controller
         //return $getMachines;
         return view('machine', ["infoMachines" => $getMachines, "manufactures" => $manufactures]);
     }
+
+    public function createMachine(Request $request){
+        Machine::create([
+            'nomemodelo' => $request->input('machineNameModelo'),
+            'numeroserie' => $request->input('numberSerie'),
+            'fabricante_id' => $request->input('manufacturer'),
+        ]);
+
+        return response()->json(['message' => 'Máquina registrada com sucesso'], 201);
+    }
 }
