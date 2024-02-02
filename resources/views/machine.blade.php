@@ -296,8 +296,14 @@
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error("Erro na requisição AJAX:", error);
-                        // Adicione manipulação de erro conforme necessário
+                        var modal = document.getElementById("create-machine");
+                        modal.classList.add("hide", "fade");
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na criação',
+                            text: xhr.responseJSON.message,
+                        });
                     },
                     complete: function() {
                         // Limpar qualquer indicação visual de loading, se necessário
@@ -343,8 +349,14 @@
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error("Erro na requisição AJAX:", error);
-                        // Adicione manipulação de erro conforme necessário
+                        var modal = document.getElementById("delete-machine");
+                        modal.classList.add("hide", "fade");
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na exclusão',
+                            text: xhr.responseJSON.message,
+                        });
                     },
                     complete: function() {
                         // Limpar qualquer indicação visual de loading, se necessário
@@ -401,7 +413,7 @@
 
                         var modal = document.getElementById("edit-machine");
                         modal.classList.add("hide", "fade");
-                        
+
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na alteração',

@@ -140,8 +140,6 @@
 
             <div class="modal-body">
 
-                <input type="hidden" id="idManufacturer" class="idManufacturer" name="id" value="" />
-
                 <div class="control-group">
                     <label for="manufacturerName-create" class="control-label">Nome do fabricante</label>
                     <div class="controls">
@@ -166,6 +164,8 @@
 </div>
 </div>
 
+<script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#Manufacturer').select2({
@@ -208,6 +208,57 @@
         $('.close-delete').on('click', function(event) {
             var modal = document.getElementById("delete-manufacturer");
             modal.classList.add("hide", "fade");
+        })
+
+        $('#btnCreate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formCreate").valid()) {
+
+                var dados = $("#formCreate").serializeArray();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/fabricantes/adicionar",
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Fabricante registrado com sucesso") {
+                            var modal = document.getElementById("create-manufacturer");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cadastro Concluído',
+                                text: 'Fabricante registrado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            $('#error-message').text(data.message || 'Erro no cadastro. Por favor, tente novamente.');
+                            $('#error-message').removeClass('hide');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var modal = document.getElementById("create-machine");
+                        modal.classList.add("hide", "fade");
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na criação',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
         })
     });
 </script>
