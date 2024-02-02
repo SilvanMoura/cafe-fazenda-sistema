@@ -139,7 +139,7 @@
             </div>
 
             <div class="modal-body">
-                
+
                 <div class="control-group">
                     <label for="representationName-create" class="control-label">Nome da Representação</label>
                     <div class="controls">
@@ -229,14 +229,14 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.message === "Representante registrado com sucesso") {
+                        if (data.message === "Representação registrada com sucesso") {
                             var modal = document.getElementById("create-representation");
                             modal.classList.add("hide", "fade");
 
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Cadastro Concluído',
-                                text: 'Representante registrado com sucesso!',
+                                text: 'Representação registrada com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
                             });

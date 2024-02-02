@@ -10,4 +10,10 @@ class Representation extends Model
     use HasFactory;
 
     protected $table = 'representacao';
+
+    protected $fillable = [
+        'nome'
+    ];
+
+    public $timestamps = false;
 }

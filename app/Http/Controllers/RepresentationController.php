@@ -9,7 +9,16 @@ class RepresentationController extends Controller
 {
     public function getInfoRepresentation(){
         $representations = Representation::select('*')->get();
-        //return $manufacturers;
+        
         return view('representation', ["representations" => $representations]);
+    }
+
+    public function createRepresentation(Request $request)
+    {
+        Representation::create([
+            'nome' => $request->input('representationName-create')
+        ]);
+
+        return response()->json(['message' => 'Representação registrada com sucesso'], 201);
     }
 }
