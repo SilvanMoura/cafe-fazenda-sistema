@@ -82,24 +82,12 @@
 
                 <div class="modal-body">
 
-                    <input type="hidden" id="idrepresentation" class="idrepresentation" name="id" value="" />
+                    <input type="hidden" id="idRepresentation" class="idrepresentation" name="id" value="" />
 
                     <div class="control-group">
                         <label for="representationName" class="control-label">Representação Atual</label>
                         <div class="controls">
-                            <input id="representationName" type="text" name="representationName" readonly value="" />
-
-                        </div>
-                    </div>
-                    <div class="control-group" style="width: 42%">
-                        <label for="representation" class="control-label">Nova Representação</label>
-                        <div class="controls">
-                            <select id="representation" class="js-example-basic-single" style="width: 100%" data-default-value="NomeDesejado">
-                                <option>Selecione</option>
-                                @foreach($representations as $f)
-                                <option value="{{ $f->id }}">{{ $f->nome }}</option>
-                                @endforeach
-                            </select>
+                            <input id="representationName" type="text" name="representationName" value="" />
                         </div>
                     </div>
 
@@ -120,7 +108,7 @@
                 <h5 id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Representação</h5>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="idrepresentation" class="idrepresentation" name="id" value="" />
+                <input type="hidden" id="idRepresentations" class="idrepresentations" name="id" value="" />
                 <h5 style="text-align: center">Deseja realmente excluir a Representação <span id="id-delete"></span>?</h5>
             </div>
             <div class="modal-footer" style="display:flex;justify-content: center">
@@ -177,7 +165,10 @@
             modal.classList.remove("hide", "fade");
 
             var representationName = $(this).attr('data-representationName');
+            var representationId = $(this).attr('data-representationId');
+            
             $('#representationName').val(representationName);
+            $('#idRepresentation').val(representationId);
         });
 
         $('.open-delete-representation').on('click', function(event) {
@@ -186,7 +177,7 @@
 
             var machineId = $(this).attr('data-representationId');
 
-            $('#idrepresentation').val(machineId);
+            $('#idRepresentations').val(machineId);
             $('#id-delete').text(machineId);
         });
 
@@ -209,7 +200,6 @@
             var modal = document.getElementById("delete-representation");
             modal.classList.add("hide", "fade");
         })
-
 
         $('#btnCreate').on('click', function(e) {
             e.preventDefault();
@@ -258,6 +248,62 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na criação',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
+
+        $('#btnUpdate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formEdit").valid()) {
+
+                var dados = $("#formEdit").serializeArray();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8000/representacoes/atualizar/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Representação alterada com sucesso") {
+                            var modal = document.getElementById("edit-representation");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Alteração Concluído',
+                                text: 'Representação alterada com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("edit-representation");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na alteração',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+
+                        var modal = document.getElementById("edit-representation");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração',
                             text: xhr.responseJSON.message,
                         });
                     },
