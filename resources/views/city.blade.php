@@ -56,7 +56,7 @@
                             <td style="width:43%;">{{ $r->nome }}</td>
                             <td style="width:42%;">{{ $r->estado_nome }}</td>
                             <td style="width:6%;">
-                                <a href="#modal-edit" role="button" data-toggle="modal" data-cityId="{{ $r->id }}" data-cityName="{{ $r->nome }}" data-stateName="{{ $r->estado_nome }}" class="btn-nwe3 open-edit-city" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="#modal-edit" role="button" data-toggle="modal" data-cityId="{{ $r->id }}" data-cityName="{{ $r->nome }}" data-stateName="{{ $r->estado_nome }}" data-cityName="{{ $r->nome }}" class="btn-nwe3 open-edit-city" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
                                 <a href="#modal-delete" role="button" data-toggle="modal" data-cityId="{{ $r->id }}" data-cityName="{{ $r->nome }}" data-stateName="{{ $r->estado_nome }}" class="btn-nwe4 open-delete-city" title="Excluir Máquina"><i class="bx bx-trash-alt bx-xs"></i></a>
                             </td>
                         </tr>
@@ -84,7 +84,7 @@
 
                 <div class="modal-body">
 
-                    <input type="hidden" id="idCity" class="idCity" name="id" value="" />
+                    <input type="hidden" id="id" class="id" name="id" value="" />
 
                     <div class="control-group">
                         <label for="cityName" class="control-label">Cidade Atual</label>
@@ -94,7 +94,6 @@
                         </div>
                     </div>
 
-                    <input type="hidden" id="idState" class="idState" name="id" value="" />
                     <div class="control-group">
                         <label for="stateName" class="control-label">Estado Atual</label>
                         <div class="controls">
@@ -105,7 +104,7 @@
                     <div class="control-group" style="width: 42%">
                         <label for="state" class="control-label">Novo Estado</label>
                         <div class="controls">
-                            <select id="state" class="js-example-basic-single" style="width: 100%">
+                            <select id="state" class="js-example-basic-single" name="stateEdit" style="width: 100%">
                                 <option>Selecione</option>
                                 @foreach($states as $f)
                                 <option value="{{ $f->id }}">{{ $f->nome }}</option>
@@ -203,8 +202,12 @@
             var modal = document.getElementById("edit-city");
             modal.classList.remove("hide", "fade");
 
+
+            var id = $(this).attr('data-cityId');
             var cityName = $(this).attr('data-cityName');
             var stateName = $(this).attr('data-stateName');
+
+            $('#id').val(id);
             $('#cityName').val(cityName);
             $('#stateName').val(stateName);
         });
@@ -291,6 +294,62 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na criação',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
+
+        $('#btnUpdate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formEdit").valid()) {
+
+                var dados = $("#formEdit").serializeArray();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8000/cidades/atualizar/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Cidade alterada com sucesso") {
+                            var modal = document.getElementById("edit-city");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Alteração Concluído',
+                                text: 'Cidade alterada com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("edit-city");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na alteração',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+
+                        var modal = document.getElementById("edit-city");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração',
                             text: xhr.responseJSON.message,
                         });
                     },
