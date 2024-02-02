@@ -45,4 +45,12 @@ class CityController extends Controller
 
         return response()->json(['message' => 'Cidade alterada com sucesso'], 201);
     }
+
+    public function deleteCity(Request $request)
+    {
+        $city = City::findOrFail($request->input('id'));
+        $city->delete();
+
+        return response()->json(['message' => 'Cidade excluida com sucesso'], 201);
+    }
 }
