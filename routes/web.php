@@ -77,6 +77,8 @@ Route::delete('produtos/delete/{id}', [ProductController::class, 'deleteProduct'
 
 Route::delete('/maquinas/delete/{id}', [MachineController::class, 'deleteMachine'])->middleware(['auth', 'verified'])->name('machines');
 
+Route::delete('/fabricantes/delete/{id}', [ManufacturersController::class, 'deleteManufacturer'])->middleware(['auth', 'verified'])->name('manufacturers');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
