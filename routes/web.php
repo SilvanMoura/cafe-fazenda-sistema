@@ -75,6 +75,8 @@ Route::put('maquinas/atualizar/{id}', [MachineController::class, 'updateMachine'
 
 Route::put('/fabricantes/atualizar/{id}', [ManufacturersController::class, 'updateManufacturer'])->middleware(['auth', 'verified'])->name('manufacturers');
 
+Route::put('/representacoes/atualizar/{id}', [RepresentationController::class, 'updateRepresentation'])->middleware(['auth', 'verified'])->name('representation');
+
 Route::delete('produtos/delete/{id}', [ProductController::class, 'deleteProduct'])->middleware(['auth', 'verified'])->name('products');
 
 Route::delete('/maquinas/delete/{id}', [MachineController::class, 'deleteMachine'])->middleware(['auth', 'verified'])->name('machines');

@@ -21,4 +21,15 @@ class RepresentationController extends Controller
 
         return response()->json(['message' => 'Representação registrada com sucesso'], 201);
     }
+
+    public function updateRepresentation(Request $request, $id)
+    {
+        $representation = Representation::findOrFail($id);
+
+        $representation->nome = $request->input('representationName');
+
+        $representation->save();
+
+        return response()->json(['message' => 'Representação alterada com sucesso'], 201);
+    }
 }
