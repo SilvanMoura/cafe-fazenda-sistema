@@ -32,4 +32,12 @@ class RepresentationController extends Controller
 
         return response()->json(['message' => 'Representação alterada com sucesso'], 201);
     }
+
+    public function deleteRepresentation(Request $request)
+    {
+        $representation = Representation::findOrFail($request->input('id'));
+        $representation->delete();
+
+        return response()->json(['message' => 'Representação excluida com sucesso'], 201);
+    }
 }
