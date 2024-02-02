@@ -87,19 +87,7 @@
                     <div class="control-group">
                         <label for="manufacturerName" class="control-label">Fabricante Atual</label>
                         <div class="controls">
-                            <input id="manufacturerName" type="text" name="manufacturerName" readonly value="" />
-
-                        </div>
-                    </div>
-                    <div class="control-group" style="width: 42%">
-                        <label for="Manufacturer" class="control-label">Novo Fabricante</label>
-                        <div class="controls">
-                            <select id="Manufacturer" class="js-example-basic-single" style="width: 100%" data-default-value="NomeDesejado">
-                                <option>Selecione</option>
-                                @foreach($manufacturers as $f)
-                                <option value="{{ $f->id }}">{{ $f->nome }}</option>
-                                @endforeach
-                            </select>
+                            <input id="manufacturerName" type="text" name="manufacturerName" value="" />
                         </div>
                     </div>
 
@@ -177,7 +165,10 @@
             modal.classList.remove("hide", "fade");
 
             var manufacturerName = $(this).attr('data-manufacturerName');
+            var manufacturerId = $(this).attr('data-manufacturerId');
+
             $('#manufacturerName').val(manufacturerName);
+            $('#idManufacturer').val(manufacturerId);
         });
 
         $('.open-delete-manufacturer').on('click', function(event) {
@@ -240,17 +231,79 @@
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
                         } else {
-                            $('#error-message').text(data.message || 'Erro no cadastro. Por favor, tente novamente.');
-                            $('#error-message').removeClass('hide');
+                            var modal = document.getElementById("create-manufacturer");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na criação',
+                                text: data.message,
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
-                        var modal = document.getElementById("create-machine");
+                        var modal = document.getElementById("create-manufacturer");
                         modal.classList.add("hide", "fade");
-                        
+
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na criação',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
+
+        $('#btnUpdate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formEdit").valid()) {
+
+                var dados = $("#formEdit").serializeArray();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8000/fabricantes/atualizar/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Máquina alterada com sucesso") {
+                            var modal = document.getElementById("edit-manufacturer");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Alteração Concluído',
+                                text: 'Máquina alterada com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("edit-manufacturer");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na alteração',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+
+                        var modal = document.getElementById("edit-manufacturer");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração',
                             text: xhr.responseJSON.message,
                         });
                     },

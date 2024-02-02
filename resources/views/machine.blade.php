@@ -291,14 +291,20 @@
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
                         } else {
-                            $('#error-message').text(data.message || 'Erro no cadastro. Por favor, tente novamente.');
-                            $('#error-message').removeClass('hide');
+                            var modal = document.getElementById("create-machine");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na exclusão',
+                                text: data.message,
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
                         var modal = document.getElementById("create-machine");
                         modal.classList.add("hide", "fade");
-                        
+
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na criação',
@@ -344,14 +350,20 @@
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
                         } else {
-                            $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');
-                            $('#error-message').removeClass('hide');
+                            var modal = document.getElementById("delete-machine");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na exclusão',
+                                text: data.message,
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
                         var modal = document.getElementById("delete-machine");
                         modal.classList.add("hide", "fade");
-                        
+
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na exclusão',
