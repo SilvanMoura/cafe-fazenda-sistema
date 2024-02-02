@@ -66,6 +66,8 @@ Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct
 
 Route::put('produtos/atualizar/estoque/{id}', [ProductController::class, 'updateProductStock'])->middleware(['auth', 'verified'])->name('products');
 
+Route::put('maquinas/atualizar/{id}', [MachineController::class, 'updateMachine'])->middleware(['auth', 'verified'])->name('machines');
+
 Route::delete('produtos/delete/{id}', [ProductController::class, 'deleteProduct'])->middleware(['auth', 'verified'])->name('products');
 
 Route::delete('/maquinas/delete/{id}', [MachineController::class, 'deleteMachine'])->middleware(['auth', 'verified'])->name('machines');
