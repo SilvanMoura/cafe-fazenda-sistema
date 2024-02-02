@@ -313,6 +313,62 @@
                 });
             }
         })
+
+        $('#btnDelete').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formDelete").valid()) {
+
+                var dados = $("#formDelete").serializeArray();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:8000/representacoes/delete/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Representação excluida com sucesso") {
+                            var modal = document.getElementById("delete-representation");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Exclusão Concluída',
+                                text: 'Representação excluida com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("delete-representation");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na exclusão',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var modal = document.getElementById("delete-representation");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na exclusão',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
     });
 </script>
 
