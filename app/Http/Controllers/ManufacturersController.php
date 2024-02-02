@@ -32,4 +32,12 @@ class ManufacturersController extends Controller
 
         return response()->json(['message' => 'Fabricante alterado com sucesso'], 201);
     }
+
+    public function deleteManufacturer(Request $request)
+    {
+        $manufacturer = Manufacturer::findOrFail($request->input('id'));
+        $manufacturer->delete();
+
+        return response()->json(['message' => 'Fabricante excluida com sucesso'], 201);
+    }
 }
