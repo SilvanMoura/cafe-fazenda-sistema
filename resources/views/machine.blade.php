@@ -209,10 +209,10 @@
         $('#Manufacturer').select2({
             tags: true
         });
+
         $('#Manufacturers').select2({
             tags: true
         });
-
 
         $('.open-edit-machine').on('click', function(event) {
             var modal = document.getElementById("edit-machine");
@@ -334,6 +334,56 @@
                                 icon: 'success',
                                 title: 'Exclusão Concluída',
                                 text: 'Máquina excluida com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');
+                            $('#error-message').removeClass('hide');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro na requisição AJAX:", error);
+                        // Adicione manipulação de erro conforme necessário
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
+
+        $('#btnUpdate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formEdit").valid()) {
+
+                var selectedManufacturer = $('#Manufacturer').val();
+
+                var dados = $("#formEdit").serializeArray();
+                dados.push({
+                    name: 'manufacturerNew',
+                    value: selectedManufacturer
+                });
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8000/maquinas/atualizar/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Máquina alterada com sucesso") {
+                            var modal = document.getElementById("edit-machine");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Alteração Concluído',
+                                text: 'Máquina alterada com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
