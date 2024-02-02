@@ -151,14 +151,24 @@
 
             <div class="modal-body">
 
-                <input type="hidden" id="idCity" class="idCity" name="id" value="" />
-
                 <div class="control-group">
                     <label for="cityName-create" class="control-label">Nome da Cidade</label>
                     <div class="controls">
                         <input id="cityName-create" type="text" name="cityName-create" value="" />
                     </div>
                 </div>
+
+                <div class="control-group" style="width: 42%">
+                        <label for="state-create" class="control-label">Sigla do Estado</label>
+                        <div class="controls">
+                            <select id="state-create" class="js-example-basic-single" style="width: 100%">
+                                <option>Selecione</option>
+                                @foreach($states as $f)
+                                <option value="{{ $f->id }}">{{ $f->nome }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
                 <div class="modal-footer" style="display:flex;justify-content: center">
                     <button id="btnCreate" class="button btn btn-success"><span class="button__icon"><i class="bx bx-plus"></i></span><span class="button__text2">Adicionar</span></button>
@@ -177,9 +187,15 @@
 </div>
 </div>
 
+<script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#state').select2({
+            tags: true
+        });
+
+        $('#state-create').select2({
             tags: true
         });
 
@@ -223,6 +239,66 @@
         $('.close-delete').on('click', function(event) {
             var modal = document.getElementById("delete-city");
             modal.classList.add("hide", "fade");
+        })
+
+        $('#btnCreate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formCreate").valid()) {
+
+                var selectedManufacturer = $('#state-create').val();
+
+                // Serializar dados incluindo o valor selecionado
+                var dados = $("#formCreate").serialize() + '&state=' + selectedManufacturer;
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/cidades/adicionar",
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Cidade registrada com sucesso") {
+                            var modal = document.getElementById("create-city");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cadastro Concluído',
+                                text: 'Cidade registrada com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("create-manufacturer");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na criação',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var modal = document.getElementById("create-city");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na criação',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
         })
     });
 </script>
