@@ -388,13 +388,24 @@
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
                         } else {
-                            $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');
-                            $('#error-message').removeClass('hide');
+                            var modal = document.getElementById("edit-machine");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na alteração',
+                                text: data.message,
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error("Erro na requisição AJAX:", error);
-                        // Adicione manipulação de erro conforme necessário
+
+                        var modal = document.getElementById("edit-machine");
+                        modal.classList.add("hide", "fade");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração',
+                            text: xhr.responseJSON.message,
+                        });
                     },
                     complete: function() {
                         // Limpar qualquer indicação visual de loading, se necessário
