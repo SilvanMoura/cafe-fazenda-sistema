@@ -12,4 +12,13 @@ class ManufacturersController extends Controller
         //return $manufacturers;
         return view('manufacturers', ["manufacturers" => $manufacturers]);
     }
+
+    public function createManufacturer(Request $request)
+    {
+        Manufacturer::create([
+            'nome' => $request->input('manufacturerName-create')
+        ]);
+
+        return response()->json(['message' => 'Fabricante registrado com sucesso'], 201);
+    }
 }
