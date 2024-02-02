@@ -11,6 +11,7 @@ use App\Http\Controllers\MachineController;
 use App\Http\Controllers\ManufacturersController;
 use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\ExplodedMachineController;
+use App\Models\Manufacturer;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,6 +60,8 @@ Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupp
 Route::post('/produtos/adicionar', [ProductController::class, 'registerProducts'])->middleware(['auth', 'verified'])->name('products');
 
 Route::post('/maquinas/adicionar', [MachineController::class, 'createMachine'])->middleware(['auth', 'verified'])->name('machines');
+
+Route::post('/fabricantes/adicionar', [ManufacturersController::class, 'createManufacturer'])->middleware(['auth', 'verified'])->name('manufacturers');
 
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
