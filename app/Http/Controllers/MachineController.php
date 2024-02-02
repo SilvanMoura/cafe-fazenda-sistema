@@ -47,20 +47,19 @@ class MachineController extends Controller
     {
         $machine = Machine::findOrFail($id);
 
-        // Obtém o novo número de série do request
         $newNumberSerie = $request->input('numberSerie');
 
-        // Verifica se o novo número de série já existe em outros registros
         $existingMachine = Machine::where('numeroserie', $newNumberSerie)
-            ->where('id', '<>', $id) // Exclui o registro atual da verificação
+            ->where('id', '<>', $id)
             ->first();
 
         if ($existingMachine) {
             return response()->json(['message' => 'Número de série já existe em outro registro.'], 400);
-        }
+        };
 
         $machine->nomemodelo = $request->input('machineNameModelo');
         $machine->numeroserie = $newNumberSerie;
+        
         if ($request->input('manufacturerNew') != '') {
             $machine->fabricante_id = $request->input('manufacturerNew');
         }

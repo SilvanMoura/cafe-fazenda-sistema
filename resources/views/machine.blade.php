@@ -401,6 +401,7 @@
 
                         var modal = document.getElementById("edit-machine");
                         modal.classList.add("hide", "fade");
+                        
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na alteração',
