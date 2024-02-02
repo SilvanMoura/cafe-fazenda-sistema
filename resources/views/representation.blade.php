@@ -139,9 +139,7 @@
             </div>
 
             <div class="modal-body">
-
-                <input type="hidden" id="idrepresentation" class="idrepresentation" name="id" value="" />
-
+                
                 <div class="control-group">
                     <label for="representationName-create" class="control-label">Nome da Representação</label>
                     <div class="controls">
@@ -166,6 +164,8 @@
 </div>
 </div>
 
+<script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#representation').select2({
@@ -208,6 +208,64 @@
         $('.close-delete').on('click', function(event) {
             var modal = document.getElementById("delete-representation");
             modal.classList.add("hide", "fade");
+        })
+
+
+        $('#btnCreate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formCreate").valid()) {
+
+                var dados = $("#formCreate").serializeArray();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/representacoes/adicionar",
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Representante registrado com sucesso") {
+                            var modal = document.getElementById("create-representation");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cadastro Concluído',
+                                text: 'Representante registrado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("create-representation");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na criação',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var modal = document.getElementById("create-representation");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na criação',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
         })
     });
 </script>
