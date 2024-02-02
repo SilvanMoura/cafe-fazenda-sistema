@@ -276,13 +276,13 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.message === "Máquina alterada com sucesso") {
+                        if (data.message === "Fabricante alterado com sucesso") {
                             var modal = document.getElementById("edit-manufacturer");
                             modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Alteração Concluído',
-                                text: 'Máquina alterada com sucesso!',
+                                text: 'Fabricante alterado com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
                             });

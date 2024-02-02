@@ -21,4 +21,15 @@ class ManufacturersController extends Controller
 
         return response()->json(['message' => 'Fabricante registrado com sucesso'], 201);
     }
+
+    public function updateManufacturer(Request $request, $id)
+    {
+        $manufacturer = Manufacturer::findOrFail($id);
+
+        $manufacturer->nome = $request->input('manufacturerName');
+
+        $manufacturer->save();
+
+        return response()->json(['message' => 'Fabricante alterado com sucesso'], 201);
+    }
 }
