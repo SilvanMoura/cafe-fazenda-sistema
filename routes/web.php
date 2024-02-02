@@ -79,6 +79,8 @@ Route::put('/fabricantes/atualizar/{id}', [ManufacturersController::class, 'upda
 
 Route::put('/representacoes/atualizar/{id}', [RepresentationController::class, 'updateRepresentation'])->middleware(['auth', 'verified'])->name('representation');
 
+Route::put('/cidades/atualizar/{id}', [CityController::class, 'updateCity'])->middleware(['auth', 'verified'])->name('city');
+
 Route::delete('produtos/delete/{id}', [ProductController::class, 'deleteProduct'])->middleware(['auth', 'verified'])->name('products');
 
 Route::delete('/maquinas/delete/{id}', [MachineController::class, 'deleteMachine'])->middleware(['auth', 'verified'])->name('machines');

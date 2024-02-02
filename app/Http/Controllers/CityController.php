@@ -19,7 +19,6 @@ class CityController extends Controller
             $cities[$key]['estado_nome'] = " $state->sigla - $state->nome";
         }
 
-        //return $cities;
         return view('city', ["cities" => $cities, "states" => $states]);
     }
 
@@ -31,5 +30,19 @@ class CityController extends Controller
         ]);
 
         return response()->json(['message' => 'Cidade registrada com sucesso'], 201);
+    }
+
+    public function updateCity(Request $request, $id)
+    {
+        $city = City::findOrFail($id);
+
+        $city->nome = $request->input('cityName');
+        if($request->input('stateEdit') != 'Selecione'){
+            $city->estado_id = $request->input('stateEdit');
+        }
+
+        $city->save();
+
+        return response()->json(['message' => 'Cidade alterada com sucesso'], 201);
     }
 }
