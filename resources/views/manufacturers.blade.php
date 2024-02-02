@@ -108,7 +108,7 @@
                 <h5 id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Fabricante</h5>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="idManufacturer" class="idManufacturer" name="id" value="" />
+                <input type="hidden" id="idManufacturers" class="idManufacturers" name="id" value="" />
                 <h5 style="text-align: center">Deseja realmente excluir o fabricante <span id="id-delete"></span>?</h5>
             </div>
             <div class="modal-footer" style="display:flex;justify-content: center">
@@ -175,10 +175,10 @@
             var modal = document.getElementById("delete-manufacturer");
             modal.classList.remove("hide", "fade");
 
-            var machineId = $(this).attr('data-manufacturerId');
+            var manufacturerId = $(this).attr('data-manufacturerId');
 
-            $('#idManufacturer').val(machineId);
-            $('#id-delete').text(machineId);
+            $('#idManufacturers').val(manufacturerId);
+            $('#id-delete').text(manufacturerId);
         });
 
         $('.open-modal-create').on('click', function(event) {
@@ -304,6 +304,62 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na alteração',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
+
+        $('#btnDelete').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formDelete").valid()) {
+
+                var dados = $("#formDelete").serializeArray();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:8000/fabricantes/delete/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Fabricante excluida com sucesso") {
+                            var modal = document.getElementById("delete-manufacturer");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Exclusão Concluída',
+                                text: 'Fabricante excluida com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("delete-manufacturer");
+                            modal.classList.add("hide", "fade");
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na exclusão',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var modal = document.getElementById("delete-manufacturer");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na exclusão',
                             text: xhr.responseJSON.message,
                         });
                     },
