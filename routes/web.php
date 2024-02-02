@@ -65,6 +65,8 @@ Route::post('/fabricantes/adicionar', [ManufacturersController::class, 'createMa
 
 Route::post('/representacoes/adicionar', [RepresentationController::class, 'createRepresentation'])->middleware(['auth', 'verified'])->name('representation');
 
+Route::post('/cidades/adicionar', [CityController::class, 'createCity'])->middleware(['auth', 'verified'])->name('city');
+
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct'])->middleware(['auth', 'verified'])->name('products');

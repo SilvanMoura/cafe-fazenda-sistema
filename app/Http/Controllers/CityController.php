@@ -22,4 +22,14 @@ class CityController extends Controller
         //return $cities;
         return view('city', ["cities" => $cities, "states" => $states]);
     }
+
+    public function createCity(Request $request)
+    {
+        City::create([
+            'nome' => $request->input('cityName-create'),
+            'estado_id' => $request->input('state'),
+        ]);
+
+        return response()->json(['message' => 'Cidade registrada com sucesso'], 201);
+    }
 }
