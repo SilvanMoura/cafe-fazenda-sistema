@@ -256,7 +256,7 @@
                             modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Alteração Concluído',
+                                title: 'Cadastro Concluído',
                                 text: 'Manual cadastrado com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
@@ -266,7 +266,7 @@
                             modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Erro na alteração',
+                                title: 'Erro no cadastro',
                                 text: data.message,
                             });
                         }
@@ -278,7 +278,7 @@
 
                         Swal.fire({
                             icon: 'error',
-                            title: 'Erro na alteração',
+                            title: 'Erro no cadastro',
                             text: xhr.responseJSON.message,
                         });
                     }

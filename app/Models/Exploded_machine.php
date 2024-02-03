@@ -10,4 +10,12 @@ class Exploded_machine extends Model
     use HasFactory;
 
     protected $table = 'maquina_explodida';
+
+    protected $fillable = [
+        'nome',
+        'anexo',
+        'fabricante_id'
+    ];
+
+    public $timestamps = false;
 }
