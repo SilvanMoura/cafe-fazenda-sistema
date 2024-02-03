@@ -56,7 +56,7 @@
                             <td style="width:43%;">{{ $r->nome }}</td>
                             <td style="width:42%;">{{ $r->fabricante_id }}</td>
                             <td style="width:6%;">
-                                <a href="#modal-edit" role="button" data-toggle="modal" data-manufacturerId="{{ $r->id }}" data-manufacturerName="{{ $r->nome }}" data-manufacturer="{{ $r->fabricante_id }}" class="btn-nwe3 open-edit-manufacturer" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="#modal-edit" role="button" data-toggle="modal" data-explodedId="{{ $r->id }}" data-explodedName="{{ $r->nome }}" data-exploded="{{ $r->fabricante_id }}" class="btn-nwe3 open-edit-exploded" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
                                 <a href="#modal-delete" role="button" data-toggle="modal" data-fileName="{{ $r->anexo }}" class="" title="Abrir anexo"><i class="bx bx-search-alt bx-xs"></i></a>
                             </td>
                         </tr>
@@ -74,7 +74,7 @@
         <!-- <php echo $this->pagination->create_links(); ?> -->
 
         <!-- Modal Estoque -->
-        <div id="edit-manufacturer" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="edit-exploded" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <form id="formEdit">
                 @csrf
                 <div class="modal-header">
@@ -84,7 +84,7 @@
 
                 <div class="modal-body">
 
-                    <input type="hidden" id="idManufacturer" class="idManufacturer" name="id" value="" />
+                    <input type="hidden" id="idexploded" class="idexploded" name="id" value="" />
 
                     <div class="control-group">
                         <label for="name" class="control-label">Nome/Modelo Atual</label>
@@ -94,18 +94,18 @@
                     </div>
 
 
-                    <input type="hidden" id="idManufacturer" class="idManufacturer" name="id" value="" />
+                    <input type="hidden" id="idexploded" class="idexploded" name="id" value="" />
                     <div class="control-group">
-                        <label for="manufacturer" class="control-label">Fabricante Atual</label>
+                        <label for="exploded" class="control-label">Fabricante Atual</label>
                         <div class="controls">
-                            <input id="manufacturerName" type="text" name="manufacturerName" readonly value="" />
+                            <input id="explodedName" type="text" name="explodedName" readonly value="" />
                         </div>
                     </div>
 
                     <div class="control-group" style="width: 42%">
-                        <label for="manufacturer" class="control-label">Novo Fabricante</label>
+                        <label for="exploded" class="control-label">Novo Fabricante</label>
                         <div class="controls">
-                            <select id="manufacturer" class="js-example-basic-single" style="width: 100%">
+                            <select id="exploded" class="js-example-basic-single" style="width: 100%">
                                 <option>Selecione</option>
                                 @foreach ($manufacturers as $r)
                                 <option value="{{ $r->id }}">{{ $r->nome }}</option>
@@ -130,7 +130,7 @@
 
     </div>
 
-    <div id="create-manufacturer" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="create-exploded" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <form id="formCreate">
             @csrf
             <div class="modal-header">
@@ -140,19 +140,17 @@
 
             <div class="modal-body">
 
-                <input type="hidden" id="idManufacturer" class="idManufacturer" name="id" value="" />
-
                 <div class="control-group">
-                    <label for="manufacturerName-create" class="control-label">Nome/Modelo</label>
+                    <label for="explodedName-create" class="control-label">Nome/Modelo</label>
                     <div class="controls">
-                        <input id="manufacturerName-create" type="text" name="manufacturerName-create" value="" />
+                        <input id="explodedName-create" type="text" name="explodedName-create" value="" />
                     </div>
                 </div>
 
                 <div class="control-group" style="width: 42%">
-                    <label for="manufacturerCreate" class="control-label">Fabricante</label>
+                    <label for="explodedCreate" class="control-label">Fabricante</label>
                     <div class="controls">
-                        <select id="manufacturerCreate" class="js-example-basic-single" style="width: 100%">
+                        <select id="explodedCreate" class="js-example-basic-single" style="width: 100%">
                             <option>Selecione</option>
                             @foreach ($manufacturers as $r)
                             <option value="{{ $r->id }}">{{ $r->nome }}</option>
@@ -185,46 +183,110 @@
 </div>
 </div>
 
+<script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#manufacturer').select2({
+        $('#exploded').select2({
             tags: true
         });
 
-        $('#manufacturerCreate').select2({
+        $('#explodedCreate').select2({
             tags: true
         });
 
-        $('.open-edit-manufacturer').on('click', function(event) {
-            var modal = document.getElementById("edit-manufacturer");
+        $('.open-edit-exploded').on('click', function(event) {
+            var modal = document.getElementById("edit-exploded");
             modal.classList.remove("hide", "fade");
 
-            var name = $(this).attr('data-manufacturerName');
-            var manufacturerName = $(this).attr('data-manufacturer');
+            var name = $(this).attr('data-explodedName');
+            var explodedName = $(this).attr('data-exploded');
 
             $('#name').val(name);
-            $('#manufacturerName').val(manufacturerName);
+            $('#explodedName').val(explodedName);
         });
 
         $('.open-modal-create').on('click', function(event) {
-            var modal = document.getElementById("create-manufacturer");
+            var modal = document.getElementById("create-exploded");
             modal.classList.remove("hide", "fade");
         });
 
         $('.close-btn').on('click', function(event) {
-            var modal = document.getElementById("edit-manufacturer");
+            var modal = document.getElementById("edit-exploded");
             modal.classList.add("hide", "fade");
         })
 
         $('.close-create').on('click', function(event) {
-            var modal = document.getElementById("create-manufacturer");
+            var modal = document.getElementById("create-exploded");
             modal.classList.add("hide", "fade");
         })
 
         $('.close-delete').on('click', function(event) {
-            var modal = document.getElementById("delete-manufacturer");
+            var modal = document.getElementById("delete-exploded");
             modal.classList.add("hide", "fade");
         })
+
+        $('#btnCreate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formCreate").valid()) {
+
+                var selectedManufacturer = $('#explodedCreate').val();
+
+                var formData = new FormData($("#formCreate")[0]);
+
+                // Use formData.append to add additional data
+                formData.append('manufacturer', selectedManufacturer);
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/explodida/adicionar",
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Manual cadastrado com sucesso") {
+                            var modal = document.getElementById("create-exploded");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Alteração Concluído',
+                                text: 'Manual cadastrado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("create-exploded");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na alteração',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+
+                        var modal = document.getElementById("create-exploded");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração',
+                            text: xhr.responseJSON.message,
+                        });
+                    }
+                });
+            }
+        });
+
+
     });
 </script>
 
