@@ -11,6 +11,7 @@ use App\Http\Controllers\MachineController;
 use App\Http\Controllers\ManufacturersController;
 use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\ExplodedMachineController;
+use App\Models\Exploded_machine;
 use App\Models\Manufacturer;
 use Illuminate\Support\Facades\Route;
 
@@ -66,6 +67,8 @@ Route::post('/fabricantes/adicionar', [ManufacturersController::class, 'createMa
 Route::post('/representacoes/adicionar', [RepresentationController::class, 'createRepresentation'])->middleware(['auth', 'verified'])->name('representation');
 
 Route::post('/cidades/adicionar', [CityController::class, 'createCity'])->middleware(['auth', 'verified'])->name('city');
+
+Route::post('/explodida/adicionar', [ExplodedMachineController::class, 'createExplodedMachine'])->middleware(['auth', 'verified'])->name('city');
 
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
