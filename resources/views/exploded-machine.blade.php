@@ -247,6 +247,8 @@
                     type: "POST",
                     url: "http://localhost:8000/explodida/adicionar",
                     data: formData,
+                    processData: false,
+                    contentType: false,
                     dataType: 'json',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -297,16 +299,18 @@
                 var explodedId = $('#idExploded').val();
 
                 var formData = new FormData($("#formEdit")[0]);
+
+                // Use formData.append to add additional data
                 formData.append('manufacturer', selectedManufacturer);
 
                 // Requisição AJAX
                 $.ajax({
-                    type: "PUT",
-                    url: "http://localhost:8000/explodida/atualizar/"+ explodedId,
+                    type: "POST",
+                    url: "http://localhost:8000/explodida/atualizar/"+explodedId,
                     data: formData,
-                    dataType: 'json',
                     processData: false,
                     contentType: false,
+                    dataType: 'json',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },

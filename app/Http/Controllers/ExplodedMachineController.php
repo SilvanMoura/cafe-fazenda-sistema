@@ -45,4 +45,32 @@ class ExplodedMachineController extends Controller
 
         return response()->json(['message' => 'Manual cadastrado com sucesso']);
     }
+
+    public function updateExplodedMachine(Request $request, $id)
+    {
+
+        $explodedMachine = Exploded_machine::findOrFail($id);
+
+        $explodedMachine->nome = $request->input('name');
+
+        if ($request->file('anexo') != "") {
+            $anexo = $request->file('anexo');
+            $anexoNome = time() . '_' . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT) . '.' . $anexo->getClientOriginalExtension();
+
+            $filePath = public_path('/exploded-machines/' . $request->input('fileName'));
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            $anexo->move(public_path('/exploded-machines'), $anexoNome);
+            $explodedMachine->anexo = $anexoNome;
+        }
+
+        if ($request->input('manufacturer') != "") {
+            $explodedMachine->fabricante_id = $request->input('manufacturer');
+        }
+
+        $explodedMachine->save();
+
+        return response()->json(['message' => 'Manual alterado com sucesso']);
+    }
 }

@@ -84,7 +84,7 @@ Route::put('/representacoes/atualizar/{id}', [RepresentationController::class, '
 
 Route::put('/cidades/atualizar/{id}', [CityController::class, 'updateCity'])->middleware(['auth', 'verified'])->name('city');
 
-Route::put('/explodida/atualizar/{id}', [ExplodedMachineController::class, 'updateExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
+Route::post('/explodida/atualizar/{id}', [ExplodedMachineController::class, 'updateExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
 
 Route::delete('produtos/delete/{id}', [ProductController::class, 'deleteProduct'])->middleware(['auth', 'verified'])->name('products');
 
