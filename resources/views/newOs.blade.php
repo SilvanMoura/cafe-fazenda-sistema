@@ -558,7 +558,34 @@
 
             function fazerRequisicao() {
 
-                
+                var id = $("#cliente").val();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8000/os/encontrar/" + id,
+                    data: {'id':id},
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Cliente encontrado com sucesso") {} else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na procura',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na procura',
+                            text: xhr.responseJSON.message,
+                        });
+                    }
+                });
             }
 
             let dataAtual = new Date();

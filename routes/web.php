@@ -73,6 +73,8 @@ Route::post('/cidades/adicionar', [CityController::class, 'createCity'])->middle
 
 Route::post('/explodida/adicionar', [ExplodedMachineController::class, 'createExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
 
+Route::post('/os/encontrar/{id}', [OsController::class, 'getClient'])->middleware(['auth', 'verified'])->name('osClient');
+
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct'])->middleware(['auth', 'verified'])->name('products');
