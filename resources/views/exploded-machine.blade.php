@@ -56,7 +56,7 @@
                             <td style="width:43%;">{{ $r->nome }}</td>
                             <td style="width:42%;">{{ $r->fabricante_id }}</td>
                             <td style="width:6%;">
-                                <a href="#modal-edit" role="button" data-toggle="modal" data-explodedId="{{ $r->id }}" data-explodedName="{{ $r->nome }}" data-exploded="{{ $r->fabricante_id }}" class="btn-nwe3 open-edit-exploded" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="#modal-edit" role="button" data-toggle="modal" data-explodedId="{{ $r->id }}" data-explodedName="{{ $r->nome }}" data-exploded="{{ $r->fabricante_id }}" data-fileName="{{ $r->anexo }}" class="btn-nwe3 open-edit-exploded" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
                                 <a href="#modal-delete" role="button" data-toggle="modal" data-fileName="{{ $r->anexo }}" class="" title="Abrir anexo"><i class="bx bx-search-alt bx-xs"></i></a>
                             </td>
                         </tr>
@@ -84,7 +84,7 @@
 
                 <div class="modal-body">
 
-                    <input type="hidden" id="idexploded" class="idexploded" name="id" value="" />
+                    <input type="hidden" id="idExploded" class="idExploded" name="id" value="" />
 
                     <div class="control-group">
                         <label for="name" class="control-label">Nome/Modelo Atual</label>
@@ -93,8 +93,7 @@
                         </div>
                     </div>
 
-
-                    <input type="hidden" id="idexploded" class="idexploded" name="id" value="" />
+                    <input type="hidden" id="fileName" class="fileName" name="fileName" value="" />
                     <div class="control-group">
                         <label for="exploded" class="control-label">Fabricante Atual</label>
                         <div class="controls">
@@ -201,8 +200,12 @@
 
             var name = $(this).attr('data-explodedName');
             var explodedName = $(this).attr('data-exploded');
+            var explodedId = $(this).attr('data-explodedId');
+            var fileName = $(this).attr('data-fileName');
 
             $('#name').val(name);
+            $('#idExploded').val(explodedId);
+            $('#fileName').val(fileName);
             $('#explodedName').val(explodedName);
         });
 
@@ -279,6 +282,66 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro no cadastro',
+                            text: xhr.responseJSON.message,
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#btnUpdate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formEdit").valid()) {
+
+                var selectedManufacturer = $('#exploded').val();
+
+                var formData = new FormData($("#formEdit")[0]);
+                formData.append('manufacturer', selectedManufacturer);
+                // Use formData.append to add additional data
+                //formData.append('manufacturer', selectedManufacturer);
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/explodida/atualizar",
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Manual alterado com sucesso") {
+                            var modal = document.getElementById("edit-exploded");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cadastro Concluído',
+                                text: 'Manual alterado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("edit-exploded");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na alteração',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+
+                        var modal = document.getElementById("edit-exploded");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração',
                             text: xhr.responseJSON.message,
                         });
                     }
