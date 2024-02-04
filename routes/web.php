@@ -45,6 +45,7 @@ Route::get('/produtos/visualizar/{id}', [ProductController::class, 'viewProducts
 Route::get('/servicos', [ServiceController::class, 'getInfoServices'])->middleware(['auth', 'verified'])->name('services');
 
 Route::get('/os', [OsController::class, 'getInfoOs'])->middleware(['auth', 'verified'])->name('os');
+Route::get('/os/adicionar', [OsController::class, 'createOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::get('/maquinas', [MachineController::class, 'getInfoMachines'])->middleware(['auth', 'verified'])->name('machines');
 

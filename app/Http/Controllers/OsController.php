@@ -8,6 +8,7 @@ use App\Models\Machine;
 use App\Models\Operation_os;
 use App\Models\Status_os;
 use App\Models\Product_os;
+use App\Models\Manufacturer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -46,5 +47,18 @@ class OsController extends Controller
 
         //return $getOs;
         return view('os', ['getOS' => $getOs]);
+    }
+
+    public function createOs(){
+        $clients = Client::orderBy('nome', 'asc')->get();
+        $machines = Machine::orderByDesc('id')->get();
+
+        foreach ($machines as $key => $machine) {
+            $machine = Manufacturer::select('nome')->where('id', $machine->fabricante_id)->first();
+
+            $machines[$key]['fabricante_id'] = $machine->nome;
+        }
+
+        return view('os', ['clients' => $clients, 'machines' => $machines]);        
     }
 }
