@@ -562,13 +562,10 @@
 
                 // Requisição AJAX
                 $.ajax({
-                    type: "PUT",
+                    type: "POST",
                     url: "http://localhost:8000/os/encontrar/" + id,
                     data: {'id':id},
                     dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
                     success: function(data) {
                         if (data.message === "Cliente encontrado com sucesso") {} else {
                             Swal.fire({

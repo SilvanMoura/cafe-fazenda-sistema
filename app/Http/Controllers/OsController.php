@@ -9,7 +9,9 @@ use App\Models\Operation_os;
 use App\Models\Status_os;
 use App\Models\Product_os;
 use App\Models\Manufacturer;
+
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class OsController extends Controller
@@ -49,7 +51,8 @@ class OsController extends Controller
         return view('os', ['getOS' => $getOs]);
     }
 
-    public function createOs(){
+    public function createOs()
+    {
         $clients = Client::select('id', 'nome')->orderBy('nome', 'asc')->get();
 
         $machines = Machine::orderByDesc('id')->get();
@@ -61,6 +64,16 @@ class OsController extends Controller
         }
 
         //return $machines;
-        return view('newOs', ['clients' => $clients, 'machines' => $machines]);        
+        return view('newOs', ['clients' => $clients, 'machines' => $machines]);
+    }
+
+    public function getClient($id)
+    {
+        if (Auth::check()) {
+            $clients = Client::select('*')->where('id', $id)->get();
+            return response()->json(['message' => 'Cliente encontrado com sucesso', 'cliente'=>$clients]);
+        } else {
+            return redirect('/login'); // Redireciona para a página de login
+        }
     }
 }
