@@ -50,15 +50,17 @@ class OsController extends Controller
     }
 
     public function createOs(){
-        $clients = Client::orderBy('nome', 'asc')->get();
+        $clients = Client::select('id', 'nome')->orderBy('nome', 'asc')->get();
+
         $machines = Machine::orderByDesc('id')->get();
 
         foreach ($machines as $key => $machine) {
             $machine = Manufacturer::select('nome')->where('id', $machine->fabricante_id)->first();
 
-            $machines[$key]['fabricante_id'] = $machine->nome;
+            $machines[$key]['fabricante_nome'] = $machine->nome;
         }
 
-        return view('os', ['clients' => $clients, 'machines' => $machines]);        
+        //return $machines;
+        return view('newOs', ['clients' => $clients, 'machines' => $machines]);        
     }
 }
