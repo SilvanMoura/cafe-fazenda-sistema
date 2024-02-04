@@ -55,9 +55,10 @@
                             <td style="width:5%;">{{ $r->id }}</td>
                             <td style="width:43%;">{{ $r->nome }}</td>
                             <td style="width:42%;">{{ $r->fabricante_id }}</td>
+                            <input type="hidden" id="fileExploded" class="fileExploded" name="fileExploded" value="{{$r->anexo}}" />
                             <td style="width:6%;">
                                 <a href="#modal-edit" role="button" data-toggle="modal" data-explodedId="{{ $r->id }}" data-explodedName="{{ $r->nome }}" data-exploded="{{ $r->fabricante_id }}" data-fileName="{{ $r->anexo }}" class="btn-nwe3 open-edit-exploded" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="#modal-delete" role="button" data-toggle="modal" data-fileName="{{ $r->anexo }}" class="" title="Abrir anexo"><i class="bx bx-search-alt bx-xs"></i></a>
+                                <a href="#modal-open" role="button" data-toggle="modal" data-fileNameAnexo="{{ $r->anexo }}" class="" title="Abrir anexo"><i class="bx bx-search-alt bx-xs open-file"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -306,7 +307,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/explodida/atualizar/"+explodedId,
+                    url: "http://localhost:8000/explodida/atualizar/" + explodedId,
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -350,7 +351,14 @@
             }
         });
 
+        $('.open-file').on('click', function(e) {
+            e.preventDefault();
 
+            var fileName = $('#fileExploded').val();
+
+            // Redireciona o navegador para a URL do arquivo
+            window.open("http://localhost:8000/explodida/abrir-pdf/" + fileName, '_blank');
+        });
     });
 </script>
 

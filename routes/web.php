@@ -56,6 +56,8 @@ Route::get('/cidades', [CityController::class, 'getInfoCity'])->middleware(['aut
 
 Route::get('/maquinas-explodidas', [ExplodedMachineController::class, 'getInfoExplodedMachine'])->middleware(['auth', 'verified'])->name('exploded-machine');
 
+Route::get('explodida/abrir-pdf/{id}', [ExplodedMachineController::class, 'openExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
+
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::post('/produtos/adicionar', [ProductController::class, 'registerProducts'])->middleware(['auth', 'verified'])->name('products');

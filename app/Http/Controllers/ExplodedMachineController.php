@@ -21,7 +21,7 @@ class ExplodedMachineController extends Controller
 
             $getExplanation[$key]['fabricante_id'] = $explanation->nome;
         }
-
+        //return $getExplanation;
         return view('exploded-machine', ["infoEexplanation" => $getExplanation, "manufacturers" => $manufacturers]);
     }
 
@@ -72,5 +72,18 @@ class ExplodedMachineController extends Controller
         $explodedMachine->save();
 
         return response()->json(['message' => 'Manual alterado com sucesso']);
+    }
+
+    public function openExplodedMachine($id)
+    {
+        $filePath = public_path('/exploded-machines/' . $id);
+
+        // Verifica se o arquivo existe antes de tentar abri-lo
+        if (file_exists($filePath)) {
+            // Define o cabeçalho para abrir o arquivo em uma nova guia
+            return response()->file($filePath, ['Content-Type' => 'application/pdf']);
+        } else {
+            return response()->json(['error' => 'O arquivo não foi encontrado.']);
+        }
     }
 }
