@@ -87,11 +87,11 @@
     <div class="row-fluid" style="margin: 0% 0% 0 7%; width: 91vw;">
         <div class="span12">
             <div class="widget-box">
-                <div class="widget-title" style="margin: -20px 0 0">
+                <div class="widget-title" style="margin: -10px 0 0">
                     <span class="icon">
                         <i class="fas fa-user"></i>
                     </span>
-                    <h5>Cadastro de Cliente</h5>
+                    <h5>Nova OS/Orçamento</h5>
                 </div>
 
                 <div class="alert alert-danger hide" id="error-message"></div>
@@ -340,10 +340,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="radio-inline">
-                                            <input type="number" class="form-control" id="evs_qtd" name="evs_qtd" min="1" style="background-color: #EEE;" readonly disabled="" placeholder="Quant.">
+                                        <div id="evs-container" class="radio-inline hide fade">
+                                            <input type="number" class="form-control" id="evs_qtd" name="evs_qtd" min="1" placeholder="Quant.">
                                             <br>
-                                            <input type="text" class="form-control" id="evs_obs" name="evs_obs" style="background-color: #EEE;" readonly disabled="" placeholder="Obs">
+                                            <input type="text" class="form-control" id="evs_obs" name="evs_obs" placeholder="Obs">
                                         </div>
                                     </div>
 
@@ -364,8 +364,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="radio-inline">
-                                                    <input type="text" class="form-control" style="background-color: #EEE;" readonly id="reservatiorioAgua_obs" name="reservatiorioAgua_obs" disabled="" placeholder="Obs">
+                                                <div id="reservatiorioAgua-container" class="radio-inline hide fade">
+                                                    <input type="text" class="form-control" id="reservatiorioAgua_obs" name="reservatiorioAgua_obs" placeholder="Obs">
                                                 </div>
                                             </div>
 
@@ -409,12 +409,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="radio-inline">
-                                                    <input type="text" class="form-control" style="background-color: #EEE;" readonly id="compartimentos_obs" name="compartimentos_obs" disabled="" placeholder="Quant.">
+                                                <div id="compartimentos-container" class="radio-inline hide fade">
+                                                    <input type="number" class="form-control" id="compartimentos_obs" name="compartimentos_obs" placeholder="Quant.">
                                                 </div>
                                             </div>
-
-
 
                                             <div style="display: flex; justify-content:center;">
                                                 <div class="col-md-4">
@@ -430,10 +428,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="radio-inline">
-                                                    <input type="number" class="form-control" style="background-color: #EEE;" readonly id="tampaCompartimentos_qtd" name="tampaCompartimentos_qtd" min="1" disabled="" placeholder="Quant.">
+                                                <div id="tampaCompartimentos-container" class="radio-inline hide fade">
+                                                    <input type="number" class="form-control" id="tampaCompartimentos_qtd" name="tampaCompartimentos_qtd" min="1" placeholder="Quant.">
                                                     <br>
-                                                    <input type="text" class="form-control" style="background-color: #EEE;" readonly id="tampaCompartimentos_obs" name="tampaCompartimentos_obs" disabled="" placeholder="Obs">
+                                                    <input type="text" class="form-control" id="tampaCompartimentos_obs" name="tampaCompartimentos_obs" placeholder="Obs">
                                                 </div>
                                             </div>
 
@@ -493,8 +491,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="radio-inline" style="display: flex; justify-content:center;">
-                                                <input type="text" class="form-control" id="produtos_obs" style="width:50vw; background-color: #EEE;" readonly name="produtos_obs" disabled="" placeholder="Quais">
+                                            <div id="produtos-container" class="radio-inline fade hide" style="display: flex; justify-content:center;">
+                                                <input type="text" class="form-control" id="produtos_obs" style="width:50vw;" name="produtos_obs" placeholder="Quais">
                                             </div>
 
                                         </div>
@@ -564,10 +562,21 @@
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8000/os/encontrar/" + id,
-                    data: {'id':id},
+                    data: {
+                        'id': id
+                    },
                     dataType: 'json',
                     success: function(data) {
-                        if (data.message === "Cliente encontrado com sucesso") {} else {
+                        if (data.message === "Cliente encontrado com sucesso") {
+                            $('#endereco').val(data.cliente[0].endereco);
+                            $('#complemento').val(data.cliente[0].complemento);
+                            $('#telefone').val(data.cliente[0].telefone);
+                            $('#bairro').val(data.cliente[0].bairro);
+
+                            data.cliente[0].cpf == "" ? $('#cpfcnpj').val(data.cliente[0].cnpj) : $('#cpfcnpj').val(data.cliente[0].cpf);
+                            data.cliente[0].telefone != "" ? $('#telefone').val(data.cliente[0].telefone) : $('#telefone').val(data.cliente[0].celular);
+
+                        } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Erro na procura',
@@ -584,6 +593,56 @@
                     }
                 });
             }
+
+            $('#evs-sim').on('change', function() {
+                var modal = document.getElementById("evs-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            $('#evs-nao').on('change', function() {
+                var modal = document.getElementById("evs-container");
+                modal.classList.add("hide", "fade");
+            });
+
+            $('#reservatiorioAgua-sim').on('change', function() {
+                var modal = document.getElementById("reservatiorioAgua-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            $('#reservatiorioAgua-nao').on('change', function() {
+                var modal = document.getElementById("reservatiorioAgua-container");
+                modal.classList.add("hide", "fade");
+            });
+
+            $('#compartimentos-sim').on('change', function() {
+                var modal = document.getElementById("compartimentos-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            $('#compartimentos-nao').on('change', function() {
+                var modal = document.getElementById("compartimentos-container");
+                modal.classList.add("hide", "fade");
+            });
+
+            $('#tampaCompartimentos-sim').on('change', function() {
+                var modal = document.getElementById("tampaCompartimentos-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            $('#tampaCompartimentos-nao').on('change', function() {
+                var modal = document.getElementById("tampaCompartimentos-container");
+                modal.classList.add("hide", "fade");
+            });
+
+            $('#produtos-sim').on('change', function() {
+                var modal = document.getElementById("produtos-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            $('#produtos-nao').on('change', function() {
+                var modal = document.getElementById("produtos-container");
+                modal.classList.add("hide", "fade");
+            });
 
             let dataAtual = new Date();
             let dataFormatada = `${String(dataAtual.getDate()).padStart(2, '0')}/${String(dataAtual.getMonth() + 1).padStart(2, '0')}/${dataAtual.getFullYear()}`;
