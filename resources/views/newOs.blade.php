@@ -97,20 +97,21 @@
                 <div class="alert alert-danger hide" id="error-message"></div>
 
                 <div class="container mt-5">
-                    <form>
+                    <form id="formOs">
+                    @csrf
                         <!-- Primeira Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="operacao" style="margin-right: 10px;">Operação:</label>
-                                <input type="text" style="background-color: #EEE" class="form-control" id="operacao" style="margin-right: 20px" readonly value="Orçamento" placeholder="Operação">
+                                <input type="text" style="background-color: #EEE" class="form-control" id="operacao" name="operacao" style="margin-right: 20px" readonly value="Orçamento" placeholder="Operação">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="data" style="margin-right: 10px">Data:</label>
-                                <input type="text" class="form-control" id="data" placeholder="Data" style="margin-right: 20px">
+                                <input type="text" class="form-control" id="data" name="data" placeholder="Data" style="margin-right: 20px">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="hora" style="margin-right: 10px">Hora:</label>
-                                <input type="text" class="form-control" id="hora" placeholder="Hora">
+                                <input type="text" class="form-control" id="hora" name="hora" placeholder="Hora">
                             </div>
                         </div>
 
@@ -144,11 +145,11 @@
                         <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-8" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="endereco" style="margin-right: 20px">Endereço:</label>
-                                <input type="text" class="form-control" readonly id="endereco" style="width:50vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw">
+                                <input type="text" class="form-control" readonly id="endereco" name="endereco" style="width:50vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="complemento" style="margin-right: 20px">Complemento:</label>
-                                <input type="text" class="form-control" id="complemento" style="background-color: #EEE; width:15vw;" readonly placeholder="Complemento">
+                                <input type="text" class="form-control" id="complemento" name="complemento" style="background-color: #EEE; width:15vw;" readonly placeholder="Complemento">
                             </div>
                         </div>
 
@@ -156,15 +157,15 @@
                         <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="bairro" style="margin-right: 10px">Bairro:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="bairro" style="width: 20vw; background-color:EEE; margin-right: 20px" placeholder="Bairro" style="width: 40vw">
+                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="bairro" name="bairro" style="width: 20vw; background-color:EEE; margin-right: 20px" placeholder="Bairro" style="width: 40vw">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="cpfcnpj" style="margin-right: 10px">CPF/CNPJ:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="cpfcnpj" placeholder="CPF" style="width: 20vw; background-color:EEE; margin-right:20px">
+                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="cpfcnpj" name="cpfcnpj" placeholder="CPF" style="width: 20vw; background-color:EEE; margin-right:20px">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="telefone" style="margin-right: 10px">Telefone:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE; width: 20vw;" readonly id="telefone" placeholder="Telefone">
+                                <input type="text" class="form-control" style="background-color: #EEE; width: 20vw;" readonly id="telefone" name="telefone" placeholder="Telefone">
                             </div>
                         </div>
 
@@ -172,11 +173,11 @@
                         <div class="form-row" style="display: flex; justify-content: space-between;">
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="bebidas" style="margin-right: 10px;">Nº de Bebidas Extraídas:</label>
-                                <input type="text" class="form-control" id="bebidas" style="width: 35vw;" placeholder="Nº de Bebidas Extraídas">
+                                <input type="text" class="form-control" id="bebidas" name="bebidas" style="width: 35vw;" placeholder="Nº de Bebidas Extraídas">
                             </div>
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="checklist" style="margin-right: 10px;">Checklist:</label>
-                                <input type="text" class="form-control" id="checklist" style="width: 30vw; background-color: #EEE;" readonly placeholder="Checklist">
+                                <input type="text" class="form-control" id="checklist" name="checklist" style="width: 30vw; background-color: #EEE;" readonly placeholder="Checklist">
                             </div>
                         </div>
 
@@ -520,7 +521,7 @@
                         <div class="form-actions">
                             <div class="span12">
                                 <div class="span6 offset3" style="display:flex;justify-content: center">
-                                    <button id="btnRegister" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button>
+                                    <button id="btnCreate" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button>
                                     <a title="Voltar" class="button btn btn-warning" href="/clientes"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
                                 </div>
                             </div>
@@ -650,6 +651,64 @@
 
             $("#data").val(dataFormatada);
             $("#hora").val(horaFormatada);
+
+            $('#btnCreate').on('click', function(e) {
+                e.preventDefault();
+
+                // Validação do formulário usando o plugin validate
+                if ($("#formOs").valid()) {
+
+
+                    var selectedMaquina = $('#maquina').val();
+                    var selectedCliente = $('#cliente').val();
+
+                    var dados = $("#formOs").serializeArray();
+
+                    dados.push({
+                        name: 'maquina',
+                        value: selectedMaquina
+                    });
+                    dados.push({
+                        name: 'cliente',
+                        value: selectedCliente
+                    });
+
+                    // Requisição AJAX
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:8000/os/cadastrar",
+                        data: dados,
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            if (data.message === "Os registrada com sucesso") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Cadastro Concluído',
+                                    text: 'Fabricante registrado com Os registrada com sucesso!',
+                                }).then(() => {
+                                    window.location.href = "http://localhost:8000/dashboard";
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro na criação',
+                                    text: data.message,
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na criação',
+                                text: xhr.responseJSON.message,
+                            });
+                        }
+                    });
+                }
+            })
 
         })
     </script>
