@@ -118,7 +118,7 @@
                         </div>
                     </a>
 
-                    <a href="/servicos/adicionar" class="card tip-top" title="Adicionar serviços">
+                    <a href="/os/adicionar" class="card tip-top" title="Adicionar serviços">
                         <div><i class='bx bxs-stopwatch iconBx3'></i></div>
                         <div>
                             <div class="cardName2">{{ $dashboard['osServicoNumber'] }}</div>
@@ -126,7 +126,7 @@
                         </div>
                     </a>
 
-                    <a href="/servicos/adicionar" class="card tip-top" title="Adicionar serviços">
+                    <a href="/os/adicionar" class="card tip-top" title="Adicionar serviços">
                         <div><i class='bx bx-file iconBx3'></i></div>
                         <div>
                             <div class="cardName2">{{ $dashboard['osOrcamentoNumber'] }}</div>
@@ -134,7 +134,7 @@
                         </div>
                     </a>
 
-                    <a href="/servicos/adicionar" class="card tip-top" title="Adicionar OS">
+                    <a href="/os/adicionar" class="card tip-top" title="Adicionar OS">
                         <div><i class='bx bxs-spreadsheet iconBx4'></i></div>
                         <div>
                             <div class="cardName2">{{ $dashboard['os'] }}</div>

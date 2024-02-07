@@ -161,4 +161,8 @@ class OsController extends Controller
         }
         return response()->json(['message' => 'Produto encontrado com sucesso', 'product' => $infoProduct], 201);;
     }
+
+    public function editOs($id){
+        return view('editOs');
+    }
 }
