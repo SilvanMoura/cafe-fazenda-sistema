@@ -70,6 +70,7 @@
                             @endif
                             <td style="width:6%;">
                                 <a href="{{ 'clientes/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
+                                <a href="{{ 'clientes/visualizar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
                                 <a href="{{ 'clientes/editar/'. $r->id }}" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-printer bx-xs"></i></a>
                             </td>
                         </tr>

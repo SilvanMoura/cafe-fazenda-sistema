@@ -46,7 +46,7 @@ Route::get('/servicos', [ServiceController::class, 'getInfoServices'])->middlewa
 
 Route::get('/os', [OsController::class, 'getInfoOs'])->middleware(['auth', 'verified'])->name('os');
 Route::get('/os/adicionar', [OsController::class, 'createOs'])->middleware(['auth', 'verified'])->name('os');
-Route::post('/os/cadastrar', [OsController::class, 'createOs'])->middleware(['auth', 'verified'])->name('os');
+Route::post('/os/produtos', [OsController::class, 'productsOs'])->name('os');
 
 Route::get('/maquinas', [MachineController::class, 'getInfoMachines'])->middleware(['auth', 'verified'])->name('machines');
 
@@ -75,6 +75,8 @@ Route::post('/cidades/adicionar', [CityController::class, 'createCity'])->middle
 Route::post('/explodida/adicionar', [ExplodedMachineController::class, 'createExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
 
 Route::post('/os/encontrar/{id}', [OsController::class, 'getClient'])->name('osClient');
+
+Route::post('/os/cadastrar/', [OsController::class, 'registerOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 

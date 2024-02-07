@@ -98,7 +98,7 @@
 
                 <div class="container mt-5">
                     <form id="formOs">
-                    @csrf
+                        @csrf
                         <!-- Primeira Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
@@ -411,7 +411,7 @@
                                                     </div>
                                                 </div>
                                                 <div id="compartimentos-container" class="radio-inline hide fade">
-                                                    <input type="number" class="form-control" id="compartimentos_obs" name="compartimentos_obs" placeholder="Quant.">
+                                                    <input type="number" class="form-control" id="compartimentos_qtd" name="compartimentos_qtd" placeholder="Quant.">
                                                 </div>
                                             </div>
 
@@ -459,24 +459,6 @@
                                                 </div>
                                             </div>
 
-                                            <div style="display: flex; justify-content:center; flex-direction: row;">
-                                                <div class="col-md-4">
-                                                    <div class="form-group" style="display: flex;">
-                                                        <label for="gradeBandeja" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Grade da Bandeja:</label>
-                                                        <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="gradeBandeja-sim" name="gradeBandeja" style="margin-left: 20px;" value="s" class="form-check-input">
-                                                            <label class="form-check-label" for="gradeBandeja-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="gradeBandeja-nao" name="gradeBandeja" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
-                                                            <label class="form-check-label" for="gradeBandeja-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
                                             <div style="display: flex; justify-content:center;">
                                                 <div class="col-md-4">
                                                     <div class="form-group" style="display: flex;">
@@ -493,7 +475,7 @@
                                                 </div>
                                             </div>
                                             <div id="produtos-container" class="radio-inline fade hide" style="display: flex; justify-content:center;">
-                                                <input type="text" class="form-control" id="produtos_obs" style="width:50vw;" name="produtos_obs" placeholder="Quais">
+                                                <input type="text" class="form-control" id="produtos_quais" style="width:50vw;" name="produtos_quais" placeholder="Quais">
                                             </div>
 
                                         </div>
@@ -515,6 +497,54 @@
                                         <textarea name="descricao_cliente" style="width:98%" id="descricao_cliente" class="form-control" rows="8"></textarea>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 50px;">
+                            <table id="tabela" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Produto/Serviço</th>
+                                        <th>Rep.</th>
+                                        <th>Quantidade</th>
+                                        <th>Val. Unit.</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="linha_1">
+                                        <!-- Conteúdo da primeira linha -->
+                                        <td id="produto_1">
+                                            <select id="select_1" name="select_1" onchange="getServiceById(this)" class="form-control produto" style="width: 30vw;">
+                                                <option>Selecione</option>
+                                                @foreach($infoProduct as $f)
+                                                <option value="{{ $f->id }}">{{ $f->nome }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td id="rep_1" name="rep_1" style="width: 10vw;"></td>
+                                        <td style="width: 10vw;">
+                                            <input type="number" class="form-control" id="qtd_1" name="qtd_1" min="1" onchange="changeTotalById(this)" placeholder="Quant.">
+                                        </td>
+                                        <td style="width: 10vw;">
+                                            <input type="number" class="form-control" id="valUnit_1" name="valUnit_1" min="1" onchange="changeTotalById(this)" placeholder="Val. Unit.">
+                                        </td>
+                                        <td id="total_1" name="total_1" class="tdLast" style="width: 10vw;"></td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px">
+                                <button id="btnAdd" type="submit" class="button btn btn-mini btn-success">
+                                    <span class="button__icon">
+                                        <i class='bx bx-plus'></i>
+                                    </span>
+                                    <span class="button__text2">
+                                        Adicionar Novo Produto/Serviço
+                                    </span>
+                                </button>
                             </div>
                         </div>
 
@@ -542,6 +572,10 @@
             });
 
             $('#cliente').select2({
+                tags: true
+            });
+
+            $('#select_1').select2({
                 tags: true
             });
 
@@ -676,7 +710,7 @@
                     // Requisição AJAX
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:8000/os/cadastrar",
+                        url: "http://localhost:8000/os/cadastrar/",
                         data: dados,
                         dataType: 'json',
                         headers: {
@@ -687,7 +721,7 @@
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Cadastro Concluído',
-                                    text: 'Fabricante registrado com Os registrada com sucesso!',
+                                    text: 'Os registrada com sucesso!',
                                 }).then(() => {
                                     window.location.href = "http://localhost:8000/dashboard";
                                 });
@@ -708,9 +742,113 @@
                         }
                     });
                 }
-            })
+            });
+
+            var contadorLinhas = $("#tabela tbody tr").length;
+            $("#btnAdd").on("click", function(e) {
+                // Clonar a linha original
+                e.preventDefault();
+
+                $('#select_1').prop('disabled', true).select2('destroy');
+
+                // Clonar a linha original
+                var cloneRow = $("#linha_1").clone();
+
+                // Incrementar o contador de linhas
+                contadorLinhas++;
+                cloneRow.attr('id', 'linha_' + contadorLinhas);
+                // Atualizar os IDs e classes dentro do clone
+                cloneRow.find('#produto_1').attr('id', 'produto_' + contadorLinhas).attr('name', 'produto_' + contadorLinhas);
+                cloneRow.find('#select_1').attr('id', 'select_' + contadorLinhas).attr('name', 'select_' + contadorLinhas);
+                cloneRow.find('#rep_1').attr('id', 'rep_' + contadorLinhas).attr('name', 'rep_' + contadorLinhas).text('');
+                cloneRow.find('#qtd_1').attr('id', 'qtd_' + contadorLinhas).attr('name', 'qtd_' + contadorLinhas).val(0);
+                cloneRow.find('#valUnit_1').attr('id', 'valUnit_' + contadorLinhas).attr('name', 'valUnit_' + contadorLinhas).val(0.00);
+                cloneRow.find('.tdLast').attr('id', 'total_' + contadorLinhas).attr('name', 'total_' + contadorLinhas).text('');
+
+                // Adicionar o botão de exclusão antes da última célula na linha clonada
+                cloneRow.find('td:last').after('<td><a href="#modal-excluir" role="button" data-toggle="modal" cliente="" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a></td>');
+
+                // Remover as classes "hide" e "fade" da linha clonada
+                cloneRow.removeClass('hide fade');
+
+                // Adicionar o clone após a última linha na tabela
+                $("#tabela tbody tr:last").after(cloneRow);
+
+                // Adicionar evento de clique ao botão de exclusão do clone
+                cloneRow.find('.btn-nwe4').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).closest('tr').remove();
+                });
+
+                $('#select_' + contadorLinhas).prop('disabled', false).select2({
+                    tags: true
+                });
+
+                $('#select_1').prop('disabled', false).select2({
+                    tags: true
+                });
+            });
+
+            $("#linha_1 .btn-nwe4").on('click', function() {
+                $(this).closest('tr').remove();
+            });
 
         })
+
+        function changeTotalById(selectElement){
+            var linhaID = $(selectElement).closest('tr').attr('id');
+            var partes = linhaID.split("_");
+
+            // Pegue a última parte e converta para número inteiro
+            var numeroDaLinha = parseInt(partes[partes.length - 1]);
+
+            var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
+            var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
+
+            parseFloat($('#total_' + numeroDaLinha).text( quantidade * valorUnitario));
+        }
+
+        function getServiceById(selectElement) {
+            var linhaID = $(selectElement).closest('tr').attr('id');
+            var partes = linhaID.split("_");
+
+            // Pegue a última parte e converta para número inteiro
+            var numeroDaLinha = parseInt(partes[partes.length - 1]);
+            var id = $('#select_' + numeroDaLinha).val();
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8000/os/produtos/",
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.message === "Produto encontrado com sucesso") {
+                        $('#rep_' + numeroDaLinha).text(data.product[0].nome_representacao);
+                        $('#qtd_' + numeroDaLinha).val(1);
+                        $('#valUnit_' + numeroDaLinha).val(data.product[0].valor);
+
+                        var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
+                        var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
+                        $('#total_' + numeroDaLinha).text(quantidade * valorUnitario);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na procura',
+                            text: data.message,
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro na procura',
+                        text: xhr.responseJSON.message,
+                    });
+                }
+            });
+        }
     </script>
 
 
