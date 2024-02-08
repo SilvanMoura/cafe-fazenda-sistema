@@ -81,6 +81,15 @@
         .btn-xs {
             position: initial !important;
         }
+
+        #elementOrcamento {
+            display: flex;
+        }
+
+        #elementServico {
+            display: none;
+        }
+
     }
 </style>
 <div style="height: 92vh;">
@@ -91,7 +100,7 @@
                     <span class="icon">
                         <i class="fas fa-user"></i>
                     </span>
-                    <h5>Nova OS/Orçamento</h5>
+                    <h5>Editar OS/Orçamento</h5>
                 </div>
 
                 <div class="alert alert-danger hide" id="error-message"></div>
@@ -101,17 +110,44 @@
                         @csrf
                         <!-- Primeira Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between;">
+                            <input type="hidden" id="os" name="os" value="{{ $os->id }}" />
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="operacao" style="margin-right: 10px;">Operação:</label>
-                                <input type="text" style="background-color: #EEE" class="form-control" id="operacao" name="operacao" style="margin-right: 20px" readonly value="Orçamento" placeholder="Operação">
+                                <select type="text" class="form-control" id="operacao" name="operacao" style="margin-right: 20px">
+                                    <option value="1" id="orcamento">Orçamento</option>
+                                    <option value="2" id="servico">Serviço</option>
+                                </select>
                             </div>
+
+                            <div class="form-group col-md-4" id="elementOrcamento" style="display: flex; flex-direction: row; align-items: center;">
+                                <label for="status_os_orcamento" style="margin-right: 10px;">Status Os:</label>
+                                <select type="text" class="form-control" id="status_os_orcamento" name="status_os_orcamento" style="margin-right: 20px">
+                                    @foreach($statusOs as $s)
+                                    @if($s->operacao_os_id == 1)
+                                    <option value="{{ $s->id }}">{{ $s->nome }}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4" id="elementServico" style="display: flex; flex-direction: row; align-items: center;">
+                                <label for="status_os_servico" style="margin-right: 10px;">Status Os:</label>
+                                <select type="text" class="form-control" id="status_os_servico" name="status_os_servico" style="margin-right: 20px">
+                                    @foreach($statusOs as $s)
+                                    @if($s->operacao_os_id == 2)
+                                    <option value="{{ $s->id }}">{{ $s->nome }}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="data" style="margin-right: 10px">Data:</label>
-                                <input type="text" class="form-control" id="data" name="data" placeholder="Data" style="margin-right: 20px">
+                                <input type="text" class="form-control" id="data" name="data" placeholder="Data" value="{{ $data }}" style="margin-right: 20px">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="hora" style="margin-right: 10px">Hora:</label>
-                                <input type="text" class="form-control" id="hora" name="hora" placeholder="Hora">
+                                <input type="text" class="form-control" id="hora" name="hora" placeholder="Hora" value="{{ $hora }}">
                             </div>
                         </div>
 
@@ -123,7 +159,7 @@
                                     <select id="maquina" class="form-control" style="width: 35vw; margin-right: 20px">
                                         <option>Selecione</option>
                                         @foreach($machines as $f)
-                                        <option value="{{ $f->fabricante_id }}">{{ $f->nomemodelo }}</option>
+                                        <option @if ($f->nomemodelo == isset($machineById->nomemodelo)) selected @endif value="{{ $f->fabricante_id }}">{{ $f->nomemodelo }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -134,9 +170,10 @@
                                     <select id="cliente" class="form-control" style="width: 35vw;">
                                         <option>Selecione</option>
                                         @foreach($clients as $f)
-                                        <option value="{{ $f->id }}">{{ $f->nome }}</option>
+                                        <option @if ($f->nome == $clientById->nome) selected @endif value="{{ $f->id }}">{{ $f->nome }}</option>
                                         @endforeach
                                     </select>
+
                                 </div>
                             </div>
                         </div>
@@ -145,11 +182,11 @@
                         <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-8" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="endereco" style="margin-right: 20px">Endereço:</label>
-                                <input type="text" class="form-control" readonly id="endereco" name="endereco" style="width:50vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw">
+                                <input type="text" class="form-control" readonly id="endereco" name="endereco" style="width:50vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw" value="{{$clientById->endereco}}">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="complemento" style="margin-right: 20px">Complemento:</label>
-                                <input type="text" class="form-control" id="complemento" name="complemento" style="background-color: #EEE; width:15vw;" readonly placeholder="Complemento">
+                                <input type="text" class="form-control" id="complemento" name="complemento" style="background-color: #EEE; width:15vw;" readonly placeholder="Complemento" value="{{$clientById->complemento}}">
                             </div>
                         </div>
 
@@ -157,15 +194,15 @@
                         <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="bairro" style="margin-right: 10px">Bairro:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="bairro" name="bairro" style="width: 20vw; background-color:EEE; margin-right: 20px" placeholder="Bairro" style="width: 40vw">
+                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="bairro" name="bairro" style="width: 40vw; background-color:EEE; margin-right: 20px" placeholder="Bairro" value="{{$clientById->bairro}}">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="cpfcnpj" style="margin-right: 10px">CPF/CNPJ:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="cpfcnpj" name="cpfcnpj" placeholder="CPF" style="width: 20vw; background-color:EEE; margin-right:20px">
+                                <input type="text" class="form-control" style="width: 20vw; background-color: #EEE; margin-right: 20px" readonly id="cpfcnpj" name="cpfcnpj" placeholder="CPF/CNPJ" value="{{ $clientById->cpf ? $clientById->cpf : $clientById->cnpj }}">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="telefone" style="margin-right: 10px">Telefone:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE; width: 20vw;" readonly id="telefone" name="telefone" placeholder="Telefone">
+                                <input type="text" class="form-control" style="background-color: #EEE; width: 20vw;" readonly id="telefone" name="telefone" placeholder="Telefone" value="{{$clientById->telefone}}">
                             </div>
                         </div>
 
@@ -173,11 +210,11 @@
                         <div class="form-row" style="display: flex; justify-content: space-between;">
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="bebidas" style="margin-right: 10px;">Nº de Bebidas Extraídas:</label>
-                                <input type="text" class="form-control" id="bebidas" name="bebidas" style="width: 35vw;" placeholder="Nº de Bebidas Extraídas">
+                                <input type="text" class="form-control" id="bebidas" name="bebidas" style="width: 35vw;" placeholder="Nº de Bebidas Extraídas" value="{{ $os->bebidas_extraidas }}">
                             </div>
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="checklist" style="margin-right: 10px;">Checklist:</label>
-                                <input type="text" class="form-control" id="checklist" name="checklist" style="width: 30vw; background-color: #EEE;" readonly placeholder="Checklist">
+                                <input type="text" class="form-control" id="checklist" name="checklist" style="width: 30vw; background-color: #EEE;" readonly placeholder="Checklist" value="{{ $os->checklist }}">
                             </div>
                         </div>
 
@@ -188,11 +225,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="cabo" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Cabo de alimentação:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="cabo-sim" name="cabo" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->cabo == 's') checked @endif type="radio" id="cabo-sim" name="cabo" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="cabo-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="cabo-nao" name="cabo" style="margin-left: 20px;" value="n" checked="" class="form-check-input">
+                                            <input @if($os->cabo == 'n') checked @endif type="radio" id="cabo-nao" name="cabo" style="margin-left: 20px;" value="n" class="form-check-input">
                                             <label class="form-check-label" for="cabo-nao" style="margin-left: 5px; padding-top: 5px">Não</label>
                                         </div>
                                     </div>
@@ -202,11 +239,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="bomba" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Bomba submersa:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="bomba-sim" name="bomba" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->bomba == 's') checked @endif type="radio" id="bomba-sim" name="bomba" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="bomba-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="bomba-nao" style="margin-left: 20px;" name="bomba" value="n" checked="" class="form-check-input">
+                                            <input @if($os->bomba == 'n') checked @endif type="radio" id="bomba-nao" style="margin-left: 20px;" name="bomba" value="n" class="form-check-input">
                                             <label class="form-check-label" style="margin-left: 5px; padding-top: 5px;" for="bomba-nao">Não</label>
                                         </div>
                                     </div>
@@ -216,11 +253,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="chave" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Chave Máquina:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="chave-sim" name="chave" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->chave == 's') checked @endif type="radio" id="chave-sim" name="chave" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="chave-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="chave-nao" name="chave" style="margin-left: 20px;" value="n" checked="" class="form-check-input">
+                                            <input @if($os->chave == 'n') checked @endif type="radio" id="chave-nao" name="chave" style="margin-left: 20px;" value="n" class="form-check-input">
                                             <label class="form-check-label" for="chave-nao" style="margin-left: 5px; padding-top: 5px">Não</label>
                                         </div>
                                     </div>
@@ -235,11 +272,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="locada" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Locada:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="locada-sim" name="locada" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->locada == 's') checked @endif type="radio" id="locada-sim" name="locada" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="locada-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="locada-nao" name="locada" style="margin-left: 20px;" value="n" checked="" class="form-check-input">
+                                            <input @if($os->locada == 'n') checked @endif type="radio" id="locada-nao" name="locada" style="margin-left: 20px;" value="n" class="form-check-input">
                                             <label class="form-check-label" for="locada-nao" style="margin-left: 5px; padding-top: 5px">Não</label>
                                         </div>
                                     </div>
@@ -249,11 +286,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="adaptador" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Adaptador:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="adaptador-sim" name="adaptador" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->adaptador == 's') checked @endif type="radio" id="adaptador-sim" name="adaptador" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="adaptador-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="adaptador-nao" style="margin-left: 20px;" name="adaptador" value="n" checked="" class="form-check-input">
+                                            <input @if($os->adaptador == 'n') checked @endif type="radio" id="adaptador-nao" style="margin-left: 20px;" name="adaptador" value="n" class="form-check-input">
                                             <label class="form-check-label" style="margin-left: 5px; padding-top: 5px;" for="adaptador-nao">Não</label>
                                         </div>
                                     </div>
@@ -263,11 +300,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="mangueira" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Mangueira:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="mangueira-sim" name="mangueira" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->mangueira == 's') checked @endif type="radio" id="mangueira-sim" name="mangueira" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="mangueira-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="mangueira-nao" name="mangueira" style="margin-left: 20px;" value="n" checked="" class="form-check-input">
+                                            <input @if($os->mangueira == 'n') checked @endif type="radio" id="mangueira-nao" name="mangueira" style="margin-left: 20px;" value="n" class="form-check-input">
                                             <label class="form-check-label" for="mangueira-nao" style="margin-left: 5px; padding-top: 5px">Não</label>
                                         </div>
                                     </div>
@@ -283,11 +320,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="validador" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Validador:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="validador-sim" name="validador" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->validador == 's') checked @endif type="radio" id="validador-sim" name="validador" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="validador-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="validador-nao" name="validador" style="margin-left: 20px;" value="n" checked="" class="form-check-input">
+                                            <input @if($os->validador == 'n') checked @endif type="radio" id="validador-nao" name="validador" style="margin-left: 20px;" value="n" class="form-check-input">
                                             <label class="form-check-label" for="validador-nao" style="margin-left: 5px; padding-top: 5px">Não</label>
                                         </div>
                                     </div>
@@ -297,11 +334,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="cofre" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Cofre:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="cofre-sim" name="cofre" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->cofre == 's') checked @endif type="radio" id="cofre-sim" name="cofre" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="cofre-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="cofre-nao" style="margin-left: 20px;" name="cofre" value="n" checked="" class="form-check-input">
+                                            <input @if($os->cofre == 'n') checked @endif type="radio" id="cofre-nao" style="margin-left: 20px;" name="cofre" value="n" class="form-check-input">
                                             <label class="form-check-label" style="margin-left: 5px; padding-top: 5px;" for="cofre-nao">Não</label>
                                         </div>
                                     </div>
@@ -311,11 +348,11 @@
                                     <div class="form-group" style="display: flex;">
                                         <label for="chaveCofre" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Chave do Cofre:</label>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="chaveCofre-sim" name="chaveCofre" style="margin-left: 20px;" value="s" class="form-check-input">
+                                            <input @if($os->chaveCofre == 's') checked @endif type="radio" id="chaveCofre-sim" name="chaveCofre" style="margin-left: 20px;" value="s" class="form-check-input">
                                             <label class="form-check-label" for="chaveCofre-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                         </div>
                                         <div class="form-check form-check-inline" style="display: flex;">
-                                            <input type="radio" id="chaveCofre-nao" name="chaveCofre" style="margin-left: 20px;" value="n" checked="" class="form-check-input">
+                                            <input @if($os->cofre_chave == 'n') checked @endif type="radio" id="chaveCofre-nao" name="chaveCofre" style="margin-left: 20px;" value="n" class="form-check-input">
                                             <label class="form-check-label" for="chaveCofre-nao" style="margin-left: 5px; padding-top: 5px">Não</label>
                                         </div>
                                     </div>
@@ -332,19 +369,19 @@
                                             <div class="form-group" style="display: flex;">
                                                 <label for="evs" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Ev's:</label>
                                                 <div class="form-check form-check-inline" style="display: flex;">
-                                                    <input type="radio" id="evs-sim" name="evs" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                    <input @if($os->evs == 's') checked @endif type="radio" id="evs-sim" name="evs" style="margin-left: 20px;" value="s" class="form-check-input">
                                                     <label class="form-check-label" for="evs-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                 </div>
                                                 <div class="form-check form-check-inline" style="display: flex;">
-                                                    <input type="radio" id="evs-nao" name="evs" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
+                                                    <input @if($os->evs == 'n') checked @endif type="radio" id="evs-nao" name="evs" style="margin-left: 20px;" value="n" class="form-check-input">
                                                     <label class="form-check-label" for="evs-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="evs-container" class="radio-inline hide fade">
-                                            <input type="number" class="form-control" id="evs_qtd" name="evs_qtd" min="1" placeholder="Quant.">
+                                            <input type="number" class="form-control" id="evs_qtd" name="evs_qtd" min="1" placeholder="Quant." value="{{ $os->evs_qtd }}">
                                             <br>
-                                            <input type="text" class="form-control" id="evs_obs" name="evs_obs" placeholder="Obs">
+                                            <input type="text" class="form-control" id="evs_obs" name="evs_obs" placeholder="Obs" value="{{ $os->evs_obs }}">
                                         </div>
                                     </div>
 
@@ -354,19 +391,19 @@
                                             <div style="display: flex; flex-direction: row;">
                                                 <div class="col-md-4">
                                                     <div class="form-group" style="display: flex;">
-                                                        <label for="reservatiorioAgua" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Reservatório D'água:</label>
+                                                        <label for="reservatorioAgua" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Reservatório D'água:</label>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="reservatiorioAgua-sim" name="reservatiorioAgua" style="margin-left: 20px;" value="s" class="form-check-input">
-                                                            <label class="form-check-label" for="reservatiorioAgua-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
+                                                            <input @if($os->reservatorio == 's') checked @endif type="radio" id="reservatorioAgua-sim" name="reservatorioAgua" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                            <label class="form-check-label" for="reservatorioAgua-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                         </div>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="reservatiorioAgua-nao" name="reservatiorioAgua" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
-                                                            <label class="form-check-label" for="reservatiorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
+                                                            <input @if($os->reservatorio == 'n') checked @endif type="radio" id="reservatorioAgua-nao" name="reservatorioAgua" style="margin-left: 20px;" value="n" class="form-check-input">
+                                                            <label class="form-check-label" for="reservatorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="reservatiorioAgua-container" class="radio-inline hide fade">
-                                                    <input type="text" class="form-control" id="reservatiorioAgua_obs" name="reservatiorioAgua_obs" placeholder="Obs">
+                                                <div id="reservatorioAgua-container" class="radio-inline hide fade">
+                                                    <input type="text" class="form-control" id="reservatorioAgua_obs" name="reservatorioAgua_obs" placeholder="Obs" value="{{ $os->reservatorio_obs }}">
                                                 </div>
                                             </div>
 
@@ -375,14 +412,14 @@
                                             <div>
                                                 <div class="col-md-4">
                                                     <div class="form-group" style="display: flex;">
-                                                        <label for="tampaReservatiorioAgua" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Tampa do reservatório D'água:</label>
+                                                        <label for="tampaReservatorioAgua" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Tampa do reservatório D'água:</label>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="tampaReservatiorioAgua-sim" name="tampaReservatiorioAgua" style="margin-left: 20px;" value="s" class="form-check-input">
-                                                            <label class="form-check-label" for="tampaReservatiorioAgua-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
+                                                            <input @if($os->tampa == 's') checked @endif type="radio" id="tampaReservatorioAgua-sim" name="tampaReservatorioAgua" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                            <label class="form-check-label" for="tampaReservatorioAgua-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                         </div>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="tampaReservatiorioAgua-nao" name="tampaReservatiorioAgua" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
-                                                            <label class="form-check-label" for="tampaReservatiorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
+                                                            <input @if($os->tampa == 'n') checked @endif type="radio" id="tampaReservatorioAgua-nao" name="tampaReservatorioAgua" style="margin-left: 20px;" value="n" class="form-check-input">
+                                                            <label class="form-check-label" for="tampaReservatorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -401,17 +438,17 @@
                                                     <div class="form-group" style="display: flex;">
                                                         <label for="compartimentos" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Compartimentos:</label>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="compartimentos-sim" name="compartimentos" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                            <input @if($os->compartimento == 's') checked @endif type="radio" id="compartimentos-sim" name="compartimentos" style="margin-left: 20px;" value="s" class="form-check-input">
                                                             <label class="form-check-label" for="compartimentos-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                         </div>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="compartimentos-nao" name="compartimentos" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
+                                                            <input @if($os->compartimento == 'n') checked @endif type="radio" id="compartimentos-nao" name="compartimentos" style="margin-left: 20px;" value="n" class="form-check-input">
                                                             <label class="form-check-label" for="compartimentos-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div id="compartimentos-container" class="radio-inline hide fade">
-                                                    <input type="number" class="form-control" id="compartimentos_qtd" name="compartimentos_qtd" placeholder="Quant.">
+                                                    <input type="number" class="form-control" id="compartimentos_qtd" name="compartimentos_qtd" placeholder="Quant." value="{{ $os->tampa_compartimento_qtd }}">
                                                 </div>
                                             </div>
 
@@ -420,19 +457,19 @@
                                                     <div class="form-group" style="display: flex;">
                                                         <label for="tampaCompartimentos" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Tampa dos compartimentos:</label>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="tampaCompartimentos-sim" name="tampaCompartimentos" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                            <input @if($os->tampa_compartimento == 's') checked @endif type="radio" id="tampaCompartimentos-sim" name="tampaCompartimentos" style="margin-left: 20px;" value="s" class="form-check-input">
                                                             <label class="form-check-label" for="tampaCompartimentos-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                         </div>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="tampaCompartimentos-nao" name="tampaCompartimentos" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
+                                                            <input @if($os->tampa_compartimento == 'n') checked @endif type="radio" id="tampaCompartimentos-nao" name="tampaCompartimentos" style="margin-left: 20px;" value="n" class="form-check-input">
                                                             <label class="form-check-label" for="tampaCompartimentos-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div id="tampaCompartimentos-container" class="radio-inline hide fade">
-                                                    <input type="number" class="form-control" id="tampaCompartimentos_qtd" name="tampaCompartimentos_qtd" min="1" placeholder="Quant.">
+                                                    <input type="number" class="form-control" id="tampaCompartimentos_qtd" name="tampaCompartimentos_qtd" min="1" placeholder="Quant." value="{{ $os->tampa_compartimento_qtd }}">
                                                     <br>
-                                                    <input type="text" class="form-control" id="tampaCompartimentos_obs" name="tampaCompartimentos_obs" placeholder="Obs">
+                                                    <input type="text" class="form-control" id="tampaCompartimentos_obs" name="tampaCompartimentos_obs" placeholder="Obs" value="{{ $os->tampa_compartimento_obs }}">
                                                 </div>
                                             </div>
 
@@ -448,11 +485,11 @@
                                                     <div class="form-group" style="display: flex;">
                                                         <label for="bandeja" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Bandeja:</label>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="bandeja-sim" name="bandeja" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                            <input @if($os->bandeja == 's') checked @endif type="radio" id="bandeja-sim" name="bandeja" style="margin-left: 20px;" value="s" class="form-check-input">
                                                             <label class="form-check-label" for="bandeja-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                         </div>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="bandeja-nao" name="bandeja" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
+                                                            <input @if($os->bandeja == 'n') checked @endif type="radio" id="bandeja-nao" name="bandeja" style="margin-left: 20px;" value="n" class="form-check-input">
                                                             <label class="form-check-label" for="bandeja-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
@@ -464,18 +501,18 @@
                                                     <div class="form-group" style="display: flex;">
                                                         <label for="produtos" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Produtos:</label>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="produtos-sim" name="produtos" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                            <input @if($os->produtos == 's') checked @endif type="radio" id="produtos-sim" name="produtos" style="margin-left: 20px;" value="s" class="form-check-input">
                                                             <label class="form-check-label" for="produtos-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                         </div>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="produtos-nao" name="produtos" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
+                                                            <input @if($os->produtos == 'n') checked @endif type="radio" id="produtos-nao" name="produtos" style="margin-left: 20px;" value="n" class="form-check-input">
                                                             <label class="form-check-label" for="produtos-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div id="produtos-container" class="radio-inline fade hide" style="display: flex; justify-content:center;">
-                                                <input type="text" class="form-control" id="produtos_quais" style="width:50vw;" name="produtos_quais" placeholder="Quais">
+                                                <input type="text" class="form-control" id="produtos_quais" style="width:50vw;" name="produtos_quais" placeholder="Quais" value="{{ $os->produtos_quais }}">
                                             </div>
 
                                         </div>
@@ -487,16 +524,19 @@
                                 <div class="form-group" style="margin-left: 6vw; width:70vw; display: flex; justify-content: center; margin-top:10px">
                                     <label for="obs" class="control-label col-md-2" style="margin-right: 10px;">Observação:</label>
                                     <div class="col-md-10">
-                                        <textarea name="obs" style="width:67vw" id="obs" class="form-control" rows="8"></textarea>
+                                        <textarea name="obs" style="width:67vw" id="obs" class="form-control" rows="8">{{ $os->obs }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group" style="margin-left: 4vw; width:74vw; display: flex; justify-content: center; margin-top:10px">
                                     <label for="descricao_cliente" class="control-label col-md-2" style="width: 75px; margin-right: 10px;">Defeito descrito pelo cliente:</label>
                                     <div class="col-md-10" style="width:100%">
-                                        <textarea name="descricao_cliente" style="width:98%" id="descricao_cliente" class="form-control" rows="8"></textarea>
+                                        <textarea name="descricao_cliente" style="width:98%" id="descricao_cliente" class="form-control" rows="8">{{ $os->descricao_cliente }}</textarea>
                                     </div>
                                 </div>
+
+
+
                             </div>
                         </div>
 
@@ -512,26 +552,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr id="linha_1">
+                                    @foreach($productsByIdOs as $index => $product)
+                                    <tr id="linha_{{$index+1}}">
                                         <!-- Conteúdo da primeira linha -->
-                                        <td id="produto_1">
-                                            <select id="select_1" name="select_1" onchange="getServiceById(this)" class="form-control produto" style="width: 30vw;">
+                                        <input type="hidden" id="productOS_{{$index+1}}" name="productOS_{{$index+1}}" value="{{ $product->id }}" />
+                                        <td id="produto_{{$index+1}}">
+                                            <select id="select_{{$index+1}}" name="select_{{$index+1}}" onchange="getServiceById(this)" class="form-control produto" style="width: 30vw;">
                                                 <option>Selecione</option>
-                                                @foreach($infoProduct as $f)
-                                                <option value="{{ $f->id }}">{{ $f->nome }}</option>
+                                                @foreach($productsOs as $f)
+                                                <option value="{{ $f->id }}" @if($f->id == $product->produto_id) selected="true" @endif >{{ $f->nome }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td id="rep_1" name="rep_1" style="width: 10vw;"></td>
+                                        <td id="rep_{{$index+1}}" name="rep_{{$index+1}}" value="{{ $product->representacao_id }}" style="width: 10vw;">{{ $product->representacao_nome }}</td>
                                         <td style="width: 10vw;">
-                                            <input type="number" class="form-control" id="qtd_1" name="qtd_1" min="1" onchange="changeTotalById(this)" placeholder="Quant.">
+                                            <input type="number" class="form-control" id="qtd_{{$index+1}}" name="qtd_{{$index+1}}" min="1" onchange="changeTotalById(this)" placeholder="Quant." value="{{ $product->quantidade }}">
                                         </td>
                                         <td style="width: 10vw;">
-                                            <input type="number" class="form-control" id="valUnit_1" name="valUnit_1" min="1" onchange="changeTotalById(this)" placeholder="Val. Unit.">
+                                            <input type="number" class="form-control" id="valUnit_{{$index+1}}" name="valUnit_{{$index+1}}" min="1" onchange="changeTotalById(this)" placeholder="Val. Unit." value="{{ $product->valor_unitario }}">
                                         </td>
-                                        <td id="total_1" name="total_1" class="tdLast" style="width: 10vw;"></td>
-
+                                        <td id="total_{{$index+1}}" name="total_{{$index+1}}" class="tdLast" style="width: 10vw;">R$ {{ $product->quantidade * $product->valor_unitario }}</td>
+                                        <td id="delete_{{$index+1}}"><a href="#modal-excluir" role="button" data-toggle="modal" cliente="" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a></td>
                                     </tr>
+                                    @endforeach
 
                                 </tbody>
 
@@ -548,14 +591,32 @@
                             </div>
                         </div>
 
+                        <div class="form-group" style=" width:85vw; display: flex; margin-top:10px">
+                            <label for="obs" class="control-label col-md-2" style="margin-right: 10px;">Avaliação Técnica:</label>
+                            <div class="col-md-6">
+                                <textarea name="obs" style="width:66vw" id="obs" class="form-control" rows="5">{{ $os->obs }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="display:flex; justify-content: space-between;">
+                            <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
+                                <label for="dataAvaliacao" style="margin-right: 10px; margin-bottom: 10px">Data de avaliação:</label>
+                                <input type="text" class="form-control" id="dataAvaliacao" name="dataAvaliacao" placeholder="Data de avaliação" value="" style="margin-right: 20px">
+                            </div>
+                        </div>
+
                         <div class="form-actions">
                             <div class="span12">
                                 <div class="span6 offset3" style="display:flex;justify-content: center">
-                                    <button id="btnCreate" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button>
+                                    <!-- <button id="btnCreate" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button> -->
+                                    <button id="btnUpdate" type="submit" class="button btn btn-primary" style="max-width: 160px">
+                                        <span class="button__icon"><i class="bx bx-sync"></i></span><span class="button__text2">Atualizar</span></button>
                                     <a title="Voltar" class="button btn btn-warning" href="/clientes"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
                                 </div>
                             </div>
                         </div>
+
+
                     </form>
                 </div>
 
@@ -567,6 +628,78 @@
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+
+            var contadorLinhas = $("#tabela tbody tr").length;
+
+            if ($('#evs-sim').prop('checked')) {
+                var modal = document.getElementById("evs-container");
+                modal.classList.remove("hide", "fade");
+            }
+            $('#evs-sim').on('change', function() {
+                var modal = document.getElementById("evs-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            if ($('#reservatorioAgua-sim').prop('checked')) {
+                var modal = document.getElementById("reservatorioAgua-container");
+                modal.classList.remove("hide", "fade");
+            }
+            $('#reservatorioAgua-sim').on('change', function() {
+                var modal = document.getElementById("reservatorioAgua-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            if ($('#compartimentos-sim').prop('checked')) {
+                var modal = document.getElementById("compartimentos-container");
+                modal.classList.remove("hide", "fade");
+            }
+            $('#compartimentos-sim').on('change', function() {
+                var modal = document.getElementById("compartimentos-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            if ($('#tampaCompartimentos-sim').prop('checked')) {
+                var modal = document.getElementById("tampaCompartimentos-container");
+                modal.classList.remove("hide", "fade");
+            }
+            $('#tampaCompartimentos-sim').on('change', function() {
+                var modal = document.getElementById("tampaCompartimentos-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            if ($('#produtos-sim').prop('checked')) {
+                var modal = document.getElementById("produtos-container");
+                modal.classList.remove("hide", "fade");
+            }
+            $('#produtos-sim').on('change', function() {
+                var modal = document.getElementById("produtos-container");
+                modal.classList.remove("hide", "fade");
+            });
+
+            function ajustarVisibilidade() {
+                var operacaoSelecionada = $('#operacao').val();
+
+                if (operacaoSelecionada == '1') {
+                    // Se a opção for Orçamento, mostra elementOrcamento e esconde elementServico
+                    $('#elementOrcamento').show();
+                    $('#elementServico').hide();
+                } else {
+                    // Se a opção for Serviço, mostra elementServico e esconde elementOrcamento
+                    $('#elementOrcamento').hide();
+                    $('#elementServico').show();
+                }
+            }
+
+            // Adiciona um listener de mudança ao <select>
+            $('#operacao').on('change', function() {
+                // Chama a função ao selecionar uma opção diferente
+                ajustarVisibilidade();
+            });
+
+            // Chama a função inicialmente para garantir que o estado inicial seja correto
+            ajustarVisibilidade();
+
+
             $('#maquina').select2({
                 tags: true
             });
@@ -575,9 +708,30 @@
                 tags: true
             });
 
-            $('#select_1').select2({
+            $('#operacao').select2({
                 tags: true
             });
+
+            $('#status_os_orcamento').select2({
+                tags: true
+            });
+
+            $('#status_os_servico').select2({
+                tags: true
+            });
+
+            for (var i = 1; i <= contadorLinhas; i++) {
+                $('#select_' + i).select2({
+                    tags: true
+                });
+
+                if (('delete_' + i) != 'delete_1') {
+                    var modal = document.getElementById("delete_1");
+                    modal.classList.add("hide", "fade");
+                }
+            }
+
+
 
             $('#cliente').on('select2:select', function() {
                 fazerRequisicao();
@@ -639,13 +793,13 @@
                 modal.classList.add("hide", "fade");
             });
 
-            $('#reservatiorioAgua-sim').on('change', function() {
-                var modal = document.getElementById("reservatiorioAgua-container");
+            $('#reservatorioAgua-sim').on('change', function() {
+                var modal = document.getElementById("reservatorioAgua-container");
                 modal.classList.remove("hide", "fade");
             });
 
-            $('#reservatiorioAgua-nao').on('change', function() {
-                var modal = document.getElementById("reservatiorioAgua-container");
+            $('#reservatorioAgua-nao').on('change', function() {
+                var modal = document.getElementById("reservatorioAgua-container");
                 modal.classList.add("hide", "fade");
             });
 
@@ -678,13 +832,6 @@
                 var modal = document.getElementById("produtos-container");
                 modal.classList.add("hide", "fade");
             });
-
-            let dataAtual = new Date();
-            let dataFormatada = `${String(dataAtual.getDate()).padStart(2, '0')}/${String(dataAtual.getMonth() + 1).padStart(2, '0')}/${dataAtual.getFullYear()}`;
-            let horaFormatada = `${String(dataAtual.getHours()).padStart(2, '0')}:${String(dataAtual.getMinutes()).padStart(2, '0')}:${String(dataAtual.getSeconds()).padStart(2, '0')}`;
-
-            $("#data").val(dataFormatada);
-            $("#hora").val(horaFormatada);
 
             $('#btnCreate').on('click', function(e) {
                 e.preventDefault();
@@ -765,9 +912,7 @@
                 cloneRow.find('#valUnit_1').attr('id', 'valUnit_' + contadorLinhas).attr('name', 'valUnit_' + contadorLinhas).val(0.00);
                 cloneRow.find('.tdLast').attr('id', 'total_' + contadorLinhas).attr('name', 'total_' + contadorLinhas).text('');
 
-                // Adicionar o botão de exclusão antes da última célula na linha clonada
                 cloneRow.find('td:last').after('<td><a href="#modal-excluir" role="button" data-toggle="modal" cliente="" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a></td>');
-
                 // Remover as classes "hide" e "fade" da linha clonada
                 cloneRow.removeClass('hide fade');
 
@@ -789,13 +934,18 @@
                 });
             });
 
-            $("#linha_1 .btn-nwe4").on('click', function() {
+            $("#linha_2 .btn-nwe4").on('click', function() {
                 $(this).closest('tr').remove();
             });
 
+            let dataAtual = new Date();
+            let dataFormatada = `${String(dataAtual.getDate()).padStart(2, '0')}/${String(dataAtual.getMonth() + 1).padStart(2, '0')}/${dataAtual.getFullYear()}`;
+    
+            $("#dataAvaliacao").val(dataFormatada);
+
         })
 
-        function changeTotalById(selectElement){
+        function changeTotalById(selectElement) {
             var linhaID = $(selectElement).closest('tr').attr('id');
             var partes = linhaID.split("_");
 
@@ -805,7 +955,7 @@
             var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
             var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
 
-            parseFloat($('#total_' + numeroDaLinha).text( quantidade * valorUnitario));
+            parseFloat($('#total_' + numeroDaLinha).text(quantidade * valorUnitario));
         }
 
         function getServiceById(selectElement) {

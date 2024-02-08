@@ -123,7 +123,7 @@
                                     <select id="maquina" class="form-control" style="width: 35vw; margin-right: 20px">
                                         <option>Selecione</option>
                                         @foreach($machines as $f)
-                                        <option value="{{ $f->fabricante_id }}">{{ $f->nomemodelo }}</option>
+                                        <option value="{{ $f->id }}">{{ $f->nomemodelo }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -354,19 +354,19 @@
                                             <div style="display: flex; flex-direction: row;">
                                                 <div class="col-md-4">
                                                     <div class="form-group" style="display: flex;">
-                                                        <label for="reservatiorioAgua" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Reservatório D'água:</label>
+                                                        <label for="reservatorioAgua" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Reservatório D'água:</label>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="reservatiorioAgua-sim" name="reservatiorioAgua" style="margin-left: 20px;" value="s" class="form-check-input">
-                                                            <label class="form-check-label" for="reservatiorioAgua-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
+                                                            <input type="radio" id="reservatorioAgua-sim" name="reservatorioAgua" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                            <label class="form-check-label" for="reservatorioAgua-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                         </div>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="reservatiorioAgua-nao" name="reservatiorioAgua" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
-                                                            <label class="form-check-label" for="reservatiorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
+                                                            <input type="radio" id="reservatorioAgua-nao" name="reservatorioAgua" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
+                                                            <label class="form-check-label" for="reservatorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="reservatiorioAgua-container" class="radio-inline hide fade">
-                                                    <input type="text" class="form-control" id="reservatiorioAgua_obs" name="reservatiorioAgua_obs" placeholder="Obs">
+                                                <div id="reservatorioAgua-container" class="radio-inline hide fade">
+                                                    <input type="text" class="form-control" id="reservatorioAgua_obs" name="reservatorioAgua_obs" placeholder="Obs">
                                                 </div>
                                             </div>
 
@@ -375,14 +375,14 @@
                                             <div>
                                                 <div class="col-md-4">
                                                     <div class="form-group" style="display: flex;">
-                                                        <label for="tampaReservatiorioAgua" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Tampa do reservatório D'água:</label>
+                                                        <label for="tampaReservatorioAgua" style="margin-right: 10px; margin-top: 4px;" class="control-label col-md-7">Tampa do reservatório D'água:</label>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="tampaReservatiorioAgua-sim" name="tampaReservatiorioAgua" style="margin-left: 20px;" value="s" class="form-check-input">
-                                                            <label class="form-check-label" for="tampaReservatiorioAgua-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
+                                                            <input type="radio" id="tampaReservatorioAgua-sim" name="tampaReservatorioAgua" style="margin-left: 20px;" value="s" class="form-check-input">
+                                                            <label class="form-check-label" for="tampaReservatorioAgua-sim" style="margin-left: 5px; padding-top: 5px">Sim</label>
                                                         </div>
                                                         <div class="form-check form-check-inline" style="display: flex;">
-                                                            <input type="radio" id="tampaReservatiorioAgua-nao" name="tampaReservatiorioAgua" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
-                                                            <label class="form-check-label" for="tampaReservatiorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
+                                                            <input type="radio" id="tampaReservatorioAgua-nao" name="tampaReservatorioAgua" style="margin-left: 20px;" checked="" value="n" class="form-check-input">
+                                                            <label class="form-check-label" for="tampaReservatorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -639,13 +639,13 @@
                 modal.classList.add("hide", "fade");
             });
 
-            $('#reservatiorioAgua-sim').on('change', function() {
-                var modal = document.getElementById("reservatiorioAgua-container");
+            $('#reservatorioAgua-sim').on('change', function() {
+                var modal = document.getElementById("reservatorioAgua-container");
                 modal.classList.remove("hide", "fade");
             });
 
-            $('#reservatiorioAgua-nao').on('change', function() {
-                var modal = document.getElementById("reservatiorioAgua-container");
+            $('#reservatorioAgua-nao').on('change', function() {
+                var modal = document.getElementById("reservatorioAgua-container");
                 modal.classList.add("hide", "fade");
             });
 
@@ -805,7 +805,7 @@
             var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
             var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
 
-            parseFloat($('#total_' + numeroDaLinha).text( quantidade * valorUnitario));
+            parseFloat($('#total_' + numeroDaLinha).text("R$ "+ quantidade * valorUnitario));
         }
 
         function getServiceById(selectElement) {
@@ -831,7 +831,7 @@
 
                         var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
                         var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
-                        $('#total_' + numeroDaLinha).text(quantidade * valorUnitario);
+                        $('#total_' + numeroDaLinha).text("R$ "+quantidade * valorUnitario);
                     } else {
                         Swal.fire({
                             icon: 'error',
