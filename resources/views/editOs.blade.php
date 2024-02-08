@@ -998,7 +998,61 @@
             });
         }
 
-        
+        $('#btnUpdate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formOs").valid()) {
+
+                var dados = $("#formOs").serializeArray();
+
+                // Requisição AJAX
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8000/os/atualizar/" + dados[1]['value'],
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Fabricante alterado com sucesso") {
+                            var modal = document.getElementById("edit-manufacturer");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Alteração Concluído',
+                                text: 'Fabricante alterado com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://localhost:8000/dashboard";
+                            });
+                        } else {
+                            var modal = document.getElementById("edit-manufacturer");
+                            modal.classList.add("hide", "fade");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na alteração',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+
+                        var modal = document.getElementById("edit-manufacturer");
+                        modal.classList.add("hide", "fade");
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
 
     </script>
 
