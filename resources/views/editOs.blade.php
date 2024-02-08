@@ -592,9 +592,9 @@
                         </div>
 
                         <div class="form-group" style=" width:85vw; display: flex; margin-top:10px">
-                            <label for="obs" class="control-label col-md-2" style="margin-right: 10px;">Avaliação Técnica:</label>
+                            <label for="avaliacao" class="control-label col-md-2" style="margin-right: 10px;">Avaliação Técnica:</label>
                             <div class="col-md-6">
-                                <textarea name="obs" style="width:66vw" id="obs" class="form-control" rows="5">{{ $os->obs }}</textarea>
+                                <textarea name="avaliacao" style="width:66vw" id="avaliacao" class="form-control" rows="5">{{ $os->avaliacao }}</textarea>
                             </div>
                         </div>
 
@@ -730,8 +730,6 @@
                     modal.classList.add("hide", "fade");
                 }
             }
-
-
 
             $('#cliente').on('select2:select', function() {
                 fazerRequisicao();
@@ -999,6 +997,9 @@
                 }
             });
         }
+
+        
+
     </script>
 
 

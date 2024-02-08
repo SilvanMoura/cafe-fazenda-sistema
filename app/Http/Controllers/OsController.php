@@ -171,15 +171,6 @@ class OsController extends Controller
         $clientById = Client::select('*')->where('id', $os->cliente_id)->first();
         $machineById = Machine::select('*')->where('id', $os->maquina_id)->first();
 
-        /* if($machineById == ''){
-            $machineById = $machineById == '' ? [
-                "id" => "", 
-                "numeroserie" => "", 
-                "nomemodelo" => "", 
-                "fabricante_id" => ""
-            ] : $machineById;
-        } */
-
         $productsByIdOs = Product_os::select('*')->where('os_id', $os->id)->get();
         foreach ($productsByIdOs as $chave => $valor) {
             $representacao_id = Product::select('representacao_id')->where('id', $valor['produto_id'])->first();
