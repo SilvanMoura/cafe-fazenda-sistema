@@ -175,7 +175,7 @@ class OsController extends Controller
         foreach ($productsByIdOs as $chave => $valor) {
             $representacao_id = Product::select('representacao_id')->where('id', $valor['produto_id'])->first();
             $productsByIdOs[$chave]['representacao_id'] = $representacao_id->representacao_id;
-    
+
             $representacao_name = Representation::select('nome')->where('id', $productsByIdOs[$chave]['representacao_id'])->first();
             $productsByIdOs[$chave]['representacao_nome'] = $representacao_name->nome;
         }
@@ -215,5 +215,100 @@ class OsController extends Controller
             'data' => $dataFormatadaFormatada,
             'hora' => $hora,
         ]);
+    }
+
+    public function updateOs(Request $request, $id)
+    {
+
+        $dataFormatada = Carbon::createFromFormat('d/m/Y', $request->input('data'))->format('Y/m/d');
+        $avaliacao = Carbon::createFromFormat('d/m/Y', $request->input('dataAvaliacao'))->format('Y/m/d');
+
+        $os = Os::findOrFail($request->input('os'));
+
+        $os->cliente_id = $request->input('cliente');
+        $os->maquina_id = $request->input('maquina');
+        $os->operacao_os_id = $request->input('operacao');
+
+        //$os->operacao_os_id = $request->input('status_os_orcamento');
+        $os->status_os_id = $os->operacao_os_id != '2' ? $request->input('status_os_orcamento') : $request->input('status_os_servico');
+        $os->data = $dataFormatada . ' ' . $request->input('hora');
+        $os->obs = $request->input('obs');
+        $os->descricao_cliente = $request->input('descricao_cliente');
+        $os->bebidas_extraidas = $request->input('bebidas');
+        $os->cabo = $request->input('cabo');
+        $os->chave = $request->input('chave');
+        $os->reservatorio = $request->input('reservatorioAgua');
+        $os->reservatorio_obs = $request->input('reservatorioAgua_obs');
+        $os->compartimento = $request->input('compartimentos');
+        $os->compartimento_qtd = $request->input('compartimentos_qtd');
+        $os->locada = $request->input('locada');
+        $os->adaptador = $request->input('adaptador');
+        $os->validador = $request->input('validador');
+        $os->bomba = $request->input('bomba');
+        $os->bandeja = $request->input('bandeja');
+        $os->tampa = $request->input('tampaReservatorioAgua');
+        $os->produtos = $request->input('produtos');
+        $os->produtos_quais = $request->input('produtos_quais');
+        $os->cofre = $request->input('cofre');
+        $os->cofre_chave = $request->input('chaveCofre');
+        $os->mangueira = $request->input('mangueira');
+        $os->tampa_compartimento = $request->input('tampaCompartimentos');
+        $os->tampa_compartimento_qtd = $request->input('tampaCompartimentos_qtd');
+        $os->tampa_compartimento_obs = $request->input('tampaCompartimentos_obs');
+        $os->evs = $request->input('evs');
+        $os->evs_qtd = $request->input('evs_qtd');
+        $os->evs_obs = $request->input('evs_obs');
+        $os->checklist = $request->input('checklist');
+        $os->avaliacao = $request->input('avaliacao');
+        $os->data_avaliacao = $avaliacao;
+
+        $os->save();
+
+        $data = $request->all();
+
+        // Passo 1: Obter os registros existentes no banco de dados para a OS atual
+        $existingProducts = Product_Os::where('os_id', $id)->get()->keyBy('id');
+
+        $products = [];
+        $number = 1;
+
+        foreach ($data as $key => $value) {
+            // Passo 2: Comparar os registros existentes com os dados recebidos do formulário
+            if (isset($data["select_$number"]) && !empty($data["select_$number"])) {
+
+                $productData = [
+                    'produto_id' => $data["select_$number"],
+                    'os_id' => $id,
+                    'valor_unitario' => $data["valUnit_$number"],
+                    'quantidade' => $data["qtd_$number"],
+                ];
+
+                // Verificar se o índice está presente no array $data antes de usá-lo
+                $productOSKey = "productOS_$number";
+                if (isset($data[$productOSKey]) && isset($existingProducts[$data[$productOSKey]])) {
+                    // Passo 3: Atualizar ou criar os registros que estão presentes nos dados do formulário
+                    $existingProducts[$data[$productOSKey]]->update($productData);
+                    $products[] = $existingProducts[$data[$productOSKey]];
+                } else {
+                    // Criar novo registro
+                    $product = Product_Os::create($productData);
+                    $products[] = $product;
+                }
+
+                $number++;
+            } else {
+                break;
+            }
+        }
+
+        // Passo 4: Excluir os registros do banco que não estão presentes nos dados do formulário
+        $existingProducts->each(function ($product) use ($products) {
+            if (!in_array($product, $products)) {
+                $product->delete();
+            }
+        });
+        
+        //return $os;
+        return response()->json(['message' => 'Os alterada com sucesso'], 201);
     }
 }

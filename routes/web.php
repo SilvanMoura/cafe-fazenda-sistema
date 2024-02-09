@@ -13,6 +13,7 @@ use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\ExplodedMachineController;
 use App\Models\Exploded_machine;
 use App\Models\Manufacturer;
+use App\Models\Os;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -93,6 +94,8 @@ Route::put('/fabricantes/atualizar/{id}', [ManufacturersController::class, 'upda
 Route::put('/representacoes/atualizar/{id}', [RepresentationController::class, 'updateRepresentation'])->middleware(['auth', 'verified'])->name('representation');
 
 Route::put('/cidades/atualizar/{id}', [CityController::class, 'updateCity'])->middleware(['auth', 'verified'])->name('city');
+
+Route::put('/os/atualizar/{id}', [OsController::class, 'updateOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::post('/explodida/atualizar/{id}', [ExplodedMachineController::class, 'updateExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
 

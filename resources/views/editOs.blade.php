@@ -156,7 +156,7 @@
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="maquina" style="margin-right: 20px">Máquina:</label>
                                 <div class="controls">
-                                    <select id="maquina" class="form-control" style="width: 35vw; margin-right: 20px">
+                                    <select id="maquina" name="maquina" class="form-control" style="width: 35vw; margin-right: 20px">
                                         <option>Selecione</option>
                                         @foreach($machines as $f)
                                         <option @if ($f->nomemodelo == isset($machineById->nomemodelo)) selected @endif value="{{ $f->fabricante_id }}">{{ $f->nomemodelo }}</option>
@@ -167,7 +167,7 @@
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="cliente" style="margin-right: 20px">Cliente:</label>
                                 <div class="controls">
-                                    <select id="cliente" class="form-control" style="width: 35vw;">
+                                    <select id="cliente" name="cliente" class="form-control" style="width: 35vw;">
                                         <option>Selecione</option>
                                         @foreach($clients as $f)
                                         <option @if ($f->nome == $clientById->nome) selected @endif value="{{ $f->id }}">{{ $f->nome }}</option>
@@ -555,7 +555,7 @@
                                     @foreach($productsByIdOs as $index => $product)
                                     <tr id="linha_{{$index+1}}">
                                         <!-- Conteúdo da primeira linha -->
-                                        <input type="hidden" id="productOS_{{$index+1}}" name="productOS_{{$index+1}}" value="{{ $product->id }}" />
+                                        <!-- <input type="hidden" id="productOS_{{$index+1}}" name="productOS_{{$index+1}}" value="{{ $product->id }}" /> -->
                                         <td id="produto_{{$index+1}}">
                                             <select id="select_{{$index+1}}" name="select_{{$index+1}}" onchange="getServiceById(this)" class="form-control produto" style="width: 30vw;">
                                                 <option>Selecione</option>
@@ -634,6 +634,9 @@
             if ($('#evs-sim').prop('checked')) {
                 var modal = document.getElementById("evs-container");
                 modal.classList.remove("hide", "fade");
+            }else{
+                $("#evs_qtd").val('');
+                $("#evs_obs").val('');
             }
             $('#evs-sim').on('change', function() {
                 var modal = document.getElementById("evs-container");
@@ -644,6 +647,9 @@
                 var modal = document.getElementById("reservatorioAgua-container");
                 modal.classList.remove("hide", "fade");
             }
+            else{
+                $("#reservatorioAgua_obs").val('');
+            }
             $('#reservatorioAgua-sim').on('change', function() {
                 var modal = document.getElementById("reservatorioAgua-container");
                 modal.classList.remove("hide", "fade");
@@ -653,6 +659,9 @@
                 var modal = document.getElementById("compartimentos-container");
                 modal.classList.remove("hide", "fade");
             }
+            else{
+                $("#compartimentos_qtd").val('');
+            }
             $('#compartimentos-sim').on('change', function() {
                 var modal = document.getElementById("compartimentos-container");
                 modal.classList.remove("hide", "fade");
@@ -661,6 +670,9 @@
             if ($('#tampaCompartimentos-sim').prop('checked')) {
                 var modal = document.getElementById("tampaCompartimentos-container");
                 modal.classList.remove("hide", "fade");
+            }else{
+                $("#tampaCompartimentos_qtd").val('');
+                $("#tampaCompartimentos_obs").val('');
             }
             $('#tampaCompartimentos-sim').on('change', function() {
                 var modal = document.getElementById("tampaCompartimentos-container");
@@ -670,6 +682,8 @@
             if ($('#produtos-sim').prop('checked')) {
                 var modal = document.getElementById("produtos-container");
                 modal.classList.remove("hide", "fade");
+            }else{
+                $("#produtos_quais").val('');
             }
             $('#produtos-sim').on('change', function() {
                 var modal = document.getElementById("produtos-container");
@@ -904,10 +918,10 @@
                 cloneRow.attr('id', 'linha_' + contadorLinhas);
                 // Atualizar os IDs e classes dentro do clone
                 cloneRow.find('#produto_1').attr('id', 'produto_' + contadorLinhas).attr('name', 'produto_' + contadorLinhas);
-                cloneRow.find('#select_1').attr('id', 'select_' + contadorLinhas).attr('name', 'select_' + contadorLinhas);
+                cloneRow.find('#select_1').attr('id', 'select_' + contadorLinhas).attr('name', 'select_' + contadorLinhas).val('Selecione');
                 cloneRow.find('#rep_1').attr('id', 'rep_' + contadorLinhas).attr('name', 'rep_' + contadorLinhas).text('');
-                cloneRow.find('#qtd_1').attr('id', 'qtd_' + contadorLinhas).attr('name', 'qtd_' + contadorLinhas).val(0);
-                cloneRow.find('#valUnit_1').attr('id', 'valUnit_' + contadorLinhas).attr('name', 'valUnit_' + contadorLinhas).val(0.00);
+                cloneRow.find('#qtd_1').attr('id', 'qtd_' + contadorLinhas).attr('name', 'qtd_' + contadorLinhas).val('');
+                cloneRow.find('#valUnit_1').attr('id', 'valUnit_' + contadorLinhas).attr('name', 'valUnit_' + contadorLinhas).val('');
                 cloneRow.find('.tdLast').attr('id', 'total_' + contadorLinhas).attr('name', 'total_' + contadorLinhas).text('');
 
                 cloneRow.find('td:last').after('<td><a href="#modal-excluir" role="button" data-toggle="modal" cliente="" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a></td>');
@@ -953,7 +967,7 @@
             var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
             var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
 
-            parseFloat($('#total_' + numeroDaLinha).text(quantidade * valorUnitario));
+            parseFloat($('#total_' + numeroDaLinha).text('R$ ' + quantidade * valorUnitario));
         }
 
         function getServiceById(selectElement) {
@@ -979,7 +993,7 @@
 
                         var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
                         var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
-                        $('#total_' + numeroDaLinha).text(quantidade * valorUnitario);
+                        $('#total_' + numeroDaLinha).text('R$' + quantidade * valorUnitario);
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -1016,19 +1030,15 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.message === "Fabricante alterado com sucesso") {
-                            var modal = document.getElementById("edit-manufacturer");
-                            modal.classList.add("hide", "fade");
+                        if (data.message === "Os alterada com sucesso") {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Alteração Concluído',
-                                text: 'Fabricante alterado com sucesso!',
+                                title: 'Alteração Concluída',
+                                text: 'Os alterada com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
                         } else {
-                            var modal = document.getElementById("edit-manufacturer");
-                            modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Erro na alteração',
@@ -1037,18 +1047,11 @@
                         }
                     },
                     error: function(xhr, status, error) {
-
-                        var modal = document.getElementById("edit-manufacturer");
-                        modal.classList.add("hide", "fade");
-
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro na alteração',
                             text: xhr.responseJSON.message,
                         });
-                    },
-                    complete: function() {
-                        // Limpar qualquer indicação visual de loading, se necessário
                     }
                 });
             }
