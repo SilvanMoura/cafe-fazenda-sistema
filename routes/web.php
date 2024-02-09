@@ -50,7 +50,6 @@ Route::get('/os/adicionar', [OsController::class, 'createOs'])->middleware(['aut
 Route::get('/os/editar/{id}', [OsController::class, 'editOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::get('/maquinas', [MachineController::class, 'getInfoMachines'])->middleware(['auth', 'verified'])->name('machines');
-//Route::get('/maquinas/adicionar', [MachineController::class, 'createMachine'])->middleware(['auth', 'verified'])->name('machines');
 
 Route::get('/fabricantes', [ManufacturersController::class, 'getInfoManufacturers'])->middleware(['auth', 'verified'])->name('manufacturers');
 
@@ -61,6 +60,8 @@ Route::get('/cidades', [CityController::class, 'getInfoCity'])->middleware(['aut
 Route::get('/maquinas-explodidas', [ExplodedMachineController::class, 'getInfoExplodedMachine'])->middleware(['auth', 'verified'])->name('exploded-machine');
 
 Route::get('explodida/abrir-pdf/{id}', [ExplodedMachineController::class, 'openExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
+
+Route::get('os/visualizar/{id}', [OsController::class, 'viewOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
