@@ -17,7 +17,7 @@ class MachineController extends Controller
         foreach ($getMachines as $key => $machine) {
             $machine = Manufacturer::select('nome')->where('id', $machine->fabricante_id)->first();
 
-            $getMachines[$key]['fabricante_id'] = $machine->nome;
+            $getMachines[$key]['fabricante_id'] = $machine->nome ?? null;
         }
 
         //return $getMachines;

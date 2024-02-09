@@ -50,6 +50,7 @@ Route::get('/os/adicionar', [OsController::class, 'createOs'])->middleware(['aut
 Route::get('/os/editar/{id}', [OsController::class, 'editOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::get('/maquinas', [MachineController::class, 'getInfoMachines'])->middleware(['auth', 'verified'])->name('machines');
+//Route::get('/maquinas/adicionar', [MachineController::class, 'createMachine'])->middleware(['auth', 'verified'])->name('machines');
 
 Route::get('/fabricantes', [ManufacturersController::class, 'getInfoManufacturers'])->middleware(['auth', 'verified'])->name('manufacturers');
 

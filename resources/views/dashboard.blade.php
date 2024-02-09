@@ -150,7 +150,7 @@
                         </div>
                     </a>
 
-                    <a href="/maquina/adicionar" class="card tip-top" title="Adicionar Máquina">
+                    <a href="/maquinas" class="card tip-top" title="Adicionar Máquina">
                         <div><i class='bx bxs-cart-alt iconBx5'></i></div>
                         <div>
                             <div class="cardName2">{{ $dashboard['maquinaNumber'] }}</div>

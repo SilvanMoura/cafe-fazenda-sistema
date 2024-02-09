@@ -140,7 +140,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="data" style="margin-right: 10px">Data:</label>
                                 <input type="text" class="form-control" id="data" name="data" placeholder="Data" value="{{ $data }}" style="margin-right: 20px">
@@ -159,7 +159,7 @@
                                     <select id="maquina" name="maquina" class="form-control" style="width: 35vw; margin-right: 20px">
                                         <option>Selecione</option>
                                         @foreach($machines as $f)
-                                        <option @if ($f->nomemodelo == isset($machineById->nomemodelo)) selected @endif value="{{ $f->fabricante_id }}">{{ $f->nomemodelo }}</option>
+                                        <option @if ($f->id == $machineById->id) selected @endif value="{{ $f->id }}">{{ $f->nomemodelo }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -552,6 +552,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($productsByIdOs->count() >= 1)
                                     @foreach($productsByIdOs as $index => $product)
                                     <tr id="linha_{{$index+1}}">
                                         <!-- Conteúdo da primeira linha -->
@@ -575,6 +576,27 @@
                                         <td id="delete_{{$index+1}}"><a href="#modal-excluir" role="button" data-toggle="modal" cliente="" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a></td>
                                     </tr>
                                     @endforeach
+                                    @else
+                                    <tr id="linha_1">
+                                        <td id="produto_1">
+                                            <select id="select_1" name="select_1" onchange="getServiceById(this)" class="form-control produto" style="width: 30vw;">
+                                                <option>Selecione</option>
+                                                @foreach($productsOs as $f)
+                                                <option value="{{ $f->id }}">{{ $f->nome }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td id="rep_1" name="rep_1" value="" style="width: 10vw;"></td>
+                                        <td style="width: 10vw;">
+                                            <input type="number" class="form-control" id="qtd_1" name="qtd_1" min="1" onchange="changeTotalById(this)" placeholder="Quant." value="">
+                                        </td>
+                                        <td style="width: 10vw;">
+                                            <input type="number" class="form-control" id="valUnit_1" name="valUnit_1" min="1" onchange="changeTotalById(this)" placeholder="Val. Unit." value="">
+                                        </td>
+                                        <td id="total_1" name="total_1" class="tdLast" style="width: 10vw;"></td>
+                                        <td id="delete_1"><a href="#modal-excluir" role="button" data-toggle="modal" cliente="" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a></td>
+                                    </tr>
+                                    @endif
 
                                 </tbody>
 
@@ -601,7 +623,7 @@
                         <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="dataAvaliacao" style="margin-right: 10px; margin-bottom: 10px">Data de avaliação:</label>
-                                <input type="text" class="form-control" id="dataAvaliacao" name="dataAvaliacao" placeholder="Data de avaliação" value="" style="margin-right: 20px">
+                                <input type="text" class="form-control" id="dataAvaliacao" name="dataAvaliacao" placeholder="Data de avaliação" value="{{ $dataAvaliacao }}" style="margin-right: 20px">
                             </div>
                         </div>
 
@@ -634,7 +656,7 @@
             if ($('#evs-sim').prop('checked')) {
                 var modal = document.getElementById("evs-container");
                 modal.classList.remove("hide", "fade");
-            }else{
+            } else {
                 $("#evs_qtd").val('');
                 $("#evs_obs").val('');
             }
@@ -646,8 +668,7 @@
             if ($('#reservatorioAgua-sim').prop('checked')) {
                 var modal = document.getElementById("reservatorioAgua-container");
                 modal.classList.remove("hide", "fade");
-            }
-            else{
+            } else {
                 $("#reservatorioAgua_obs").val('');
             }
             $('#reservatorioAgua-sim').on('change', function() {
@@ -658,8 +679,7 @@
             if ($('#compartimentos-sim').prop('checked')) {
                 var modal = document.getElementById("compartimentos-container");
                 modal.classList.remove("hide", "fade");
-            }
-            else{
+            } else {
                 $("#compartimentos_qtd").val('');
             }
             $('#compartimentos-sim').on('change', function() {
@@ -670,7 +690,7 @@
             if ($('#tampaCompartimentos-sim').prop('checked')) {
                 var modal = document.getElementById("tampaCompartimentos-container");
                 modal.classList.remove("hide", "fade");
-            }else{
+            } else {
                 $("#tampaCompartimentos_qtd").val('');
                 $("#tampaCompartimentos_obs").val('');
             }
@@ -682,7 +702,7 @@
             if ($('#produtos-sim').prop('checked')) {
                 var modal = document.getElementById("produtos-container");
                 modal.classList.remove("hide", "fade");
-            }else{
+            } else {
                 $("#produtos_quais").val('');
             }
             $('#produtos-sim').on('change', function() {
@@ -739,7 +759,7 @@
                     tags: true
                 });
 
-                if (('delete_' + i) != 'delete_1') {
+                if ($('delete_' + i) != 'delete_1') {
                     var modal = document.getElementById("delete_1");
                     modal.classList.add("hide", "fade");
                 }
@@ -952,8 +972,11 @@
 
             let dataAtual = new Date();
             let dataFormatada = `${String(dataAtual.getDate()).padStart(2, '0')}/${String(dataAtual.getMonth() + 1).padStart(2, '0')}/${dataAtual.getFullYear()}`;
-    
-            $("#dataAvaliacao").val(dataFormatada);
+
+            if ($("#dataAvaliacao").val() == '') {
+                $("#dataAvaliacao").val(dataFormatada);
+            }
+
 
         })
 
@@ -1056,7 +1079,6 @@
                 });
             }
         })
-
     </script>
 
 

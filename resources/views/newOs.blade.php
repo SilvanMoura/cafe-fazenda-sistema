@@ -548,6 +548,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group" style=" width:85vw; display: flex; margin-top:10px">
+                            <label for="avaliacao" class="control-label col-md-2" style="margin-right: 10px;">Avaliação Técnica:</label>
+                            <div class="col-md-6">
+                                <textarea name="avaliacao" style="width:66vw" id="avaliacao" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="display:flex; justify-content: space-between;">
+                            <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
+                                <label for="dataAvaliacao" style="margin-right: 10px; margin-bottom: 10px">Data de avaliação:</label>
+                                <input type="text" class="form-control" id="dataAvaliacao" name="dataAvaliacao" placeholder="Data de avaliação" value="" style="margin-right: 20px">
+                            </div>
+                        </div>
+
                         <div class="form-actions">
                             <div class="span12">
                                 <div class="span6 offset3" style="display:flex;justify-content: center">
@@ -684,6 +698,7 @@
             let horaFormatada = `${String(dataAtual.getHours()).padStart(2, '0')}:${String(dataAtual.getMinutes()).padStart(2, '0')}:${String(dataAtual.getSeconds()).padStart(2, '0')}`;
 
             $("#data").val(dataFormatada);
+            $("#dataAvaliacao").val(dataFormatada);
             $("#hora").val(horaFormatada);
 
             $('#btnCreate').on('click', function(e) {

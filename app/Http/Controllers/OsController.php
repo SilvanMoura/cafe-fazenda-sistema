@@ -65,7 +65,7 @@ class OsController extends Controller
         foreach ($machines as $key => $machine) {
             $machine = Manufacturer::select('nome')->where('id', $machine->fabricante_id)->first();
 
-            $machines[$key]['fabricante_nome'] = $machine->nome;
+            $machines[$key]['fabricante_nome'] = $machine->nome ?? null;
         }
 
         //return $infoProduct;
@@ -85,6 +85,7 @@ class OsController extends Controller
     public function registerOs(Request $request)
     {
         $dataFormatada = Carbon::createFromFormat('d/m/Y', $request->input('data'))->format('Y/m/d');
+        $avaliacao = Carbon::createFromFormat('d/m/Y', $request->input('dataAvaliacao'))->format('Y/m/d');
 
         $os = Os::create([
             'cliente_id' => $request->input('cliente'),
@@ -119,12 +120,8 @@ class OsController extends Controller
             'evs_qtd' => $request->input('evs_qtd'),
             'evs_obs' => $request->input('evs_obs'),
             'checklist' => $request->input('checklist'),
-            //'garantia',
-            //'data_entrega',
-            //'avaliacao',
-            //'usuario_id',
-            //'data_avaliacao',
-            //'desconto'
+            'avaliacao' => $request->input('avaliacao'),
+            'data_avaliacao' => $avaliacao
         ]);
 
         $data = $request->all();
@@ -201,6 +198,10 @@ class OsController extends Controller
         // Formate a data para o formato desejado
         $dataFormatadaFormatada = $dataFormatada->format('d/m/Y');
 
+        $dataAvaliacao = $os->data_avaliacao;
+        $dataAvaliacao = Carbon::createFromFormat('Y-m-d', $dataAvaliacao);
+        $dataAvaliacao = $dataAvaliacao->format('d/m/Y');
+
         //return $productsByIdOs;
 
         return view('editOs', [
@@ -212,6 +213,7 @@ class OsController extends Controller
             'productsByIdOs' => $productsByIdOs,
             'productsOs' => $productsOs,
             'statusOs' => $statusOs,
+            'dataAvaliacao' => $dataAvaliacao,
             'data' => $dataFormatadaFormatada,
             'hora' => $hora,
         ]);
