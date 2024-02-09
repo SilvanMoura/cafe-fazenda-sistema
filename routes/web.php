@@ -48,6 +48,7 @@ Route::get('/servicos', [ServiceController::class, 'getInfoServices'])->middlewa
 Route::get('/os', [OsController::class, 'getInfoOs'])->middleware(['auth', 'verified'])->name('os');
 Route::get('/os/adicionar', [OsController::class, 'createOs'])->middleware(['auth', 'verified'])->name('os');
 Route::get('/os/editar/{id}', [OsController::class, 'editOs'])->middleware(['auth', 'verified'])->name('os');
+Route::get('os/visualizar/{id}', [OsController::class, 'viewOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::get('/maquinas', [MachineController::class, 'getInfoMachines'])->middleware(['auth', 'verified'])->name('machines');
 
@@ -60,8 +61,6 @@ Route::get('/cidades', [CityController::class, 'getInfoCity'])->middleware(['aut
 Route::get('/maquinas-explodidas', [ExplodedMachineController::class, 'getInfoExplodedMachine'])->middleware(['auth', 'verified'])->name('exploded-machine');
 
 Route::get('explodida/abrir-pdf/{id}', [ExplodedMachineController::class, 'openExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
-
-Route::get('os/visualizar/{id}', [OsController::class, 'viewOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 

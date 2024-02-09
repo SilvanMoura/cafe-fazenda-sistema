@@ -309,8 +309,69 @@ class OsController extends Controller
                 $product->delete();
             }
         });
-        
+
         //return $os;
         return response()->json(['message' => 'Os alterada com sucesso'], 201);
+    }
+
+    public function viewOs($id)
+    {
+        $clients = Client::select('id', 'nome')->orderBy('nome', 'asc')->get();
+        $machines = Machine::orderByDesc('id')->get();
+
+        $os = Os::select('*')->where('id', $id)->first();
+
+        $clientById = Client::select('*')->where('id', $os->cliente_id)->first();
+        $machineById = Machine::select('*')->where('id', $os->maquina_id)->first();
+
+        $productsByIdOs = Product_os::select('*')->where('os_id', $os->id)->get();
+        foreach ($productsByIdOs as $chave => $valor) {
+            $representacao_id = Product::select('representacao_id')->where('id', $valor['produto_id'])->first();
+            $productsByIdOs[$chave]['representacao_id'] = $representacao_id->representacao_id;
+
+            $representacao_name = Representation::select('nome')->where('id', $productsByIdOs[$chave]['representacao_id'])->first();
+            $productsByIdOs[$chave]['representacao_nome'] = $representacao_name->nome;
+        }
+
+        $productsOs = Product::select('*')->get();
+        foreach ($productsOs as $chave => $valor) {
+            $produtoNome = Product::select('nome')->where('id', $valor['produto_id'])->first();
+            if ($produtoNome) {
+                $productsOs[$chave]['produto_nome'] = $produtoNome->nome;
+            }
+        }
+
+        $statusOs = Status_os::select('*')->get();
+
+        $dataCompleta = $os->data;
+        $partes = explode(' ', $dataCompleta);
+
+        $data = $partes[0]; // "2024-02-06"
+        $hora = $partes[1]; // "22:50:10"
+
+        $dataFormatada = Carbon::createFromFormat('Y-m-d', $data);
+
+        // Formate a data para o formato desejado
+        $dataFormatadaFormatada = $dataFormatada->format('d/m/Y');
+
+        $dataAvaliacao = $os->data_avaliacao;
+        $dataAvaliacao = Carbon::createFromFormat('Y-m-d', $dataAvaliacao);
+        $dataAvaliacao = $dataAvaliacao->format('d/m/Y');
+
+        //return $productsByIdOs;
+
+        return view('viewOs', [
+            'clients' => $clients,
+            'machines' => $machines,
+            'os' => $os,
+            'clientById' => $clientById,
+            'machineById' => $machineById,
+            'productsByIdOs' => $productsByIdOs,
+            'productsOs' => $productsOs,
+            'statusOs' => $statusOs,
+            'dataAvaliacao' => $dataAvaliacao,
+            'data' => $dataFormatadaFormatada,
+            'hora' => $hora,
+        ]);
     }
 }
