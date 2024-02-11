@@ -15,7 +15,8 @@ use App\Models\Representation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Exists;
+use SnappyPDF;
+use Illuminate\Http\Response;
 
 class OsController extends Controller
 {
@@ -321,7 +322,7 @@ class OsController extends Controller
             $machine_name = Machine::select('nomemodelo')->where('id', $os->maquina_id)->first();
             $operation_name = Operation_os::select('nome')->where('id', $os->operacao_os_id)->first();
             $status_name = Status_os::select('nome')->where('id', $os->status_os_id)->first();
-            
+
             $os->maquina_nome = $machine_name->nomemodelo;
             $os->operation_name = $operation_name->nome;
             $os->status_name = $status_name->nome;
@@ -372,5 +373,24 @@ class OsController extends Controller
             'data' => $dataFormatadaFormatada,
             'hora' => $hora,
         ]);
+    }
+
+    public function generatePDF()
+    {
+        /* $data = ['title' => 'Relatório em PDF'];
+        $pdf = SnappyPDF::loadView('report', $data);
+
+        return $pdf; */
+        $data = ['title' => 'Relatório em PDF'];
+        $pdf = SnappyPDF::loadView('report', $data);
+
+        // Configurar o tipo de resposta para PDF
+        $response = new Response($pdf->output());
+        $response->header('Content-Type', 'application/pdf');
+
+        // Pode ser necessário adicionar outros headers, como o nome do arquivo
+        // $response->header('Content-Disposition', 'inline; filename="relatorio.pdf"');
+
+        return $response;
     }
 }
