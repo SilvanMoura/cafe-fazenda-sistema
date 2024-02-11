@@ -316,13 +316,18 @@ class OsController extends Controller
 
     public function viewOs($id)
     {
-        $clients = Client::select('id', 'nome')->orderBy('nome', 'asc')->get();
-        $machines = Machine::orderByDesc('id')->get();
-
         $os = Os::select('*')->where('id', $id)->first();
+        foreach ($os as $chave => $valor) {
+            $machine_name = Machine::select('nomemodelo')->where('id', $os->maquina_id)->first();
+            $operation_name = Operation_os::select('nome')->where('id', $os->operacao_os_id)->first();
+            $status_name = Status_os::select('nome')->where('id', $os->status_os_id)->first();
+            
+            $os->maquina_nome = $machine_name->nomemodelo;
+            $os->operation_name = $operation_name->nome;
+            $os->status_name = $status_name->nome;
+        }
 
         $clientById = Client::select('*')->where('id', $os->cliente_id)->first();
-        $machineById = Machine::select('*')->where('id', $os->maquina_id)->first();
 
         $productsByIdOs = Product_os::select('*')->where('os_id', $os->id)->get();
         foreach ($productsByIdOs as $chave => $valor) {
@@ -331,6 +336,9 @@ class OsController extends Controller
 
             $representacao_name = Representation::select('nome')->where('id', $productsByIdOs[$chave]['representacao_id'])->first();
             $productsByIdOs[$chave]['representacao_nome'] = $representacao_name->nome;
+
+            $produto_name = Product::select('nome')->where('id', $productsByIdOs[$chave]['produto_id'])->first();
+            $productsByIdOs[$chave]['produto_nome'] = $produto_name->nome;
         }
 
         $productsOs = Product::select('*')->get();
@@ -340,8 +348,6 @@ class OsController extends Controller
                 $productsOs[$chave]['produto_nome'] = $produtoNome->nome;
             }
         }
-
-        $statusOs = Status_os::select('*')->get();
 
         $dataCompleta = $os->data;
         $partes = explode(' ', $dataCompleta);
@@ -358,17 +364,10 @@ class OsController extends Controller
         $dataAvaliacao = Carbon::createFromFormat('Y-m-d', $dataAvaliacao);
         $dataAvaliacao = $dataAvaliacao->format('d/m/Y');
 
-        //return $productsByIdOs;
-
         return view('viewOs', [
-            'clients' => $clients,
-            'machines' => $machines,
             'os' => $os,
             'clientById' => $clientById,
-            'machineById' => $machineById,
             'productsByIdOs' => $productsByIdOs,
-            'productsOs' => $productsOs,
-            'statusOs' => $statusOs,
             'dataAvaliacao' => $dataAvaliacao,
             'data' => $dataFormatadaFormatada,
             'hora' => $hora,
