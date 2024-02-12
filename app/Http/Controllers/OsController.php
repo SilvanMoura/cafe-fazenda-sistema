@@ -375,21 +375,82 @@ class OsController extends Controller
         ]);
     }
 
-    public function generatePDF()
+    public function entregaPDF($idOs)
     {
-        /* $data = ['title' => 'Relatório em PDF'];
-        $pdf = SnappyPDF::loadView('report', $data);
 
-        return $pdf; */
-        $data = ['title' => 'Relatório em PDF'];
+        $os = Os::select('*')->where('id', $idOs)->first();
+        foreach ($os as $chave => $valor) {
+            $operation_name = Operation_os::select('nome')->where('id', $os->operacao_os_id)->first();
+            $status_name = Status_os::select('nome')->where('id', $os->status_os_id)->first();
+
+            if ($operation_name) {
+                $os->operacao_os_id = $operation_name->nome;
+            }
+
+            if ($status_name) {
+                $os->status_os_id = $status_name->nome;
+            }
+        }
+
+        $dataCompleta = $os->data;
+        $partes = explode(' ', $dataCompleta);
+
+        $data = $partes[0]; // "2024-02-06"
+        $hora = $partes[1]; // "22:50:10"
+
+        $dataFormatada = Carbon::createFromFormat('Y-m-d', $data);
+        $dataFormatada = $dataFormatada->format('d/m/Y');
+
+        $os->data = $dataFormatada . " " . $hora;
+
+        $dataAvaliacao = $os->data_avaliacao;
+        $dataAvaliacao = Carbon::createFromFormat('Y-m-d', $dataAvaliacao);
+        $dataAvaliacao = $dataAvaliacao->format('d/m/Y');
+        $os->data_avaliacao = $dataAvaliacao;
+
+        $client = Client::select('*')->where('id', $os->cliente_id)->first();
+        $machine = Machine::select('*')->where('id', $os->maquina_id)->first();
+        foreach ($machine as $chave => $valor) {
+            $manufacturer_name = Manufacturer::select('nome')->where('id', $machine->fabricante_id)->first();
+
+            if ($manufacturer_name) {
+                $machine->manufacturer_name = $manufacturer_name->nome;
+            }
+        }
+
+        $productsByIdOs = Product_os::select('*')->where('os_id', $os->id)->get();
+        foreach ($productsByIdOs as $chave => $valor) {
+            $representacao_id = Product::select('representacao_id')->where('id', $valor['produto_id'])->first();
+            $productsByIdOs[$chave]['representacao_id'] = $representacao_id->representacao_id;
+
+            $representacao_name = Representation::select('nome')->where('id', $productsByIdOs[$chave]['representacao_id'])->first();
+            $productsByIdOs[$chave]['representacao_nome'] = $representacao_name->nome;
+
+            $produto_name = Product::select('nome')->where('id', $productsByIdOs[$chave]['produto_id'])->first();
+            $productsByIdOs[$chave]['produto_nome'] = $produto_name->nome;
+        }
+
+        $total = 0;
+
+        foreach ($productsByIdOs as $r) {
+            $total += $r->quantidade * $r->valor_unitario;
+        }
+
+        //return $os;
+
+        $data = [
+            'title' => 'Relatório em PDF',
+            'os' => $os,
+            'client' => $client,
+            'machine' => $machine,
+            'products' => $productsByIdOs,
+            'total' => $total,
+        ];
         $pdf = SnappyPDF::loadView('report', $data);
 
         // Configurar o tipo de resposta para PDF
         $response = new Response($pdf->output());
         $response->header('Content-Type', 'application/pdf');
-
-        // Pode ser necessário adicionar outros headers, como o nome do arquivo
-        // $response->header('Content-Disposition', 'inline; filename="relatorio.pdf"');
 
         return $response;
     }

@@ -62,7 +62,7 @@ Route::get('/maquinas-explodidas', [ExplodedMachineController::class, 'getInfoEx
 
 Route::get('explodida/abrir-pdf/{id}', [ExplodedMachineController::class, 'openExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
 
-Route::get('/os/imprimir/996', [OsController::class, 'generatePDF']);
+Route::get('/os/imprimirEntrega/{id}', [OsController::class, 'entregaPDF']);
 
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 

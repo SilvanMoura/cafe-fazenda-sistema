@@ -68,10 +68,11 @@
                             @else
                             <td style="width:9%;"><a href="{{ 'os/visualizar/'.$r->id }}">sem garantia</a></td>
                             @endif
-                            <td style="width:10%;">
+                            <td style="width:12%;">
                                 <a href="{{ 'os/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
                                 <a href="{{ 'os/editar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="{{ 'os/imprimir/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
+                                <a href="{{ 'os/imprimirEntrega/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
+                                <a href="{{ 'os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
                             </td>
                         </tr>
                         @endforeach
