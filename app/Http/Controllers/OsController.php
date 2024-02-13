@@ -531,10 +531,10 @@ class OsController extends Controller
 
         return $response;
     }
+
     public function deliveryOs($id)
     {
-
-        $os = Os::select('*')->where('id', $idOs)->first();
+        $os = Os::select('*')->where('id', $id)->first();
         foreach ($os as $chave => $valor) {
             $operation_name = Operation_os::select('nome')->where('id', $os->operacao_os_id)->first();
             $status_name = Status_os::select('nome')->where('id', $os->status_os_id)->first();
@@ -571,4 +571,23 @@ class OsController extends Controller
             'client' => $client
         ]);
     }
+
+    public function guaranteeOs(Request $request, $id)
+    {
+        $os = Os::findOrFail($id);
+
+        $dataHoje = Carbon::now();
+    
+        // Formata a data para o formato desejado
+        $dataFormatada = $dataHoje->format('Y-m-d');
+
+        $os->garantia = $request->input('garantia');
+        $os->data_entrega = $dataFormatada;
+        $os->desconto = $request->input('desconto') != '' ? $request->input('desconto'):0;
+
+        $os->save();
+
+        return response()->json(['message' => 'Garantia registrada com sucesso'], 201);
+    }
+
 }

@@ -88,6 +88,8 @@ Route::post('/os/cadastrar/', [OsController::class, 'registerOs'])->middleware([
 
 Route::post('/os/produtos', [OsController::class, 'productsOs'])->name('os');
 
+Route::post('/os/entrega/{id}', [OsController::class, 'guaranteeOs']);
+
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct'])->middleware(['auth', 'verified'])->name('products');
