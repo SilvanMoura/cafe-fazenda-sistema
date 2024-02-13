@@ -66,7 +66,15 @@
             margin-bottom: 10px;
         }
 
-        .line-os span {
+        .line-os-alt {
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 46%;
+            margin-bottom: 10px;
+        }
+
+        .line-os span,
+        .line-os-alt span {
             display: block;
             margin-bottom: 5px;
             font-size: 13px;
@@ -129,55 +137,14 @@
             </div>
             <div class="line-os">
                 <span><strong>Endereço:</strong> {{$client->endereco}}, {{$client->complemento}} - {{$client->bairro}} - {{$client->cep}}</span>
-                <span><strong>Cidade/UF:</strong>  {{$client->cidade}}/ {{$client->uf}}</span>
-                <span><strong>Contato(s):</strong>  {{$client->telefone}}</span>
+                <span><strong>Cidade/UF:</strong> {{$client->cidade}}/ {{$client->uf}}</span>
+                <span><strong>Contato(s):</strong> {{$client->telefone}}</span>
                 <span><strong>Nº de Série:</strong> {{$machine->numeroserie}}</span>
             </div>
         </div>
 
         <hr style="margin-bottom:30px; margin-left: 3%; margin-right: 3%;">
 
-        <div class="line-basic-alt">
-            <p>Peças e Serviços</p>
-        </div>
-
-
-        <div class="margin-alt">
-            <table class="tabela-produto">
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Repres.</th>
-                        <th>Quantidade</th>
-                        <th>Val. Unit.</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($products as $r)
-                    <tr>
-                        <td>{{$r->produto_nome}}</td>
-                        <td>{{$r->representacao_nome}}</td>
-                        <td>{{$r->quantidade}}</td>
-                        <td>R$ {{$r->valor_unitario}}</td>
-                        <td>R$ {{ $r->quantidade * $r->valor_unitario }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4">Desconto:</td>
-                        <td>R$ {{$os->desconto}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">Total:</td>
-                        <td>
-                            R$ {{$total - $os->desconto}}
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
         <div>
             <div class="line-basic-alt">
                 <p>Avaliação:</p>
@@ -208,6 +175,38 @@
                 <p>{{$os->obs}}</p>
             </div>
         </div>
+
+        <hr class="margin-alt" style="margin-bottom: 30px;">
+
+        <div class="line-basic-alt">
+            <p>Peças e Serviços</p>
+        </div>
+        <div class="grid-container margin-alt">
+            <div class="line-os-alt">
+                <span><strong>Responsável pelo Checklist*:</strong> {{$os->status_os_id}}</span>
+                <span><strong>Nº de Bebidas Extraídas:</strong> {{$os->id}}</span>
+                <span><strong>Cabo de Alimentação:</strong> {{$machine->nomemodelo}}</span>
+                <span><strong>Bomba Submersa:</strong> {{$os->status_os_id}}</span>
+                <span><strong>Chave Máquina:</strong> {{$os->id}}</span>
+                <span><strong>Tampa do Reservatório D'água:</strong> {{$machine->nomemodelo}}</span>
+                <span><strong>Locada:</strong> {{$os->status_os_id}}</span>
+                <span><strong>Compartimentos:</strong> sim / <strong>Qnt:</strong> 1 Und. </span>
+                <span><strong>Tampa dos Compartimentos:</strong> sim / <strong>Qnt:</strong> 1 Und. / <strong>Obs: </strong>teste</span>
+            </div>
+            <div class="line-os-alt">
+                <span><strong>Adaptador:</strong> {{$os->status_os_id}}</span>
+                <span><strong>Mangueira:</strong> {{$os->id}}</span>
+                <span><strong>Validador:</strong> {{$machine->nomemodelo}}</span>
+                <span><strong>Cofre:</strong> {{$os->status_os_id}}</span>
+                <span><strong>Chave do cofre:</strong> {{$os->id}}</span>
+                <span><strong>Produtos:</strong> {{$machine->nomemodelo}}</span>
+                <span><strong>Bandeja:</strong> {{$os->status_os_id}}</span>
+                <span><strong>Ev's:</strong> sim / <strong>Qnt:</strong> 1 Und. </span>
+                <span><strong>Reservatório D'água:</strong> sim / <strong>Obs 1:</strong> 1 Und. / <strong>Obs 2: </strong>teste </span>
+            </div>
+        </div>
+
+
     </main>
 
     <footer>
