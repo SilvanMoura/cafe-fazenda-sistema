@@ -183,26 +183,26 @@
         </div>
         <div class="grid-container margin-alt">
             <div class="line-os-alt">
-                <span><strong>Responsável pelo Checklist*:</strong> {{$os->status_os_id}}</span>
-                <span><strong>Nº de Bebidas Extraídas:</strong> {{$os->id}}</span>
-                <span><strong>Cabo de Alimentação:</strong> {{$machine->nomemodelo}}</span>
-                <span><strong>Bomba Submersa:</strong> {{$os->status_os_id}}</span>
-                <span><strong>Chave Máquina:</strong> {{$os->id}}</span>
-                <span><strong>Tampa do Reservatório D'água:</strong> {{$machine->nomemodelo}}</span>
-                <span><strong>Locada:</strong> {{$os->status_os_id}}</span>
-                <span><strong>Compartimentos:</strong> sim / <strong>Qnt:</strong> 1 Und. </span>
-                <span><strong>Tampa dos Compartimentos:</strong> sim / <strong>Qnt:</strong> 1 Und. / <strong>Obs: </strong>teste</span>
+                <span><strong>Responsável pelo Checklist*:</strong> {{$os->checklist}}</span>
+                <span><strong>Nº de Bebidas Extraídas:</strong> {{$os->bebidas_extraidas}}</span>
+                <span><strong>Cabo de Alimentação:</strong> {{ $os->cabo == 'n' ? 'Não' : 'Sim' }}</span>
+                <span><strong>Bomba Submersa:</strong> {{ $os->bomba == 'n' ? 'Não' : 'Sim' }}</span>
+                <span><strong>Chave Máquina:</strong> {{ $os->chave == 'n' ? 'Não' : 'Sim' }}</span>
+                <span><strong>Tampa do Reservatório D'água:</strong> {{ $os->tampa == 'n' ? 'Não' : 'Sim' }}</span>
+                <span><strong>Locada:</strong> {{ $os->locada == 'n' ? 'Não' : 'Sim' }} </span>
+                <span><strong>Compartimentos:</strong> {{ $os->compartimento == 'n' ? 'Não' : 'Sim' }} / <strong>Qnt:</strong> {{ $os->compartimento_qtd }} </span>
+                <span><strong>Tampa dos Compartimentos:</strong> {{ $os->tampa_compartimento == 'n' ? 'Não' : 'Sim' }} / <strong>Qnt:</strong> {{ $os->tampa_compartimento_qtd }} / <strong>Obs: </strong>{{ $os->tampa_compartimento_obs }}</span>
             </div>
             <div class="line-os-alt">
-                <span><strong>Adaptador:</strong> {{$os->status_os_id}}</span>
-                <span><strong>Mangueira:</strong> {{$os->id}}</span>
-                <span><strong>Validador:</strong> {{$machine->nomemodelo}}</span>
-                <span><strong>Cofre:</strong> {{$os->status_os_id}}</span>
-                <span><strong>Chave do cofre:</strong> {{$os->id}}</span>
-                <span><strong>Produtos:</strong> {{$machine->nomemodelo}}</span>
-                <span><strong>Bandeja:</strong> {{$os->status_os_id}}</span>
-                <span><strong>Ev's:</strong> sim / <strong>Qnt:</strong> 1 Und. </span>
-                <span><strong>Reservatório D'água:</strong> sim / <strong>Obs 1:</strong> 1 Und. / <strong>Obs 2: </strong>teste </span>
+                <span><strong>Adaptador:</strong> {{ $os->adaptador == 'n' ? 'Não' : 'Sim' }} </span>
+                <span><strong>Mangueira:</strong> {{ $os->mangueira == 'n' ? 'Não' : 'Sim' }} </span>
+                <span><strong>Validador:</strong> {{ $os->validador == 'n' ? 'Não' : 'Sim' }} </span>
+                <span><strong>Cofre:</strong> {{ $os->cofre == 'n' ? 'Não' : 'Sim' }} </span>
+                <span><strong>Chave do cofre:</strong> {{ $os->cofre_chave == 'n' ? 'Não' : 'Sim' }} </span>
+                <span><strong>Produtos:</strong> {{ $os->produtos == 'n' ? 'Não' : 'Sim' }} </span>
+                <span><strong>Bandeja:</strong> {{ $os->bandeja == 'n' ? 'Não' : 'Sim' }} </span>
+                <span><strong>Ev's:</strong> {{ $os->evs == 'n' ? 'Não' : 'Sim' }} / <strong>Qnt:</strong> {{ $os->evs_qtd}} </span>
+                <span><strong>Reservatório D'água:</strong> {{ $os->reservatorio == 'n' ? 'Não' : 'Sim' }} <strong>Obs: </strong> {{ $os->reservatorio_obs }} </span>
             </div>
         </div>
 
