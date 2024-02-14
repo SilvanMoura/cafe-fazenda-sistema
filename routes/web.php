@@ -11,9 +11,7 @@ use App\Http\Controllers\MachineController;
 use App\Http\Controllers\ManufacturersController;
 use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\ExplodedMachineController;
-use App\Models\Exploded_machine;
-use App\Models\Manufacturer;
-use App\Models\Os;
+use App\Http\Controllers\GuaranteesController;
 use Illuminate\Support\Facades\Route;
 
 /*
