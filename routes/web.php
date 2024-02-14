@@ -68,6 +68,8 @@ Route::get('/os/imprimirOs/{id}', [OsController::class, 'osPDF']);
 
 Route::get('/os/entregaOs/{id}', [OsController::class, 'deliveryOs']);
 
+Route::get('/garantias', [GuaranteesController::class, 'guarantees']);
+
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::post('/produtos/adicionar', [ProductController::class, 'registerProducts'])->middleware(['auth', 'verified'])->name('products');
