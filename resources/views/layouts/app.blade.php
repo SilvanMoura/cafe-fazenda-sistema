@@ -170,14 +170,14 @@
             </div>
         </a>
         <!-- Start Pesquisar-->
-        <li class="search-box">
+        <!-- <li class="search-box">
             <form style="display: flex" action="pesquisar">
                 <button style="background:transparent;border:transparent" type="submit" class="tip-bottom" title="">
                     <i class='bx bx-search iconX'></i></button>
                 <input style="background:transparent; color:#313030;border:transparent" type="search" name="termo" placeholder="Pesquise aqui...">
                 <span class="title-tooltip">Pesquisar</span>
             </form>
-        </li>
+        </li> -->
         <!-- End Pesquisar-->
 
         <div class="menu-bar">
@@ -188,7 +188,7 @@
                                     echo 'active';
                                 }; ?>">
                         <a class="tip-bottom" title="" href="/dashboard"><i class='bx bx-home-alt iconX'></i>
-                            <span class="title nav-title">Home</span>
+                            <span class="title nav-title">Início</span>
                             <span class="title-tooltip">Início</span>
                         </a>
                     </li>
@@ -226,16 +226,16 @@
                     </li>
 
 
-                    <li class="<?php if (isset($menuVendas)) {
+                    <!-- <li class="<?php if (isset($menuVendas)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Vendas" href="vendas">
-                            <i class='bx bx-cart-alt iconX'></i>
-                            <span class="title">Vendas</span>
-                            <span class="title-tooltip">Vendas</span>
+                        <a class="tip-bottom" title="Ordens" href="ordens">
+                            <i class='bx bx-list-alt iconX'></i>
+                            <span class="title">Ordens</span>
+                            <span class="title-tooltip">Ordens</span>
                         </a>
 
-                    </li>
+                    </li> -->
 
 
                     <li class="<?php if (isset($menuOs)) {
@@ -253,9 +253,9 @@
                     <li class="<?php if (isset($menuGarantia)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Termos de Garantias" href="garantias">
+                        <a class="tip-bottom" title="Garantias" href="garantias">
                             <i class='bx bx-receipt iconX'></i>
-                            <span class="title">Termos de Garantias</span>
+                            <span class="title">Garantias</span>
                             <span class="title-tooltip">Garantias</span>
                         </a>
 
@@ -266,31 +266,20 @@
                     <li class="<?php if (isset($menuArquivos)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Arquivos" href="arquivos">
-                            <i class="bx bx-box iconX"></i>
-                            <span class="title">Arquivos</span>
-                            <span class="title-tooltip">Arquivos</span>
+                        <a class="tip-bottom" title="Máquinas" href="maquinas">
+                            <i class="bx bx-cart iconX"></i>
+                            <span class="title">Máquinas</span>
+                            <span class="title-tooltip">Máquinas</span>
                         </a>
 
-                    </li>
-
-
-                    <li class="<?php if (isset($menuLancamentos)) {
-                                    echo 'active';
-                                } ?>">
-                        <a class="tip-bottom" title="Lançamentos" href="financeiro/lancamentos">
-                            <i class="bx bx-bar-chart-alt-2 iconX"></i>
-                            <span class="title">Lançamentos</span>
-                            <span class="title-tooltip">Lançamentos</span>
-                        </a>
                     </li>
 
                     <li class="<?php if (isset($menuCobrancas)) {
                                     echo 'active';
                                 }; ?>">
-                        <a class="tip-bottom" title="" href="cobrancas/cobrancas"><i class='bx bx-dollar-circle iconX'></i>
-                            <span class="title">Cobranças</span>
-                            <span class="title-tooltip">Cobranças</span>
+                        <a class="tip-bottom" title="" href="usuarios"><i class='bx bx-user iconX'></i>
+                            <span class="title">Usuários</span>
+                            <span class="title-tooltip">Usuários</span>
                         </a>
                     </li>
                 </ul>

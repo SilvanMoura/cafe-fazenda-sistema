@@ -47,28 +47,18 @@
                                         @foreach($infoOsOrcamentos as $r)
                                         <tr>
                                             <td style="width:5%">{{ $r->id }}</td>
-                                            <td style="width:15%">{{ $r->cliente_id }}</td>
+                                            <td style="width:20%">{{ $r->cliente_id }}</td>
                                             <td style="width:10%">{{ $r->status_os_id }}</td>
                                             <td style="width:10%">{{ $r->data_avaliacao }}</td>
-                                            <td style="width:43%">{{ $r->avaliacao }}</td>
+                                            <td style="width:42%">{{ $r->avaliacao }}</td>
 
                                             <td>
-
-                                                <a href="os/visualizar/{{ $r->id }}" style="margin-right: 1%" class="btn btn-alt tip-top" title="Ver mais detalhes">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="os/editar/{{ $r->id }}" class="btn btn-alt btn-info tip-top" title="Editar OS">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-
-                                                <a href="os/visualizar/{{ $r->id }}" style="margin-right: 1%" class="btn btn-alt tip-top" title="Ver mais detalhes">
-                                                    <i class="fas fa-print"></i>
-                                                </a>
-                                                <a href="os/editar/{{ $r->id }}" class="btn btn-alt btn-info tip-top" title="Editar OS">
-                                                    <i class="fas fa-folder"></i>
-                                                </a>
-
+                                                <a href="{{ 'os/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
+                                                <a href="{{ 'os/editar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
+                                                <a href="{{ 'os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="fas fa-print"></i></a>
+                                                <a href="{{ 'os/entregaOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="fas fa-folder"></i></a>
                                             </td>
+
                                         </tr>
                                         @endforeach
                                         @else
@@ -116,31 +106,17 @@
                                         @foreach($infoOsServices as $r)
                                         <tr>
                                             <td style="width:5%">{{ $r->id }}</td>
-                                            <td style="width:15%">{{ $r->cliente_id }}</td>
+                                            <td style="width:25%">{{ $r->cliente_id }}</td>
                                             <td style="width:10%">{{ $r->status_os_id }}</td>
                                             <td style="width:10%">{{ $r->data_avaliacao }}</td>
-                                            <td style="width:33%">{{ $r->avaliacao }}</td>
-                                            <td style="width:7%">R$ {{ $r-> valor_os}}</td>
+                                            <td style="width:28%">{{ $r->avaliacao }}</td>
+                                            <td style="width:10%">R$ {{ $r-> valor_os}}</td>
 
                                             <td>
-
-                                                <a href="os/visualizar/{{ $r->id }}" style="margin-right: 1%" class="btn btn-alt tip-top" title="Ver mais detalhes">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="os/editar/{{ $r->id }}" class="btn btn-alt btn-info tip-top" title="Editar OS">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-
-                                                <a href="os/visualizar/{{ $r->id }}" style="margin-right: 1%" class="btn btn-alt tip-top" title="Ver mais detalhes">
-                                                    <i class="fas fa-print"></i>
-                                                </a>
-                                                <a href="os/editar/{{ $r->id }}" class="btn btn-alt btn-info tip-top" title="Editar OS">
-                                                    <i class="fas fa-folder"></i>
-                                                </a>
-                                                <a href="os/visualizar/{{ $r->id }}" style="margin-right: 1%" class="btn btn-alt tip-top" title="Ver mais detalhes">
-                                                    <i class="fas fa-truck"></i>
-                                                </a>
-
+                                                <a href="{{ 'os/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
+                                                <a href="{{ 'os/editar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
+                                                <a href="{{ 'os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="fas fa-print"></i></a>
+                                                <a href="{{ 'os/entregaOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="fas fa-folder"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -163,5 +139,5 @@
         <a title="Voltar" class="button btn btn-mini btn-warning" style="min-width: 140px; top:10px" href="/dashboard">
             <span class="button__icon"><i class="bx bx-undo"></i></span><span class="button__text2">Voltar</span></a>
     </div>
-    </div>
-    @endsection
+</div>
+@endsection

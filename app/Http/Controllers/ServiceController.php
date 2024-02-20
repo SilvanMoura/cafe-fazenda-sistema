@@ -16,11 +16,22 @@ class ServiceController extends Controller
     {
         $getOsOrcamentos = Os::where('operacao_os_id', 1)->get();
 
-        $getOsServicos = Os::select('*')
+        /* $getOsServicos = Os::select('*')
             ->where(function ($query) {
                 $query->where('data_entrega', null);
             })
             ->where('status_os_id', 3)
+            ->get(); */
+
+        $getOsServicos = Os::select('*')
+            ->where(function ($query) {
+                $query->where('operacao_os_id', 2);
+                $query->where('status_os_id', '<>', 5);
+                $query->where('status_os_id', '<>', 6);
+                $query->where('status_os_id', '<>', 9);
+                $query->where('data_entrega', null);
+            })
+            ->orderBy('id', 'desc')
             ->get();
 
 

@@ -76,13 +76,13 @@
 
     <li class="card">
         <div class="grid-blak">
-            <a href="/financeiro/lancamentos">
-                <div class="numbers">Lançamentos</div>
+            <a href="/garantias">
+                <div class="numbers">Garantias</div>
             </a>
         </div>
-        <a href="/financeiro/lancamentos">
+        <a href="/garantias">
             <div class="lord-icon06">
-                <i class="bx bx-bar-chart-alt-2 iconBx06"></i>
+                <i class="bx bx-receipt iconBx6"></i>
             </div>
         </a>
     </li>
@@ -142,19 +142,19 @@
                         </div>
                     </a>
 
-                    <a href="/garantias" class="card tip-top" title="Adicionar garantia">
-                        <div><i class='bx bxs-receipt iconBx6'></i></div>
-                        <div>
-                            <div class="cardName2">{{ $dashboard['garantiasNumber'] }}</div>
-                            <div class="cardName">Garantias</div>
-                        </div>
-                    </a>
-
                     <a href="/maquinas" class="card tip-top" title="Adicionar Máquina">
                         <div><i class='bx bxs-cart-alt iconBx5'></i></div>
                         <div>
                             <div class="cardName2">{{ $dashboard['maquinaNumber'] }}</div>
                             <div class="cardName">Máquinas</div>
+                        </div>
+                    </a>
+
+                    <a href="/garantias" class="card tip-top" title="Adicionar garantia">
+                        <div><i class='bx bxs-receipt iconBx6'></i></div>
+                        <div>
+                            <div class="cardName2">{{ $dashboard['garantiasNumber'] }}</div>
+                            <div class="cardName">Garantias</div>
                         </div>
                     </a>
                     <!-- responsavel por fazer complementar a variavel "$financeiro_mes_dia->" de receita e despesa -->

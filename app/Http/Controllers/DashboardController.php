@@ -26,13 +26,17 @@ class DashboardController extends Controller
 
         $getOsOrcamentosNumber = Os::where('operacao_os_id', 1)->count();
 
-        $getOsServicosNumber = Os::select('id')
+        $getOsServicos = Os::select('*')
             ->where(function ($query) {
+                $query->where('operacao_os_id', 2);
+                $query->where('status_os_id', '<>', 5);
+                $query->where('status_os_id', '<>', 6);
+                $query->where('status_os_id', '<>', 9);
                 $query->where('data_entrega', null);
             })
-            ->where('status_os_id', 3)
-            ->count();
-
+            ->orderBy('id', 'desc')
+            //->where('status_os_id', 3)
+            ->get();//->count();
 
         $getMaquinaNumber = Machine::count();
 
@@ -41,13 +45,13 @@ class DashboardController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        $getOsServicos = Os::select('*')
+        /* $getOsServicos = Os::select('*')
             ->where(function ($query) {
                 $query->whereNull('data_entrega');
             })
             ->where('operacao_os_id', 2)
             ->orderByDesc('id')
-            ->get();
+            ->get(); */
 
         $getOsAll = OS::select('*')
             ->whereNotNull('data_entrega')
@@ -109,12 +113,13 @@ class DashboardController extends Controller
         $dashboard['produto'] = $getProdutoNumber;
         $dashboard['os'] = $getOsNumber;
         $dashboard['osOrcamentoNumber'] = $getOsOrcamentosNumber;
-        $dashboard['osServicoNumber'] = $getOsServicosNumber;
+        $dashboard['osServicoNumber'] = count($getOsServicos);
         $dashboard['maquinaNumber'] = $getMaquinaNumber;
         $dashboard['osOrcamento'] = $getOsOrcamentos;
         $dashboard['osServicos'] = $getOsServicos;
 
-        //return $dashboard;
+        //return $getOsServicos;
+
         return view('dashboard', ['dashboard' => $dashboard]);
     }
 }
