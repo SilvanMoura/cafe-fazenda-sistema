@@ -12,7 +12,7 @@ use App\Http\Controllers\ManufacturersController;
 use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\ExplodedMachineController;
 use App\Http\Controllers\GuaranteesController;
-use App\Http\Controllers\Users;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
