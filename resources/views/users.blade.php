@@ -26,12 +26,12 @@
             <span class="icon">
                 <i class="fas fa-user"></i>
             </span>
-            <h5>Máquinas</h5>
+            <h5>Usuários</h5>
         </div>
         <!-- php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aCliente')) { ?> -->
         <a class="button btn btn-mini btn-success open-modal-create" style="max-width: 165px">
             <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
-                Máquina
+                Usuário
             </span>
         </a>
         <!-- ?php } ?> -->
@@ -43,31 +43,24 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nome/Modelo</th>
-                            <th>Nº Série</th>
-                            <th>Fabricante</th>
+                            <th>Nome</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @if($infoMachines->count() > 0)
-                        @foreach ($infoMachines as $r)
                         <tr>
-                            <td style="width:5%;">{{ $r->id }}</td>
-                            <td style="width:20%;">{{ $r->nomemodelo }}</td>
-                            <td style="width:20%;">{{ $r->numeroserie }}</td>
-                            <td style="width:20%;">{{ $r->fabricante_id }}</td>
+                            <td style="width:5%;"></td>
+                            <td style="width:20%;"></td>
+                            <td style="width:20%;"></td>
                             <td style="width:6%;">
-                                <a href="#modal-edit" role="button" data-toggle="modal" data-machineId="{{ $r->id }}" data-machineName="{{ $r->nomemodelo }}" data-machineNumber="{{ $r->numeroserie }}" data-machineManufacturer="{{ $r->fabricante_id }}" class="btn-nwe3 open-edit-machine" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="#modal-delete" role="button" data-toggle="modal" data-machineId="{{ $r->id }}" data-machineName="{{ $r->nomemodelo }}" data-machineNumber="{{ $r->numeroserie }}" data-machineManufacturer="{{ $r->fabricante_id }}" class="btn-nwe4 open-modal-delete" title="Excluir Máquina"><i class="bx bx-trash-alt bx-xs"></i></a>
+                                <a href="#modal-edit" role="button" data-toggle="modal" class="btn-nwe3 open-edit-user" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="#modal-delete" role="button" data-toggle="modal" class="btn-nwe4 open-modal-delete" title="Excluir Máquina"><i class="bx bx-trash-alt bx-xs"></i></a>
                             </td>
                         </tr>
-                        @endforeach
-                        @else
                         <tr>
-                            <td colspan="6">Nenhuma Máquina Cadastrada</td>
+                            <td colspan="6">Nenhum Usuário Cadastrado</td>
                         </tr>
-                        @endif
 
                     </tbody>
                 </table>
@@ -76,47 +69,28 @@
         <!-- <php echo $this->pagination->create_links(); ?> -->
 
         <!-- Modal Estoque -->
-        <div id="edit-machine" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="edit-user" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <form id="formEdit">
                 @csrf
                 <div class="modal-header">
                     <button type="button" class="close close-btn" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h5 id="myModalLabel"><i class="fas fa-plus-square"></i> Editar Máquina</h5>
+                    <h5 id="myModalLabel"><i class="fas fa-plus-square"></i> Editar Usuário</h5>
                 </div>
 
                 <div class="modal-body">
 
-                    <input type="hidden" id="idMachine" class="idMachine" name="id" value="" />
+                    <input type="hidden" id="idUser" class="idUser" name="id" value="" />
                     <div class="control-group">
-                        <label for="machineNameModelo" class="control-label">Nome/Modelo</label>
+                        <label for="userNameModelo" class="control-label">Nome</label>
                         <div class="controls">
-                            <input id="machineNameModelo" type="text" name="machineNameModelo" value="" />
+                            <input id="userNameModelo" type="text" name="userNameModelo" value="" />
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label for="numberSerie" class="control-label">Nº Série</label>
+                        <label for="numberSerie" class="control-label">E-mail</label>
                         <div class="controls">
                             <input id="numberSerie" type="text" name="numberSerie" value="" />
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="machineManufacturer" class="control-label">Fabricante Atual</label>
-                        <div class="controls">
-                            <input id="machineManufacturer" type="text" name="machineManufacturer" readonly value="" />
-
-                        </div>
-                    </div>
-                    <div class="control-group" style="width: 42%">
-                        <label for="Manufacturer" class="control-label">Novo Fabricante</label>
-                        <div class="controls">
-                            <select id="Manufacturer" class="js-example-basic-single" style="width: 100%" data-default-value="NomeDesejado">
-                                <option></option>
-                                @foreach($manufactures as $f)
-                                <option value="{{ $f->id }}">{{ $f->nome }}</option>
-                                @endforeach
-                            </select>
                         </div>
                     </div>
 
@@ -129,17 +103,17 @@
 
     </div>
 
-    <div id="delete-machine" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="delete-user" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <form id="formDelete">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close close-delete" data-dismiss="modal" aria-hidden="true">×</button>
-                <h5 id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Máquina</h5>
+                <h5 id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Usuário</h5>
             </div>
 
             <div class="modal-body">
-                <input type="hidden" id="idMachine-delete" class="idMachine-delete" name="id" value="" />
-                <h5 style="text-align: center">Deseja realmente excluir a máquina <span id="id-delete"></span>?</h5>
+                <input type="hidden" id="idUser-delete" class="idUser-delete" name="id" value="" />
+                <h5 style="text-align: center">Deseja realmente excluir o usuário <span id="id-delete"></span>?</h5>
             </div>
             <div class="modal-footer" style="display:flex;justify-content: center">
                 <button type="button" class="button btn btn-warning close-delete" data-dismiss="modal" aria-hidden="true"><span class="button__icon"><i class="bx bx-x"></i></span><span class="button__text2">Cancelar</span></button>
@@ -148,39 +122,20 @@
         </form>
     </div>
 
-    <div id="create-machine" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="create-user" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <form id="formCreate">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close close-create" data-dismiss="modal" aria-hidden="true">×</button>
-                <h5 id="myModalLabel"><i class="fas fa-plus-square"></i> Criar Máquina</h5>
+                <h5 id="myModalLabel"><i class="fas fa-plus-square"></i> Criar Usuário</h5>
             </div>
 
             <div class="modal-body">
 
                 <div class="control-group">
-                    <label for="machineNameModelo" class="control-label">Nome/Modelo</label>
+                    <label for="userNameModelo" class="control-label">Nome</label>
                     <div class="controls">
-                        <input id="machineNameModelo" type="text" name="machineNameModelo" value="" />
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label for="numberSerie" class="control-label">Nº Série</label>
-                    <div class="controls">
-                        <input id="numberSerie" type="text" name="numberSerie" value="" />
-                    </div>
-                </div>
-
-                <div class="control-group" style="width: 42%">
-                    <label for="Manufacturers" class="control-label">Novo Fabricante</label>
-                    <div class="controls">
-                        <select id="Manufacturers" class="js-example-basic-single" style="width: 100%">
-                            <option>Selecione</option>
-                            @foreach($manufactures as $f)
-                            <option value="{{ $f->id }}">{{ $f->nome }}</option>
-                            @endforeach
-                        </select>
+                        <input id="userNameModelo" type="text" name="userNameModelo" value="" />
                     </div>
                 </div>
 
@@ -214,48 +169,48 @@
             tags: true
         });
 
-        $('.open-edit-machine').on('click', function(event) {
-            var modal = document.getElementById("edit-machine");
+        $('.open-edit-user').on('click', function(event) {
+            var modal = document.getElementById("edit-user");
             modal.classList.remove("hide", "fade");
 
-            var machineId = $(this).attr('data-machineId');
-            var machineName = $(this).attr('data-machineName');
-            var machineNumber = $(this).attr('data-machineNumber');
-            var machineManufacturer = $(this).attr('data-machineManufacturer');
+            var userId = $(this).attr('data-userId');
+            var userName = $(this).attr('data-userName');
+            var userNumber = $(this).attr('data-userNumber');
+            var userManufacturer = $(this).attr('data-userManufacturer');
 
-            $('#idMachine').val(machineId);
-            $('#machineNameModelo').val(machineName);
-            $('#numberSerie').val(machineNumber);
-            $('#machineManufacturer').val(machineManufacturer);
+            $('#idUser').val(userId);
+            $('#userNameModelo').val(userName);
+            $('#numberSerie').val(userNumber);
+            $('#userManufacturer').val(userManufacturer);
         });
 
         $('.open-modal-delete').on('click', function(event) {
-            var modal = document.getElementById("delete-machine");
+            var modal = document.getElementById("delete-user");
             modal.classList.remove("hide", "fade");
 
-            var machineId = $(this).attr('data-machineId');
+            var userId = $(this).attr('data-userId');
 
-            $('#idMachine-delete').val(machineId);
-            $('#id-delete').text(machineId);
+            $('#idUser-delete').val(userId);
+            $('#id-delete').text(userId);
         });
 
         $('.open-modal-create').on('click', function(event) {
-            var modal = document.getElementById("create-machine");
+            var modal = document.getElementById("create-user");
             modal.classList.remove("hide", "fade");
         });
 
         $('.close-btn').on('click', function(event) {
-            var modal = document.getElementById("edit-machine");
+            var modal = document.getElementById("edit-user");
             modal.classList.add("hide", "fade");
         })
 
         $('.close-create').on('click', function(event) {
-            var modal = document.getElementById("create-machine");
+            var modal = document.getElementById("create-user");
             modal.classList.add("hide", "fade");
         })
 
         $('.close-delete').on('click', function(event) {
-            var modal = document.getElementById("delete-machine");
+            var modal = document.getElementById("delete-user");
             modal.classList.add("hide", "fade");
         })
 
@@ -264,45 +219,44 @@
 
             // Validação do formulário usando o plugin validate
             if ($("#formCreate").valid()) {
-                var selectedManufacturer = $('#Manufacturers').val();
 
                 // Serializar dados incluindo o valor selecionado
-                var dados = $("#formCreate").serialize() + '&manufacturer=' + selectedManufacturer;
+                var dados = $("#formCreate").serialize();
 
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/maquinas/adicionar",
+                    url: "http://localhost:8000/usuarios/adicionar",
                     data: dados,
                     dataType: 'json',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.message === "Máquina registrada com sucesso") {
-                            var modal = document.getElementById("create-machine");
+                        if (data.message === "Usuário registrado com sucesso") {
+                            var modal = document.getElementById("create-user");
                             modal.classList.add("hide", "fade");
 
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Cadastro Concluído',
-                                text: 'Máquina registrada com sucesso!',
+                                text: 'Usuário registrado com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
                         } else {
-                            var modal = document.getElementById("create-machine");
+                            var modal = document.getElementById("create-user");
                             modal.classList.add("hide", "fade");
 
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Erro na exclusão',
+                                title: 'Erro na criação',
                                 text: data.message,
                             });
                         }
                     },
                     error: function(xhr, status, error) {
-                        var modal = document.getElementById("create-machine");
+                        var modal = document.getElementById("create-user");
                         modal.classList.add("hide", "fade");
 
                         Swal.fire({
@@ -340,7 +294,7 @@
                     },
                     success: function(data) {
                         if (data.message === "Máquina excluida com sucesso") {
-                            var modal = document.getElementById("delete-machine");
+                            var modal = document.getElementById("delete-user");
                             modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'success',
@@ -350,7 +304,7 @@
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
                         } else {
-                            var modal = document.getElementById("delete-machine");
+                            var modal = document.getElementById("delete-user");
                             modal.classList.add("hide", "fade");
 
                             Swal.fire({
@@ -361,7 +315,7 @@
                         }
                     },
                     error: function(xhr, status, error) {
-                        var modal = document.getElementById("delete-machine");
+                        var modal = document.getElementById("delete-user");
                         modal.classList.add("hide", "fade");
 
                         Swal.fire({
@@ -402,7 +356,7 @@
                     },
                     success: function(data) {
                         if (data.message === "Máquina alterada com sucesso") {
-                            var modal = document.getElementById("edit-machine");
+                            var modal = document.getElementById("edit-user");
                             modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'success',
@@ -412,7 +366,7 @@
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
                         } else {
-                            var modal = document.getElementById("edit-machine");
+                            var modal = document.getElementById("edit-user");
                             modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'error',
@@ -423,7 +377,7 @@
                     },
                     error: function(xhr, status, error) {
 
-                        var modal = document.getElementById("edit-machine");
+                        var modal = document.getElementById("edit-user");
                         modal.classList.add("hide", "fade");
 
                         Swal.fire({
