@@ -12,6 +12,7 @@ use App\Http\Controllers\ManufacturersController;
 use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\ExplodedMachineController;
 use App\Http\Controllers\GuaranteesController;
+use App\Http\Controllers\Users;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +68,8 @@ Route::get('/os/imprimirOs/{id}', [OsController::class, 'osPDF']);
 Route::get('/os/entregaOs/{id}', [OsController::class, 'deliveryOs']);
 
 Route::get('/garantias', [GuaranteesController::class, 'guarantees']);
+
+Route::get('usuarios', [UsersController::class, 'getUsers'])->middleware(['auth', 'verified'])->name('users');
 
 Route::post('/clientes/adicionar', [ClientController::class, 'registerClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
