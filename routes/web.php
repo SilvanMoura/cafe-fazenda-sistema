@@ -93,6 +93,8 @@ Route::post('/os/produtos', [OsController::class, 'productsOs'])->name('os');
 
 Route::post('/os/entrega/{id}', [OsController::class, 'guaranteeOs']);
 
+Route::post('/usuarios/adicionar', [UsersController::class, 'createUser'])->middleware(['auth', 'verified'])->name('createUser');
+
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct'])->middleware(['auth', 'verified'])->name('products');
