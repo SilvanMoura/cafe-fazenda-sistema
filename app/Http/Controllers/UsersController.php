@@ -37,4 +37,11 @@ class UsersController extends Controller
 
         return response()->json(['message' => 'Usuário alterado com sucesso'], 201);
     }
+
+    public function deleteUsers(Request $request){
+        $user = User::findOrFail($request->input('id'));
+        $user->delete();
+
+        return response()->json(['message' => 'Usuário excluido com sucesso'], 201);
+    }
 }
