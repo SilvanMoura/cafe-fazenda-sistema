@@ -11,7 +11,8 @@ class UsersController extends Controller
 {
     public function getUsers()
     {
-        return view('users');
+        $users = User::select('*')->get();
+        return view('users', ['users' => $users]);
     }
 
     public function createUser(Request $request)

@@ -49,18 +49,23 @@
                     </thead>
                     <tbody>
 
+                        @if($users->count() > 0)
+                        @foreach ($users as $r)
                         <tr>
-                            <td style="width:5%;"></td>
-                            <td style="width:20%;"></td>
-                            <td style="width:20%;"></td>
+                            <td style="width:5%;">{{ $r->id }}</td>
+                            <td style="width:20%;">{{ $r->name }}</td>
+                            <td style="width:20%;">{{ $r->email }}</td>
                             <td style="width:6%;">
-                                <a href="#modal-edit" role="button" data-toggle="modal" class="btn-nwe3 open-edit-user" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="#modal-delete" role="button" data-toggle="modal" class="btn-nwe4 open-modal-delete" title="Excluir Máquina"><i class="bx bx-trash-alt bx-xs"></i></a>
+                                <a href="#modal-edit" role="button" data-id="{{ $r->id }}" data-nome="{{ $r->name }}" data-email="{{ $r->email }}" data-toggle="modal" class="btn-nwe3 open-edit-user" title="Editar Usuário"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="#modal-delete" role="button" data-id="{{ $r->id }}" data-toggle="modal" class="btn-nwe4 open-modal-delete" title="Excluir Usuário"><i class="bx bx-trash-alt bx-xs"></i></a>
                             </td>
                         </tr>
+                        @endforeach
+                        @else
                         <tr>
                             <td colspan="6">Nenhum Usuário Cadastrado</td>
                         </tr>
+                        @endif
 
                     </tbody>
                 </table>
@@ -173,25 +178,23 @@
             var modal = document.getElementById("edit-user");
             modal.classList.remove("hide", "fade");
 
-            var userId = $(this).attr('data-userId');
-            var userName = $(this).attr('data-userName');
-            var userNumber = $(this).attr('data-userNumber');
-            var userManufacturer = $(this).attr('data-userManufacturer');
+            var id = $(this).attr('data-id');
+            var name = $(this).attr('data-nome');
+            var email = $(this).attr('data-email');
 
-            $('#idUser').val(userId);
-            $('#userNameModelo').val(userName);
-            $('#numberSerie').val(userNumber);
-            $('#userManufacturer').val(userManufacturer);
+            $('#idUser').val(id);
+            $('#userNameModelo').val(name);
+            $('#numberSerie').val(email);
         });
 
         $('.open-modal-delete').on('click', function(event) {
             var modal = document.getElementById("delete-user");
             modal.classList.remove("hide", "fade");
 
-            var userId = $(this).attr('data-userId');
+            var id = $(this).attr('data-id');
 
-            $('#idUser-delete').val(userId);
-            $('#id-delete').text(userId);
+            $('#idUser-delete').val(id);
+            $('#id-delete').text(id);
         });
 
         $('.open-modal-create').on('click', function(event) {
@@ -293,13 +296,13 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.message === "Máquina excluida com sucesso") {
+                        if (data.message === "Usuário excluido com sucesso") {
                             var modal = document.getElementById("delete-user");
                             modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Exclusão Concluída',
-                                text: 'Máquina excluida com sucesso!',
+                                text: 'Usuário excluido com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
                             });
@@ -337,31 +340,25 @@
             // Validação do formulário usando o plugin validate
             if ($("#formEdit").valid()) {
 
-                var selectedManufacturer = $('#Manufacturer').val();
-
                 var dados = $("#formEdit").serializeArray();
-                dados.push({
-                    name: 'manufacturerNew',
-                    value: selectedManufacturer
-                });
 
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "http://localhost:8000/maquinas/atualizar/" + dados[1]['value'],
+                    url: "http://localhost:8000/usuarios/atualizar/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        if (data.message === "Máquina alterada com sucesso") {
+                        if (data.message === "Usuário alterado com sucesso") {
                             var modal = document.getElementById("edit-user");
                             modal.classList.add("hide", "fade");
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Alteração Concluído',
-                                text: 'Máquina alterada com sucesso!',
+                                text: 'Usuário alterado com sucesso!',
                             }).then(() => {
                                 window.location.href = "http://localhost:8000/dashboard";
                             });

@@ -95,6 +95,8 @@ Route::post('/os/entrega/{id}', [OsController::class, 'guaranteeOs']);
 
 Route::post('/usuarios/adicionar', [UsersController::class, 'createUser'])->middleware(['auth', 'verified'])->name('createUser');
 
+Route::post('/explodida/atualizar/{id}', [ExplodedMachineController::class, 'updateExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
+
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct'])->middleware(['auth', 'verified'])->name('products');
@@ -111,7 +113,7 @@ Route::put('/cidades/atualizar/{id}', [CityController::class, 'updateCity'])->mi
 
 Route::put('/os/atualizar/{id}', [OsController::class, 'updateOs'])->middleware(['auth', 'verified'])->name('os');
 
-Route::post('/explodida/atualizar/{id}', [ExplodedMachineController::class, 'updateExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
+Route::put('/usuarios/atualizar/{id}', [UsersController::class, 'updateUsers'])->middleware(['auth', 'verified'])->name('updateUsers');
 
 Route::delete('produtos/delete/{id}', [ProductController::class, 'deleteProduct'])->middleware(['auth', 'verified'])->name('products');
 
