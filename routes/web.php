@@ -125,6 +125,8 @@ Route::delete('/representacoes/delete/{id}', [RepresentationController::class, '
 
 Route::delete('/cidades/delete/{id}', [CityController::class, 'deleteCity'])->middleware(['auth', 'verified'])->name('city');
 
+Route::delete('/usuarios/delete/{id}', [UsersController::class, 'deleteUsers'])->middleware(['auth', 'verified'])->name('deleteUsers');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

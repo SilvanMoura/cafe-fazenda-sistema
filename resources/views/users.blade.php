@@ -289,7 +289,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "DELETE",
-                    url: "http://localhost:8000/maquinas/delete/" + dados[1]['value'],
+                    url: "http://localhost:8000/usuarios/delete/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
