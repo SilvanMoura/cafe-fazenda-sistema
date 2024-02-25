@@ -18,11 +18,23 @@ class UsersController extends Controller
     public function createUser(Request $request)
     {
         User::create([
-            'name' => $request->input('userNameModelo'),
-            'email' => $request->input('userNameModelo')."@cafedafazenda.com",
+            'name' => $request->input('name'),
+            'email' => $request->input('name') . "@cafedafazenda.com",
             'password' => Hash::make('123456')
         ]);
 
         return response()->json(['message' => 'Usuário registrado com sucesso'], 201);
+    }
+
+    public function updateUsers(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        $user->save();
+
+        return response()->json(['message' => 'Usuário alterado com sucesso'], 201);
     }
 }

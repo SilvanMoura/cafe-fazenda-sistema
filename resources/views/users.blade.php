@@ -86,16 +86,16 @@
 
                     <input type="hidden" id="idUser" class="idUser" name="id" value="" />
                     <div class="control-group">
-                        <label for="userNameModelo" class="control-label">Nome</label>
+                        <label for="name" class="control-label">Nome</label>
                         <div class="controls">
-                            <input id="userNameModelo" type="text" name="userNameModelo" value="" />
+                            <input id="name" type="text" name="name" value="" />
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label for="numberSerie" class="control-label">E-mail</label>
+                        <label for="email" class="control-label">E-mail</label>
                         <div class="controls">
-                            <input id="numberSerie" type="text" name="numberSerie" value="" />
+                            <input id="email" type="text" name="email" value="" />
                         </div>
                     </div>
 
@@ -138,9 +138,9 @@
             <div class="modal-body">
 
                 <div class="control-group">
-                    <label for="userNameModelo" class="control-label">Nome</label>
+                    <label for="name" class="control-label">Nome</label>
                     <div class="controls">
-                        <input id="userNameModelo" type="text" name="userNameModelo" value="" />
+                        <input id="name" type="text" name="name" value="" />
                     </div>
                 </div>
 
@@ -183,8 +183,8 @@
             var email = $(this).attr('data-email');
 
             $('#idUser').val(id);
-            $('#userNameModelo').val(name);
-            $('#numberSerie').val(email);
+            $('#name').val(name);
+            $('#email').val(email);
         });
 
         $('.open-modal-delete').on('click', function(event) {
