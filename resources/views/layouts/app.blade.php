@@ -26,7 +26,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    
+
     <script type="text/javascript">
         shortcut.add("escape", function() {
             location.href = '/';
@@ -53,6 +53,17 @@
 
     <!-- Inclua o Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .botton-content form button{
+            border: none;
+            background: none;
+            /* Add this line if you want to remove the button background */
+            cursor: pointer;
+            outline: none;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -180,7 +191,7 @@
         </li> -->
         <!-- End Pesquisar-->
 
-        <div class="menu-bar">
+        <div class="menu-bar" style="display:flex; justify-content: space-around;">
             <div class="menu">
 
                 <ul class="menu-links" style="position: relative;">
@@ -227,8 +238,8 @@
 
 
                     <!-- <li class="<?php if (isset($menuVendas)) {
-                                    echo 'active';
-                                } ?>">
+                                        echo 'active';
+                                    } ?>">
                         <a class="tip-bottom" title="Ordens" href="ordens">
                             <i class='bx bx-list-alt iconX'></i>
                             <span class="title">Ordens</span>
@@ -286,14 +297,18 @@
             </div>
 
             <div class="botton-content">
-                <li class="">
-                    <a class="tip-bottom" title="" href="login/sair">
-                        <i class='bx bx-log-out-circle iconX'></i>
-                        <span class="title">Sair</span>
-                        <span class="title-tooltip">Sair</span>
-                    </a>
-                </li>
+                <form method="post" action="logout">
+                    @csrf
+                    <li>
+                        <button type="submit" class="tip-bottom" title="" style="display: flex; justify-content:center;">
+                            <i class='bx bx-log-out-circle iconX' style="padding-top: 2px;"></i>
+                            <span class="title">Sair</span>
+                            <span class="title-tooltip">Sair</span>
+                        </button>
+                    </li>
+                </form>
             </div>
+
         </div>
     </nav>
     <!--End sidebar-menu-->

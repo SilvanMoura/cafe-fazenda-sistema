@@ -22,13 +22,11 @@
             </span>
             <h5>Clientes</h5>
         </div>
-        <!-- php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aCliente')) { ?> -->
         <a href="clientes/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
             <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
                 Cliente / Fornecedor
             </span>
         </a>
-        <!-- ?php } ?> -->
 
         <div class="widget-box">
             <h5 style="padding: 3px 0"></h5>
@@ -53,14 +51,14 @@
                             <td>{{ $r->id }}</td>
                             <td style="width:35%;"><a href="{{ 'clientes/visualizar/'.$r->id }}">{{ $r->nome }}</a></td>
                             @if($r->cpf != '')
-                                <td>{{ $r->cpf }}</td>
+                            <td>{{ $r->cpf }}</td>
                             @else
-                                <td>{{ $r->cnpj }}</td>
+                            <td>{{ $r->cnpj }}</td>
                             @endif
                             @if($r->celular != '')
-                                <td>{{ $r->celular }}</td>
+                            <td>{{ $r->celular }}</td>
                             @else
-                                <td>{{ $r->telefone }}</td>
+                            <td>{{ $r->telefone }}</td>
                             @endif
                             <td style="width:20%;">{{ $r->email }}</td>
                             <td>
