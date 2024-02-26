@@ -171,4 +171,21 @@ class ClientController extends Controller
 
         return response()->json(['message' => 'Cliente atualizado com sucesso'], 201);
     }
+
+
+
+
+
+    public function clientSearch(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        // Perform your search logic and return the updated table content
+        $infoClients = Client::where('nome', 'like', "%$searchTerm%")
+            ->orWhere('cpf', 'like', "%$searchTerm%")
+            ->orWhere('cnpj', 'like', "%$searchTerm%")
+            ->get();
+
+        return $infoClients;//view('clients', ['infoClients' => $infoClients]);
+    }
 }

@@ -22,11 +22,18 @@
             </span>
             <h5>Clientes</h5>
         </div>
-        <a href="clientes/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
-            <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
-                Cliente / Fornecedor
-            </span>
-        </a>
+        <div style="display: flex; justify-content: space-between">
+            <a href="clientes/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
+                <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
+                    Cliente / Fornecedor
+                </span>
+            </a>
+            <label id="search">
+                Pesquisar
+                <input type="search" id="searchInput" class="" placeholder="Nome ou CPF/CNPJ" aria-controls="tabela">
+            </label>
+
+        </div>
 
         <div class="widget-box">
             <h5 style="padding: 3px 0"></h5>
@@ -43,7 +50,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
 
                         @if($infoClients->count() > 0)
                         @foreach ($infoClients as $r)
@@ -107,6 +113,75 @@
             var cliente = $(this).attr('cliente');
             $('#idCliente').val(cliente);
         });
+
+        $('#searchInput').on('input', function() {
+            performSearch();
+        });
+
+        $('#searchInput').on('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            var searchTerm = $('#searchInput').val();
+
+            // Selecione o elemento `tbody` dentro do widget
+            var tableBody = $('.widget-content.nopadding.tab-content.scrollable-container #tabela tbody');
+
+            // Faça a requisição AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/search/clientes',
+                data: {
+                    search: searchTerm
+                },
+                success: function(data) {
+                    // Limpe a tabela antes de inserir novos dados
+                    tableBody.empty();
+
+                    // Declare a variável `item` fora do loop
+                    var item;
+
+                    // Crie linhas para cada item da lista de resultados
+                    $.each(data, function(index, item) {
+                        var row = '<tr>';
+                        row += '<td>' + item.id + '</td>';
+                        row += '<td style="width:35%;"><a href="clientes/visualizar/' + item.id + '">' + item.nome + '</a></td>';
+
+                        if (item.cpf != '') {
+                            row += '<td>' + item.cpf + '</td>';
+                        } else {
+                            row += '<td>' + item.cnpj + '</td>';
+                        }
+
+                        if (item.celular != '') {
+                            row += '<td>' + item.celular + '</td>';
+                        } else {
+                            row += '<td>' + item.telefone + '</td>';
+                        }
+
+                        row += '<td style="width:20%;">' + item.email + '</td>';
+                        row += '<td>';
+                        row += '<a href="clientes/visualizar/' + item.id + '" style="margin-right: 1%" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>';
+                        row += '<a href="clientes/editar/' + item.id + '" style="margin-right: 1%" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-edit bx-xs"></i></a>';
+                        row += '<a href="#modal-excluir" role="button" data-toggle="modal" cliente="' + item.id + '" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a>';
+                        row += '</td>';
+                        row += '</tr>';
+
+                        // Adicione a linha à tabela
+                        tableBody.append(row);
+                    });
+                },
+                error: function(erro) {
+                    console.error('Erro:', erro);
+                }
+            });
+
+
+
+        }
     });
 </script>
 
