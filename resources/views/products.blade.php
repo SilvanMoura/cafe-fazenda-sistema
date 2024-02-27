@@ -53,13 +53,19 @@
             </span>
             <h5>Produtos</h5>
         </div>
-        <div class="flexxn" style="display: flex;">
+        <div class="flexxn" style="display: flex; justify-content: space-between">
             <a href="produtos/adicionar" class="button btn btn-mini btn-success" style="max-width: 160px">
                 <span class="button__icon">
                     <i class='bx bx-plus-circle'></i>
                 </span>
                 <span class="button__text2"> Produtos</span>
             </a>
+            <label id="search">
+                Pesquisar
+                <input type="search" id="searchInput" class="" placeholder="Nome" aria-controls="tabela">
+            </label>
+
+            <!-- </div> -->
         </div>
 
         <div class="widget-box">
@@ -301,7 +307,7 @@
             if ($("#formDelete").valid()) {
 
                 var dados = $("#formDelete").serializeArray();
-                
+
                 $(this).addClass('disabled');
                 $('#progress-acessar').removeClass('hide');
 
