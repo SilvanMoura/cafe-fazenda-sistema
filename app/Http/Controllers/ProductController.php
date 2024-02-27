@@ -97,4 +97,6 @@ class ProductController extends Controller
         return response()->json(['message' => 'Produto excluido com sucesso'], 201);
     }
 
+    
+
 }

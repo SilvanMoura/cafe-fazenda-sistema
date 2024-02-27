@@ -130,6 +130,7 @@ Route::delete('/usuarios/delete/{id}', [UsersController::class, 'deleteUsers'])-
 
 
 Route::post('/search/clientes', [ClientController::class, 'clientSearch'])->name('clientSearch');
+Route::post('/search/produtos', [ProductController::class, 'productSearch'])->name('productSearch');
 
 
 

@@ -361,57 +361,47 @@
 
             var searchTerm = $('#searchInput').val();
 
-        // Select the element `tbody` within the widget
-        var tableBody = $('.widget-box .widget-content.nopadding.tab-content.scrollable-container #tabela tbody');
+            // Selecione o elemento `tbody` dentro do widget
+            var tableBody = $('.widget-box .widget-content.nopadding.tab-content.scrollable-container #tabela tbody');
 
-        // Make an AJAX request
-        $.ajax({
-            type: 'POST',
-            url: '/search/produtos', // Replace with your actual route
-            data: {
-                search: searchTerm
-            },
-            success: function(data) {
-                // Clear the table before inserting new data
-                tableBody.empty();
+            // Faça a requisição AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/search/produtos',
+                data: {
+                    search: searchTerm
+                },
+                success: function(data) {
+                    // Limpe a tabela antes de inserir novos dados
+                    tableBody.empty();
 
-                // Declare the variable `item` outside the loop
-                var item;
+                    // Declare a variável `item` fora do loop
+                    var item;
 
-                // Create rows for each item in the results
-                $.each(data, function(index, item) {
-                    var row = '<tr>';
-                    row += '<td>' + item.id + '</td>';
-                    row += '<td style="width:35%;"><a href="clientes/visualizar/' + item.id+'">'+ item.nome +'</a></td>';
+                    // Crie linhas para cada item da lista de resultados
+                    $.each(data, function(index, item) {
+                        var row = '<tr>';
+                        row += '<td>' + item.id + '</td>';
+                        row += '<td style="width: 40%"><a href="produtos/visualizar/' + item.id + '">' + item.nome + '</a></td>';
+                        row += '<td style="width: 15%">' + item.estoque + '</td>';
+                        row += '<td style="width: 15%">R$ ' + item.valor + '</td>';
+                        row += '<td>';
+                        row += '<a href="produtos/visualizar/' + item.id + '" style="margin-right: 1%" class="btn-nwe" title="Visualizar Produto"><i class="bx bx-show bx-xs"></i></a>';
+                        row += '<a href="produtos/editar/' + item.id + '" style="margin-right: 1%" class="btn-nwe3" title="Editar Produto"><i class="bx bx-edit bx-xs"></i></a>';
+                        row += '<a href="#modal-excluir" role="button" data-toggle="modal" produto="' + item.id + '" style="margin-right: 1%" class="btn-nwe4 open-modal-delete" title="Excluir Produto"><i class="bx bx-trash-alt bx-xs"></i></a>';
+                        row += '<a role="button" data-toggle="modal" data-produto="' + item.id + '" data-estoque="' + item.estoque + '" data-nome="' + item.nome + '" class="btn-nwe5 open-edit-estoque" title="Atualizar Estoque"><i class="bx bx-plus-circle bx-xs"></i></a>';
+                        row += '</td>';
+                        row += '</tr>';
 
-                    if (item.cpf != '') {
-                        row += '<td>' + item.cpf + '</td>';
-                    } else {
-                        row += '<td>' + item.cnpj + '</td>';
-                    }
+                        // Adicione a linha à tabela
+                        tableBody.append(row);
+                    });
+                },
+                error: function(erro) {
+                    console.error('Erro:', erro);
+                }
+            });
 
-                    if (item.celular != '') {
-                        row += '<td>' + item.celular + '</td>';
-                    } else {
-                        row += '<td>' + item.telefone + '</td>';
-                    }
-
-                    row += '<td style="width:20%;">' + item.email + '</td>';
-                    row += '<td>';
-                    row += '<a href="clientes/visualizar/' + item.id +'" style="margin-right: 1%" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>';
-                    row += '<a href="clientes/editar/' + item.id +'" style="margin-right: 1%" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-edit bx-xs"></i> </a>';
-                    row += '<a href="#modal-excluir" role="button" data-toggle="modal" cliente="' + item.id + '" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a>';
-                    row += '</td>';
-                    row += '</tr>';
-
-                    // Append the row to the table
-                    tableBody.append(row);
-                });
-            },
-            error: function(erro) {
-                console.error('Error:', erro);
-            }
-        });
 
         }
     });
