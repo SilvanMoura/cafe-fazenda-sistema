@@ -97,6 +97,17 @@ class ProductController extends Controller
         return response()->json(['message' => 'Produto excluido com sucesso'], 201);
     }
 
-    
+    public function productSearch(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        // Perform your search logic and return the updated table content
+        $infoProducts = Product::where('nome', 'like', "%$searchTerm%")
+            ->orWhere('tags', 'like', "%$searchTerm%")
+            ->orWhere('descricao', 'like', "%$searchTerm%")
+            ->get();
+
+        return $infoProducts;//view('clients', ['infoClients' => $infoClients]);
+    }
 
 }
