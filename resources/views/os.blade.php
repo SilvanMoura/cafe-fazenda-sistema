@@ -98,4 +98,75 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#searchInput').on('input', function() {
+            performSearch();
+        });
+
+        $('#searchInput').on('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+
+            var searchTerm = $('#searchInput').val();
+
+            // Selecione o elemento `tbody` dentro do widget
+            var tableBody = $('.widget-box .widget-content.nopadding.tab-content.scrollable-container #tabela tbody');
+
+            $.ajax({
+                type: 'POST',
+                url: '/search/clientes',
+                data: {
+                    search: searchTerm
+                },
+                success: function(data) {
+                    // Limpe a tabela antes de inserir novos dados
+                    tableBody.empty();
+
+                    // Declare a variável `item` fora do loop
+                    var item;
+
+                    // Crie linhas para cada item da lista de resultados
+                    $.each(data, function(index, item) {
+                        var row = '<tr>';
+                        row += '<td style="width:5%;">' + item.id + '</td>';
+                        row += '<td style="width:25%;"><a href="os/visualizar/' + item.id + '">' + item.cliente_id + '</a></td>';
+                        row += '<td style="width:12%;"><a href="os/visualizar/' + item.id + '">' + item.maquina_id + '</a></td>';
+                        row += '<td style="width:10%;"><a href="os/visualizar/' + item.id + '">' + item.status_os_id + '</a></td>';
+                        row += '<td style="width:6%;"><a href="os/visualizar/' + item.id + '">' + item.operacao_os_id + '</a></td>';
+                        row += '<td style="width:6%;"><a href="os/visualizar/' + item.id + '">' + item.data_avaliacao + '</a></td>';
+                        row += '<td style="width:7%;"><a href="os/visualizar/' + item.id + '">R$ ' + item.valor_os + '</a></td>';
+                        row += '<td style="width:8%;"><a href="os/visualizar/' + item.id + '">' + item.data_entrega + '</a></td>';
+
+                        if (item.garantia != null) {
+                            row += '<td style="width:9%;"><a href="os/visualizar/' + item.id + '">' + item.garantiaFinalData + '</a></td>';
+                        } else {
+                            row += '<td style="width:9%;"><a href="os/visualizar/' + item.id + '">sem garantia</a></td>';
+                        }
+
+                        row += '<td style="width:12%;">';
+                        row += '<a href="os/visualizar/' + item.id + '" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>';
+                        row += '<a href="os/editar/' + item.id + '" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>';
+                        row += '<a href="os/imprimirOs/' + item.id + '" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>';
+                        row += '<a href="os/entregaOs/' + item.id + '" class="btn-nwe3" title="Entrega OS"><i class="bx bx-exit bx-xs"></i></a>';
+                        row += '</td>';
+                        row += '</tr>';
+
+                        // Adicione a linha à tabela
+                        tableBody.append(row);
+                    });
+                },
+                error: function(erro) {
+                    console.error('Erro:', erro);
+                }
+            });
+
+        }
+    });
+</script>
+
 @endsection
