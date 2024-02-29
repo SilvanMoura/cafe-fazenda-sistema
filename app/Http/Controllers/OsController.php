@@ -577,17 +577,50 @@ class OsController extends Controller
         $os = Os::findOrFail($id);
 
         $dataHoje = Carbon::now();
-    
+
         // Formata a data para o formato desejado
         $dataFormatada = $dataHoje->format('Y-m-d');
 
         $os->garantia = $request->input('garantia');
         $os->data_entrega = $dataFormatada;
-        $os->desconto = $request->input('desconto') != '' ? $request->input('desconto'):0;
+        $os->desconto = $request->input('desconto') != '' ? $request->input('desconto') : 0;
 
         $os->save();
 
         return response()->json(['message' => 'Garantia registrada com sucesso'], 201);
     }
 
+    public function osSearch(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        // Perform your search logic and return the updated table content
+        $getOs = Os::where('id', 'like', "%$searchTerm%")
+            ->get();
+
+        foreach ($getOs as $key => $os) {
+            $cliente = Client::select('nome')->where('id', $os->cliente_id)->first();
+            $maquina = Machine::select('nomemodelo')->where('id', $os->maquina_id)->first();
+            $operacaoOs = Operation_os::select('nome')->where('id', $os->operacao_os_id)->first();
+            $statusOs = Status_os::select('nome')->where('id', $os->status_os_id)->first();
+
+            $valorOs = Product_os::where('os_id', $os->id)->sum('valor_unitario');
+
+            $getOs[$key]['valor_os'] = $cliente ? $valorOs : null;
+            $getOs[$key]['cliente_id'] = $cliente ? $cliente->nome : null;
+            $getOs[$key]['maquina_id'] = $maquina ? $maquina->nomemodelo : null;
+            $getOs[$key]['operacao_os_id'] = $operacaoOs ? $operacaoOs->nome : null;
+            $getOs[$key]['status_os_id'] = $statusOs ? $statusOs->nome : null;
+
+            // Verifica se a data de entrega existe antes de calcular a garantia final
+            if ($os->data_entrega) {
+                $dataEntrega = Carbon::createFromFormat('Y-m-d', $os->data_entrega);
+                $dataTerminoGarantia = $dataEntrega->addDays($os->garantia);
+                $getOs[$key]['garantiaFinalData'] = $dataTerminoGarantia->format('Y-m-d');
+            } else {
+                $getOs[$key]['garantiaFinalData'] = null;
+            }
+        }
+        return $getOs;
+    }
 }
