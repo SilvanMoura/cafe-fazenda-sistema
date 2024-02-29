@@ -59,7 +59,7 @@ class MachineController extends Controller
 
         $machine->nomemodelo = $request->input('machineNameModelo');
         $machine->numeroserie = $newNumberSerie;
-        
+
         if ($request->input('manufacturerNew') != '') {
             $machine->fabricante_id = $request->input('manufacturerNew');
         }
@@ -67,5 +67,22 @@ class MachineController extends Controller
         $machine->save();
 
         return response()->json(['message' => 'Máquina alterada com sucesso'], 201);
+    }
+
+    public function machineSearch(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        // Perform your search logic and return the updated table content
+        $infoMachines = Machine::where('numeroserie', 'like', "%$searchTerm%")
+            ->orWhere('nomemodelo', 'like', "%$searchTerm%")
+            ->get();
+
+        foreach ($infoMachines as $key => $machine) {
+            $machine = Manufacturer::select('nome')->where('id', $machine->fabricante_id)->first();
+
+            $infoMachines[$key]['fabricante_id'] = $machine->nome ?? null;
+        }
+        return $infoMachines;
     }
 }

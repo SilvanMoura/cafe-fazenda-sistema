@@ -460,7 +460,7 @@
             var searchTerm = $('#searchInput').val();
 
             // Selecione o elemento `tbody` dentro do widget
-            var tableBody = $('.widget-box .widget-content .tab-content .scrollable-container #tabela tbody');
+            var tableBody = $('.widget-box .widget-content.nopadding.tab-content.scrollable-container #tabela tbody');
 
             // Faça a requisição AJAX
             $.ajax({
