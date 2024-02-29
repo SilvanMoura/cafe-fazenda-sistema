@@ -119,7 +119,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/search/clientes',
+                url: '/search/os',
                 data: {
                     search: searchTerm
                 },
