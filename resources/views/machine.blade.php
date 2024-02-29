@@ -444,6 +444,61 @@
                 });
             }
         })
+
+        $('#searchInput').on('input', function() {
+            performSearch();
+        });
+
+        $('#searchInput').on('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+
+            var searchTerm = $('#searchInput').val();
+
+            // Selecione o elemento `tbody` dentro do widget
+            var tableBody = $('.widget-box .widget-content .tab-content .scrollable-container #tabela tbody');
+
+            // Faça a requisição AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/search/maquinas',
+                data: {
+                    search: searchTerm
+                },
+                success: function(data) {
+                    // Limpe a tabela antes de inserir novos dados
+                    tableBody.empty();
+
+                    // Declare a variável `item` fora do loop
+                    var item;
+
+                    // Crie linhas para cada item da lista de resultados
+                    $.each(data, function(index, item) {
+                        var row = '<tr>';
+                        row += '<td style="width:5%;">' + item.id + '</td>';
+                        row += '<td style="width:20%;">' + item.nomemodelo + '</td>';
+                        row += '<td style="width:20%;">' + item.numeroserie + '</td>';
+                        row += '<td style="width:20%;">' + item.fabricante_id + '</td>';
+                        row += '<td style="width:6%;">';
+                        row += '<a href="#modal-edit" role="button" data-toggle="modal" data-machineId="' + item.id + '" data-machineName="' + item.nomemodelo + '" data-machineNumber="' + item.numeroserie + '" data-machineManufacturer="' + item.fabricante_id + '" class="btn-nwe3 open-edit-machine" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>';
+                        row += '<a href="#modal-delete" role="button" data-toggle="modal" data-machineId="' + item.id + '" data-machineName="' + item.nomemodelo + '" data-machineNumber="' + item.numeroserie + '" data-machineManufacturer="' + item.fabricante_id + '" class="btn-nwe4 open-modal-delete" title="Excluir Máquina"><i class="bx bx-trash-alt bx-xs"></i></a>';
+                        row += '</td>';
+                        row += '</tr>';
+
+                        // Adicione a linha à tabela
+                        tableBody.append(row);
+                    });
+                },
+                error: function(erro) {
+                    console.error('Erro:', erro);
+                }
+            });
+
+        }
     });
 </script>
 
