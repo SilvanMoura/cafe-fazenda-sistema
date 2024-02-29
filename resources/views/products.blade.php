@@ -64,8 +64,6 @@
                 Pesquisar
                 <input type="search" id="searchInput" class="" placeholder="Nome" aria-controls="tabela">
             </label>
-
-            <!-- </div> -->
         </div>
 
         <div class="widget-box">

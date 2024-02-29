@@ -29,11 +29,17 @@
             <h5>Máquinas</h5>
         </div>
         <!-- php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aCliente')) { ?> -->
-        <a class="button btn btn-mini btn-success open-modal-create" style="max-width: 165px">
-            <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
-                Máquina
-            </span>
-        </a>
+        <div class="flexxn" style="display: flex; justify-content: space-between">
+            <a class="button btn btn-mini btn-success open-modal-create" style="max-width: 165px">
+                <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
+                    Máquina
+                </span>
+            </a>
+            <label id="search">
+                Pesquisar
+                <input type="search" id="searchInput" class="" placeholder="Nome/Modelo ou Nº Série" aria-controls="tabela">
+            </label>
+        </div>
         <!-- ?php } ?> -->
 
         <div class="widget-box">
