@@ -23,11 +23,17 @@
             <h5>Ordens de Serviço</h5>
         </div>
         <!-- php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aCliente')) { ?> -->
-        <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
-            <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
-                Ordem de Serviço
-            </span>
-        </a>
+        <div class="flexxn" style="display: flex; justify-content: space-between">
+            <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
+                <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
+                    Ordem de Serviço
+                </span>
+            </a>
+            <label id="search">
+                Pesquisar
+                <input type="search" id="searchInput" class="" placeholder="Id OS ou Nome Cliente" aria-controls="tabela">
+            </label>
+        </div>
         <!-- ?php } ?> -->
 
         <div class="widget-box">
