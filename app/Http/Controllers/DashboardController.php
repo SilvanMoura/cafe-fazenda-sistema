@@ -122,4 +122,8 @@ class DashboardController extends Controller
 
         return view('dashboard', ['dashboard' => $dashboard]);
     }
+
+    public function myAccount(){
+        return view('account');
+    }
 }
