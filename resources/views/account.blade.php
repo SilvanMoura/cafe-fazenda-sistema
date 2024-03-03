@@ -110,10 +110,10 @@
                     <div class="span12">
                         <ul class="site-stats">
                             <li class="bg_ls span12">
-                                <strong>Nome: </strong>
+                                <strong>Nome: {{ $user->name }}</strong>
                             </li>
                             <li class="bg_lg span12" style="margin-left: 0">
-                                <strong>Email: </strong>
+                                <strong>Email: {{ $user->email }}</strong>
                             </li>
                             <!-- <li class="bg_lo span12" style="margin-left: 0">
                                 <strong>Nível: </strong>

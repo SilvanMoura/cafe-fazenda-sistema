@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Models\Dashboard;
 use App\Models\Machine;
 use App\Models\Os;
 use App\Models\Product;
 use App\Models\Status_os;
 use App\Models\Operation_os;
 use App\Models\Product_os;
-use Illuminate\Http\Request;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -36,7 +38,7 @@ class DashboardController extends Controller
             })
             ->orderBy('id', 'desc')
             //->where('status_os_id', 3)
-            ->get();//->count();
+            ->get(); //->count();
 
         $getMaquinaNumber = Machine::count();
 
@@ -57,6 +59,9 @@ class DashboardController extends Controller
             ->whereNotNull('data_entrega')
             ->orderBy('id', 'desc')
             ->get();
+
+        $userId = Auth::id();
+        $userName = User::select('name')->where('id', $userId)->first();
 
         $dataAtual = Carbon::now()->format('Y-m-d');
         $contagemGarantias = 0;
@@ -117,13 +122,21 @@ class DashboardController extends Controller
         $dashboard['maquinaNumber'] = $getMaquinaNumber;
         $dashboard['osOrcamento'] = $getOsOrcamentos;
         $dashboard['osServicos'] = $getOsServicos;
+        /* $dashboard['userName'] = $userName; */
 
         //return $getOsServicos;
+        //view('layouts.app')->with(['userName' => $userName])->view();
+        $dashboard = view('dashboard', ['dashboard' => $dashboard]);
+        /* $user = view('layouts.app', ['userName' => $userName]); */
 
-        return view('dashboard', ['dashboard' => $dashboard]);
+        return $dashboard;
     }
 
-    public function myAccount(){
-        return view('account');
+    public function myAccount()
+    {
+        $userId = Auth::id();
+        $user = User::select('*')->where('id', $userId)->first();
+
+        return view('account', ['user' => $user]);
     }
 }

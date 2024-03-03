@@ -206,6 +206,16 @@
 </div>
 
 </div>
+
+<?php
+if ($createMachine == true) {
+    $executarJavascript = 'var modal = document.getElementById("create-machine");
+    modal.classList.remove("hide", "fade");';
+    echo '<script>' . $executarJavascript . '</script>';
+}
+
+?>
+
 </div>
 
 <script src="{{ asset('js/jquery.validate.js') }}"></script>

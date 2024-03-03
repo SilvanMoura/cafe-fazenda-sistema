@@ -21,7 +21,7 @@ class MachineController extends Controller
         }
 
         //return $getMachines;
-        return view('machine', ["infoMachines" => $getMachines, "manufactures" => $manufactures]);
+        return view('machine', ["infoMachines" => $getMachines, "manufactures" => $manufactures, "createMachine"=> false]);
     }
 
     public function createMachine(Request $request)
@@ -85,4 +85,20 @@ class MachineController extends Controller
         }
         return $infoMachines;
     }
+
+    public function createMachines()
+    {
+        $getMachines = Machine::orderByDesc('id')->get();
+        $manufactures = Manufacturer::select('*')->get();
+
+        foreach ($getMachines as $key => $machine) {
+            $machine = Manufacturer::select('nome')->where('id', $machine->fabricante_id)->first();
+
+            $getMachines[$key]['fabricante_id'] = $machine->nome ?? null;
+        }
+
+        //return $getMachines;
+        return view('machine', ["infoMachines" => $getMachines, "manufactures" => $manufactures, "createMachine"=> true]);
+    }
+    
 }
