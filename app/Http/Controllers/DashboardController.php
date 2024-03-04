@@ -139,4 +139,8 @@ class DashboardController extends Controller
 
         return view('account', ['user' => $user]);
     }
+
+    public function osReport(){
+        return view('osReport');
+    }
 }
