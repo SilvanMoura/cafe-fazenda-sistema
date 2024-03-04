@@ -71,47 +71,14 @@
     <div class="navebarn">
         <div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav">
-                <!-- Perfil -->
-                <li class="dropdown">
-                    <a href="#" class="tip-right dropdown-toggle" data-toggle="dropdown" title="Perfis">
-                        <i class='bx bx-user-circle iconN'></i><span class="text"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a title="Área do Cliente" href="/mine" target="_blank">Área do Cliente</a></li>
-                        <li><a title="Meu Perfil" href="mapos/minhaConta">Meu Perfil</a></li>
-                        <li class="divider"></li>
-                        <li><a title="Sair do Sistema" href="login/sair"><i class='bx bx-log-out-circle'></i>Sair do Sistema</a></li>
-                    </ul>
-                </li>
                 <!-- Relatórios -->
                 <li class="dropdown">
                     <a href="#" class="tip-right dropdown-toggle" data-toggle="dropdown" title="Relatórios">
                         <i class='bx bx-pie-chart-alt-2 iconN'></i><span class="text"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="relatorios/clientes">Clientes</a></li>
-                        <li><a href="relatorios/produtos">Produtos</a></li>
-                        <li><a href="relatorios/servicos">Serviços</a></li>
-                        <li><a href="relatorios/os">Ordens de Serviço</a></li>
-                        <li><a href="relatorios/vendas">Vendas</a></li>
-                        <li><a href="relatorios/financeiro">Financeiro</a></li>
-                        <li><a href="relatorios/sku">SKU</a></li>
-                        <li><a href="relatorios/receitasBrutasMei">Receitas Brutas - MEI</a></li>
-                    </ul>
-                </li>
-                <!-- Configurações -->
-                <li class="dropdown">
-                    <a href="#" class="tip-right dropdown-toggle" data-toggle="dropdown" title="Configurações">
-                        <i class='bx bx-cog iconN'></i><span class="text"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="mapos/configurar">Sistema</a></li>
-                        <li><a href="usuarios">Usuários</a></li>
-                        <li><a href="mapos/emitente">Emitente</a></li>
-                        <li><a href="permissoes">Permissões</a></li>
-                        <li><a href="auditoria">Auditoria</a></li>
-                        <li><a href="mapos/emails">Emails</a></li>
-                        <li><a href="mapos/backup">Backup</a></li>
+                        <li><a href="/relatorios/os">Ordens de Serviço</a></li>
+                        <li><a href="/relatorios/maquinas">Maquinas</a></li>
                     </ul>
                 </li>
             </ul>
@@ -119,18 +86,18 @@
     </div>
 
     <!-- New User -->
-    <div id="userr" style="margin-top: -20px;padding-right: 45px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;">
+    <div id="userr" style="margin-top: -15px;padding-right: 45px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;">
         <div class="user-names userT0">
             <?php
             function saudacao()
             {
                 $hora = date('H');
                 if ($hora >= 8 && $hora < 12) {
-                    return 'Bom dia, ';
+                    return 'Bom dia ';
                 } elseif ($hora >= 12 && $hora < 18) {
-                    return 'Boa tarde, ';
+                    return 'Boa tarde ';
                 } else {
-                    return 'Boa noite, ';
+                    return 'Boa noite ';
                 }
             }
 
@@ -138,7 +105,7 @@
             echo saudacao($login); // Irá retornar conforme o horário
             ?>
         </div>
-        <div class="userT">admin</div>
+        <!-- <div class="userT">admin</div> -->
 
         <section style="display:block;position:absolute;right:10px">
             <div class="profile">
