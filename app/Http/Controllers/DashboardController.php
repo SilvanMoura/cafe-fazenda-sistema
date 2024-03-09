@@ -141,6 +141,7 @@ class DashboardController extends Controller
     }
 
     public function osReport(){
-        return view('osReport');
+        $statusOs = Status_os::select('*')->get();
+        return view('osReport', ['statusOs' => $statusOs]);
     }
 }
