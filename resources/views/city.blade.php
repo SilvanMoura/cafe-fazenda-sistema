@@ -258,7 +258,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/cidades/adicionar",
+                    url: "191.252.192.67/cidades/adicionar",
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -274,7 +274,7 @@
                                 title: 'Cadastro Concluído',
                                 text: 'Cidade registrada com sucesso!',
                             }).then(() => {
-                                window.location.href = "http://localhost:8000/dashboard";
+                                window.location.href = "191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("create-manufacturer");
@@ -315,7 +315,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "http://localhost:8000/cidades/atualizar/" + dados[1]['value'],
+                    url: "191.252.192.67/cidades/atualizar/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -330,7 +330,7 @@
                                 title: 'Alteração Concluído',
                                 text: 'Cidade alterada com sucesso!',
                             }).then(() => {
-                                window.location.href = "http://localhost:8000/dashboard";
+                                window.location.href = "191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("edit-city");
@@ -371,7 +371,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "DELETE",
-                    url: "http://localhost:8000/cidades/delete/" + dados[1]['value'],
+                    url: "191.252.192.67/cidades/delete/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -386,7 +386,7 @@
                                 title: 'Exclusão Concluída',
                                 text: 'Cidade excluida com sucesso!',
                             }).then(() => {
-                                window.location.href = "http://localhost:8000/dashboard";
+                                window.location.href = "191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("delete-city");

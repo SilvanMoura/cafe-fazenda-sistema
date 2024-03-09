@@ -610,7 +610,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/os/encontrar/" + id,
+                    url: "191.252.192.67/os/encontrar/" + id,
                     data: {
                         'id': id
                     },
@@ -725,7 +725,7 @@
                     // Requisição AJAX
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:8000/os/cadastrar/",
+                        url: "191.252.192.67/os/cadastrar/",
                         data: dados,
                         dataType: 'json',
                         headers: {
@@ -738,7 +738,7 @@
                                     title: 'Cadastro Concluído',
                                     text: 'Os registrada com sucesso!',
                                 }).then(() => {
-                                    window.location.href = "http://localhost:8000/dashboard";
+                                    window.location.href = "191.252.192.67/dashboard";
                                 });
                             } else {
                                 Swal.fire({
@@ -833,7 +833,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/os/produtos/",
+                url: "191.252.192.67/os/produtos/",
                 data: {
                     'id': id
                 },

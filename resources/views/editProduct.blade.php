@@ -207,7 +207,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "http://localhost:8000/produtos/atualizar/{{ $infoProduct->first()->id }}",
+                    url: "191.252.192.67/produtos/atualizar/{{ $infoProduct->first()->id }}",
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -220,7 +220,7 @@
                                 title: 'Alteração Concluído',
                                 text: 'Produto alterado com sucesso!',
                             }).then(() => {
-                                window.location.href = "http://localhost:8000/dashboard";
+                                window.location.href = "191.252.192.67/dashboard";
                             });
                         } else {
                             $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');
