@@ -211,7 +211,7 @@
                     // Requisição AJAX
                     $.ajax({
                         type: "POST",
-                        url: "191.252.192.67/os/entrega/" + dados[1].value,
+                        url: "http://191.252.192.67/os/entrega/" + dados[1].value,
                         data: dados,
                         dataType: 'json',
                         headers: {
@@ -224,8 +224,8 @@
                                     title: 'Registro Concluído',
                                     text: 'Garantia registrada com sucesso!',
                                 }).then(() => {
-                                    window.open('191.252.192.67/dashboard', "_blank");
-                                    window.location.href = "191.252.192.67/os/imprimirEntrega/" + dados[1].value;
+                                    window.open('http://191.252.192.67/dashboard', "_blank");
+                                    window.location.href = "http://191.252.192.67/os/imprimirEntrega/" + dados[1].value;
                                 });
                             } else {
                                 Swal.fire({

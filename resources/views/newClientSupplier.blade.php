@@ -248,7 +248,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "191.252.192.67/clientes/adicionar",
+                    url: "http://191.252.192.67/clientes/adicionar",
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -261,7 +261,7 @@
                                 title: 'Cadastro Concluído',
                                 text: 'Cliente registrado com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             $('#error-message').text(data.message || 'Erro no cadastro. Por favor, tente novamente.');

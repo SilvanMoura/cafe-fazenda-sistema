@@ -246,7 +246,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "191.252.192.67/explodida/adicionar",
+                    url: "http://191.252.192.67/explodida/adicionar",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -263,7 +263,7 @@
                                 title: 'Cadastro Concluído',
                                 text: 'Manual cadastrado com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("create-exploded");
@@ -307,7 +307,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "191.252.192.67/explodida/atualizar/" + explodedId,
+                    url: "http://191.252.192.67/explodida/atualizar/" + explodedId,
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -324,7 +324,7 @@
                                 title: 'Cadastro Concluído',
                                 text: 'Manual alterado com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("edit-exploded");
@@ -357,7 +357,7 @@
             var fileName = $('#fileExploded').val();
 
             // Redireciona o navegador para a URL do arquivo
-            window.open("191.252.192.67/explodida/abrir-pdf/" + fileName, '_blank');
+            window.open("http://191.252.192.67/explodida/abrir-pdf/" + fileName, '_blank');
         });
     });
 </script>

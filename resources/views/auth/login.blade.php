@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<?php header('Access-Control-Allow-Origin: *'); ?>
 
 <head>
     <title>{{ config('app_name') }} </title>
@@ -125,8 +126,7 @@
 
                                 $(this).addClass('disabled');
                                 $('#progress-acessar').removeClass('hide');
-
-                                // Requisição AJAXprogress-acessar
+                                
                                 $.ajax({
                                     type: "POST",
                                     url: "http://191.252.192.67/login",

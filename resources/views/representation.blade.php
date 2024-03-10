@@ -212,7 +212,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "191.252.192.67/representacoes/adicionar",
+                    url: "http://191.252.192.67/representacoes/adicionar",
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -228,7 +228,7 @@
                                 title: 'Cadastro Concluído',
                                 text: 'Representação registrada com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("create-representation");
@@ -269,7 +269,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "191.252.192.67/representacoes/atualizar/" + dados[1]['value'],
+                    url: "http://191.252.192.67/representacoes/atualizar/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -284,7 +284,7 @@
                                 title: 'Alteração Concluído',
                                 text: 'Representação alterada com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("edit-representation");
@@ -325,7 +325,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "DELETE",
-                    url: "191.252.192.67/representacoes/delete/" + dados[1]['value'],
+                    url: "http://191.252.192.67/representacoes/delete/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -340,7 +340,7 @@
                                 title: 'Exclusão Concluída',
                                 text: 'Representação excluida com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("delete-representation");

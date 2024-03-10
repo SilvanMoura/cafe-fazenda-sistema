@@ -288,7 +288,7 @@ if ($createMachine == true) {
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "191.252.192.67/maquinas/adicionar",
+                    url: "http://191.252.192.67/maquinas/adicionar",
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -304,7 +304,7 @@ if ($createMachine == true) {
                                 title: 'Cadastro Concluído',
                                 text: 'Máquina registrada com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("create-machine");
@@ -348,7 +348,7 @@ if ($createMachine == true) {
                 // Requisição AJAX
                 $.ajax({
                     type: "DELETE",
-                    url: "191.252.192.67/maquinas/delete/" + dados[1]['value'],
+                    url: "http://191.252.192.67/maquinas/delete/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -363,7 +363,7 @@ if ($createMachine == true) {
                                 title: 'Exclusão Concluída',
                                 text: 'Máquina excluida com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("delete-machine");
@@ -410,7 +410,7 @@ if ($createMachine == true) {
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "191.252.192.67/maquinas/atualizar/" + dados[1]['value'],
+                    url: "http://191.252.192.67/maquinas/atualizar/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -425,7 +425,7 @@ if ($createMachine == true) {
                                 title: 'Alteração Concluído',
                                 text: 'Máquina alterada com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("edit-machine");

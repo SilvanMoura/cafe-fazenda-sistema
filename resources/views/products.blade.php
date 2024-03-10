@@ -265,7 +265,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "191.252.192.67/produtos/atualizar/estoque/" + dados[1]['value'],
+                    url: "http://191.252.192.67/produtos/atualizar/estoque/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -280,7 +280,7 @@
                                 title: 'Alteração Concluído',
                                 text: 'Estoque alterado com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');
@@ -312,7 +312,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "DELETE",
-                    url: "191.252.192.67/produtos/delete/" + dados[1]['value'],
+                    url: "http://191.252.192.67/produtos/delete/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -327,7 +327,7 @@
                                 title: 'Exclusão Concluído',
                                 text: 'Produto excluido com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             $('#error-message').text(data.message || 'Erro na alteração. Por favor, tente novamente.');

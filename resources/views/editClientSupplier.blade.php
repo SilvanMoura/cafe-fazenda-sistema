@@ -258,7 +258,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "191.252.192.67/clientes/atualizar/{{ $infoClients->id }}",
+                    url: "http://191.252.192.67/clientes/atualizar/{{ $infoClients->id }}",
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -271,7 +271,7 @@
                                 title: 'Edição Concluído',
                                 text: 'Cliente atualizado com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             $('#error-message').text(data.message || 'Erro ao atualizar. Por favor, tente novamente.');

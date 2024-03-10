@@ -229,7 +229,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "191.252.192.67/usuarios/adicionar",
+                    url: "http://191.252.192.67/usuarios/adicionar",
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -245,7 +245,7 @@
                                 title: 'Cadastro Concluído',
                                 text: 'Usuário registrado com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("create-user");
@@ -289,7 +289,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "DELETE",
-                    url: "191.252.192.67/usuarios/delete/" + dados[1]['value'],
+                    url: "http://191.252.192.67/usuarios/delete/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -304,7 +304,7 @@
                                 title: 'Exclusão Concluída',
                                 text: 'Usuário excluido com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("delete-user");
@@ -345,7 +345,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "191.252.192.67/usuarios/atualizar/" + dados[1]['value'],
+                    url: "http://191.252.192.67/usuarios/atualizar/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -360,7 +360,7 @@
                                 title: 'Alteração Concluído',
                                 text: 'Usuário alterado com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             var modal = document.getElementById("edit-user");

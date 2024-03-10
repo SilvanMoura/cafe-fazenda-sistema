@@ -782,7 +782,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "POST",
-                    url: "191.252.192.67/os/encontrar/" + id,
+                    url: "http://191.252.192.67/os/encontrar/" + id,
                     data: {
                         'id': id
                     },
@@ -889,7 +889,7 @@
                     // Requisição AJAX
                     $.ajax({
                         type: "POST",
-                        url: "191.252.192.67/os/cadastrar/",
+                        url: "http://191.252.192.67/os/cadastrar/",
                         data: dados,
                         dataType: 'json',
                         headers: {
@@ -902,7 +902,7 @@
                                     title: 'Cadastro Concluído',
                                     text: 'Os registrada com sucesso!',
                                 }).then(() => {
-                                    window.location.href = "191.252.192.67/dashboard";
+                                    window.location.href = "http://191.252.192.67/dashboard";
                                 });
                             } else {
                                 Swal.fire({
@@ -1003,7 +1003,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "191.252.192.67/os/produtos/",
+                url: "http://191.252.192.67/os/produtos/",
                 data: {
                     'id': id
                 },
@@ -1046,7 +1046,7 @@
                 // Requisição AJAX
                 $.ajax({
                     type: "PUT",
-                    url: "191.252.192.67/os/atualizar/" + dados[1]['value'],
+                    url: "http://191.252.192.67/os/atualizar/" + dados[1]['value'],
                     data: dados,
                     dataType: 'json',
                     headers: {
@@ -1059,7 +1059,7 @@
                                 title: 'Alteração Concluída',
                                 text: 'Os alterada com sucesso!',
                             }).then(() => {
-                                window.location.href = "191.252.192.67/dashboard";
+                                window.location.href = "http://191.252.192.67/dashboard";
                             });
                         } else {
                             Swal.fire({
