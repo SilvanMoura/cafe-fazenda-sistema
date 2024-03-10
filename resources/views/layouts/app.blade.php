@@ -252,6 +252,17 @@
 
                     </li>
 
+                    <li class="<?php if (isset($menuArquivos)) {
+                                    echo 'active';
+                                } ?>">
+                        <a class="tip-bottom" title="Máquinas Explodidas" href="maquinas-explodidas">
+                            <i class="bx bxs-file iconX"></i>
+                            <span class="title">Máquinas Explodidas</span>
+                            <span class="title-tooltip">Máquinas Explodidas</span>
+                        </a>
+
+                    </li>
+
                     <li class="<?php if (isset($menuCobrancas)) {
                                     echo 'active';
                                 }; ?>">
