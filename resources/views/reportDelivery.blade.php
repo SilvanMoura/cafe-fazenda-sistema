@@ -213,8 +213,8 @@
     <footer>
         <div class="margin-alt">
             <div class="line-basic-alt">
-                <p>Técnico Responsável: {{$os->checklist}}</p>
-                <p class="margin">Responsável pelo Checklist: {{$os->checklist}}</p>
+                <p>Técnico Responsável: Max</p>
+                <p class="margin">Responsável pelo Checklist: Max</p>
                 <p>Data da Avaliação: {{$os->data_avaliacao}}</p>
             </div>
             <p style="margin-top:-25px;">-------------------------------------------------------------------------------------------------------------------------------------------------------recortar</p>

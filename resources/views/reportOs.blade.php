@@ -183,7 +183,7 @@
         </div>
         <div class="grid-container margin-alt">
             <div class="line-os-alt">
-                <span><strong>Responsável pelo Checklist*:</strong> {{$os->checklist}}</span>
+                <span><strong>Responsável pelo Checklist*:</strong> Max </span>
                 <span><strong>Nº de Bebidas Extraídas:</strong> {{$os->bebidas_extraidas}}</span>
                 <span><strong>Cabo de Alimentação:</strong> {{ $os->cabo == 'n' ? 'Não' : 'Sim' }}</span>
                 <span><strong>Bomba Submersa:</strong> {{ $os->bomba == 'n' ? 'Não' : 'Sim' }}</span>
