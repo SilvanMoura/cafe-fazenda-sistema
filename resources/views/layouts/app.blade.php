@@ -195,7 +195,7 @@
                     <li class="<?php if (isset($menuServicos)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Serviços" href="servicos">
+                        <a class="tip-bottom" title="Serviços" href="/servicos">
                             <i class='bx bx-wrench iconX'></i>
                             <span class="title">Serviços</span>
                             <span class="title-tooltip">Serviços</span>
@@ -219,7 +219,7 @@
                     <li class="<?php if (isset($menuOs)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Ordens de Serviço" href="os">
+                        <a class="tip-bottom" title="Ordens de Serviço" href="/os">
                             <i class='bx bx-file iconX'></i>
                             <span class="title">Ordens de Serviço</span>
                             <span class="title-tooltip">Ordens</span>
@@ -231,7 +231,7 @@
                     <li class="<?php if (isset($menuGarantia)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Garantias" href="garantias">
+                        <a class="tip-bottom" title="Garantias" href="/garantias">
                             <i class='bx bx-receipt iconX'></i>
                             <span class="title">Garantias</span>
                             <span class="title-tooltip">Garantias</span>
@@ -244,7 +244,7 @@
                     <li class="<?php if (isset($menuArquivos)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Máquinas" href="maquinas">
+                        <a class="tip-bottom" title="Máquinas" href="/maquinas">
                             <i class="bx bx-cart iconX"></i>
                             <span class="title">Máquinas</span>
                             <span class="title-tooltip">Máquinas</span>
@@ -255,7 +255,7 @@
                     <li class="<?php if (isset($menuArquivos)) {
                                     echo 'active';
                                 } ?>">
-                        <a class="tip-bottom" title="Máquinas Explodidas" href="maquinas-explodidas">
+                        <a class="tip-bottom" title="Máquinas Explodidas" href="/maquinas-explodidas">
                             <i class="bx bxs-file iconX"></i>
                             <span class="title">Máquinas Explodidas</span>
                             <span class="title-tooltip">Máquinas Explodidas</span>
@@ -266,7 +266,7 @@
                     <li class="<?php if (isset($menuCobrancas)) {
                                     echo 'active';
                                 }; ?>">
-                        <a class="tip-bottom" title="" href="usuarios"><i class='bx bx-user iconX'></i>
+                        <a class="tip-bottom" title="" href="/usuarios"><i class='bx bx-user iconX'></i>
                             <span class="title">Usuários</span>
                             <span class="title-tooltip">Usuários</span>
                         </a>
@@ -275,7 +275,7 @@
             </div>
 
             <div class="botton-content">
-                <form method="post" action="logout">
+                <form method="post" action="/logout">
                     @csrf
                     <li>
                         <button type="submit" class="tip-bottom" title="" style="display: flex; justify-content:center;">
