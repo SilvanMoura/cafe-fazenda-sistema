@@ -52,10 +52,10 @@
                         @if($infoEexplanation->count() > 0)
                         @foreach ($infoEexplanation as $r)
                         <tr>
-                            <td style="width:5%;">{{ $r->id }}</td>
+                            <td id="idExploded" style="width:5%;">{{ $r->id }}</td>
                             <td style="width:43%;">{{ $r->nome }}</td>
                             <td style="width:42%;">{{ $r->fabricante_id }}</td>
-                            <input type="hidden" id="fileExploded" class="fileExploded" name="fileExploded" value="{{$r->anexo}}" />
+                            <input type="hidden" id="fileExploded-{{$r->id}}" class="fileExploded" name="fileExploded" value="{{$r->anexo}}" />
                             <td style="width:6%;">
                                 <a href="#modal-edit" role="button" data-toggle="modal" data-explodedId="{{ $r->id }}" data-explodedName="{{ $r->nome }}" data-exploded="{{ $r->fabricante_id }}" data-fileName="{{ $r->anexo }}" class="btn-nwe3 open-edit-exploded" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
                                 <a href="#modal-open" role="button" data-toggle="modal" data-fileNameAnexo="{{ $r->anexo }}" class="" title="Abrir anexo"><i class="bx bx-search-alt bx-xs open-file"></i></a>
@@ -354,9 +354,10 @@
         $('.open-file').on('click', function(e) {
             e.preventDefault();
 
-            var fileName = $('#fileExploded').val();
-
-            // Redireciona o navegador para a URL do arquivo
+            var fileName = $('#fileExploded-'+id).val();
+            var id = $(this).closest('tr').find('#idExploded').text();
+            var fileName = $('#fileExploded-'+id).val();
+            
             window.open("http://191.252.192.67/explodida/abrir-pdf/" + fileName, '_blank');
         });
     });
