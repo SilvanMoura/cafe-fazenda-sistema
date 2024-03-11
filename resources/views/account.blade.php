@@ -151,8 +151,10 @@
                                 <label for="">Confirmar Senha</label>
                                 <input type="password" name="confirmarSenha" class="span12" />
                             </div>
-                            <button class="button btn btn-primary" style="max-width: 140px;text-align: center">
-                                <span id="btnUpdate" class="button__icon"><i class='bx bx-lock-alt'></i></span><span class="button__text2">Alterar Senha</span></button>
+                            <button id="btnUpdate" type="submit" class="button btn btn-primary" style="max-width: 140px;text-align: center">
+                                <span class="button__icon"><i class='bx bx-lock-alt'></i></span>
+                                <span class="button__text2">Alterar Senha</span></button>
+                            </button>
                         </form>
                     </div>
 
@@ -208,7 +210,7 @@
                 var dados = $("#formSenha").serializeArray();
                 $.ajax({
                     type: "PUT",
-                    url: "http://191.252.192.67/conta/atualizar/"+id,
+                    url: "http://191.252.192.67/conta/atualizar/" + id,
                     data: dados,
                     dataType: 'json',
                     headers: {
