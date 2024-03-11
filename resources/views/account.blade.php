@@ -109,12 +109,16 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <ul class="site-stats">
-                            <li class="bg_ls span12">
+                            <li class="bg_ls ">
+                                <strong>Id: <span id="idUser">{{ $user->id }}</span></strong>
+                            </li>
+                            <li class="bg_ls">
                                 <strong>Nome: {{ $user->name }}</strong>
                             </li>
                             <li class="bg_lg span12" style="margin-left: 0">
                                 <strong>Email: {{ $user->email }}</strong>
                             </li>
+
                             <!-- <li class="bg_lo span12" style="margin-left: 0">
                                 <strong>Nível: </strong>
                             </li> -->
@@ -138,6 +142,7 @@
                 <div class="row-fluid">
                     <div class="span12" style="height: 164px">
                         <form id="formSenha" action="" method="post">
+                            @csrf
                             <div class="span12" style="margin-left: 0">
                                 <label for="">Nova Senha</label>
                                 <input type="password" id="novaSenha" name="novaSenha" class="span12" />
@@ -147,7 +152,7 @@
                                 <input type="password" name="confirmarSenha" class="span12" />
                             </div>
                             <button class="button btn btn-primary" style="max-width: 140px;text-align: center">
-                                <span class="button__icon"><i class='bx bx-lock-alt'></i></span><span class="button__text2">Alterar Senha</span></button>
+                                <span id="btnUpdate" class="button__icon"><i class='bx bx-lock-alt'></i></span><span class="button__text2">Alterar Senha</span></button>
                         </form>
                     </div>
 
@@ -160,6 +165,7 @@
 
 
 <script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -191,6 +197,51 @@
                 $(element).parents('.control-group').addClass('success');
             }
         });
+
+        $('#btnUpdate').on('click', function(e) {
+            e.preventDefault();
+
+            // Validação do formulário usando o plugin validate
+            if ($("#formSenha").valid()) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://191.252.192.67/conta/atualizar",
+                    data: dados,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.message === "Senha atualizada com sucesso") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Alteração Concluída',
+                                text: 'Senha atualizada com sucesso!',
+                            }).then(() => {
+                                window.location.href = "http://191.252.192.67/dashboard";
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro na alteração',
+                                text: data.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração',
+                            text: xhr.responseJSON.message,
+                        });
+                    },
+                    complete: function() {
+                        // Limpar qualquer indicação visual de loading, se necessário
+                    }
+                });
+            }
+        })
     });
 </script>
 @endsection
