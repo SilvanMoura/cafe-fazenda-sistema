@@ -12,7 +12,7 @@ use App\Models\Product_os;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -143,5 +143,13 @@ class DashboardController extends Controller
     public function osReport(){
         $statusOs = Status_os::select('*')->get();
         return view('osReport', ['statusOs' => $statusOs]);
+    }
+
+    public function newPassword(Request $request, $id){
+        $user = User::findOrFail($id);
+        $user->password = $request->input('novaSenha');
+        $user->save();
+
+        return response()->json(['message' => 'Senha atualizada com sucesso'], 201);
     }
 }

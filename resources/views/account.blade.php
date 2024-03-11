@@ -141,7 +141,7 @@
             <div class="widget-content">
                 <div class="row-fluid">
                     <div class="span12" style="height: 164px">
-                        <form id="formSenha" action="" method="post">
+                        <form id="formSenha">
                             @csrf
                             <div class="span12" style="margin-left: 0">
                                 <label for="">Nova Senha</label>
@@ -201,12 +201,14 @@
         $('#btnUpdate').on('click', function(e) {
             e.preventDefault();
 
+            var id = $("#idUser").text();
             // Validação do formulário usando o plugin validate
             if ($("#formSenha").valid()) {
 
+                var dados = $("#formSenha").serializeArray();
                 $.ajax({
-                    type: "POST",
-                    url: "http://191.252.192.67/conta/atualizar",
+                    type: "PUT",
+                    url: "http://191.252.192.67/conta/atualizar/"+id,
                     data: dados,
                     dataType: 'json',
                     headers: {

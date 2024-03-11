@@ -100,6 +100,8 @@ Route::post('/usuarios/adicionar', [UsersController::class, 'createUser'])->midd
 
 Route::post('/explodida/atualizar/{id}', [ExplodedMachineController::class, 'updateExplodedMachine'])->middleware(['auth', 'verified'])->name('explodedMachine');
 
+Route::get('/conta/atualizar/{id}', [DashboardController::class, 'newPassword'])->middleware(['auth', 'verified'])->name('newPassword');
+
 Route::put('/clientes/atualizar/{id}', [ClientController::class, 'updateClientSupplier'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::put('/produtos/atualizar/{id}', [ProductController::class, 'updateProduct'])->middleware(['auth', 'verified'])->name('products');
