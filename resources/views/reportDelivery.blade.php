@@ -129,8 +129,8 @@
             </div>
             <div class="line-os">
                 <span><strong>Endereço:</strong> {{$client->endereco}}, {{$client->complemento}} - {{$client->bairro}} - {{$client->cep}}</span>
-                <span><strong>Cidade/UF:</strong>  {{$client->cidade}}/ {{$client->uf}}</span>
-                <span><strong>Contato(s):</strong>  {{$client->telefone}}</span>
+                <span><strong>Cidade/UF:</strong> {{$client->cidade}}/ {{$client->uf}}</span>
+                <span><strong>Contato(s):</strong> {{$client->telefone}}</span>
                 <span><strong>Nº de Série:</strong> {{$machine->numeroserie}}</span>
             </div>
         </div>
@@ -224,9 +224,9 @@
             </div>
 
             <div style="margin-top:-5px;" class="line-basic-alt">
-                <p>O.S. Nº: 1001</p>
-                <p class="margin">Operação: Pedido de Serviço</p>
-                <p>Data/Pedido: 05/02/2024 20:15</p>
+                <p>O.S. Nº: {{$os->id}}</p>
+                <p class="margin">Operação: {{$os->operacao_os_id}}</p>
+                <p>Data/Pedido: {{$os->data}}</p>
             </div>
 
             <div style=" margin-top: 20px; display: flex; justify-content: space-between">
