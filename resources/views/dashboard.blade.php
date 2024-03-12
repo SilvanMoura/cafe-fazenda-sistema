@@ -470,7 +470,7 @@
                                 {{ $osOrcamento->status_os_id }}
                             </td>
                             <td>
-                                <a href="/os/visualizar/" class="btn-nwe tip-top" title="Visualizar">
+                                <a href="/os/visualizar/{{$osOrcamento->id}}" class="btn-nwe tip-top" title="Visualizar">
                                     <i class="bx bx-show"></i> </a>
                             </td>
                         </tr>

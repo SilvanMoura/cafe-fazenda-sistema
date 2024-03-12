@@ -92,7 +92,7 @@ Route::post('/os/encontrar/{id}', [OsController::class, 'getClient'])->name('osC
 
 Route::post('/os/cadastrar/', [OsController::class, 'registerOs'])->middleware(['auth', 'verified'])->name('os');
 
-Route::post('/os/produtos', [OsController::class, 'productsOs'])->name('os');
+Route::get('/os/produtos', [OsController::class, 'productsOs'])->name('os');
 
 Route::post('/os/entrega/{id}', [OsController::class, 'guaranteeOs']);
 

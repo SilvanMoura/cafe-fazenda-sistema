@@ -523,6 +523,7 @@ class OsController extends Controller
             'products' => $productsByIdOs,
             'total' => $total,
         ];
+
         $pdf = SnappyPDF::loadView('reportOs', $data);
 
         // Configurar o tipo de resposta para PDF

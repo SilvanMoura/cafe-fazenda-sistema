@@ -832,7 +832,7 @@
             var id = $('#select_' + numeroDaLinha).val();
 
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "http://191.252.192.67/os/produtos/",
                 data: {
                     'id': id
