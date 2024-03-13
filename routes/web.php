@@ -90,7 +90,7 @@ Route::post('/explodida/adicionar', [ExplodedMachineController::class, 'createEx
 
 Route::post('/os/encontrar/{id}', [OsController::class, 'getClient'])->name('osClient');
 
-Route::post('/os/cadastrar/', [OsController::class, 'registerOs'])->middleware(['auth', 'verified'])->name('os');
+Route::get('/os/cadastrar/', [OsController::class, 'registerOs'])->middleware(['auth', 'verified'])->name('os');
 
 Route::get('/os/produtos', [OsController::class, 'productsOs'])->name('os');
 

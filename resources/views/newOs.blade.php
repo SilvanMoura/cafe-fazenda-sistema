@@ -724,7 +724,7 @@
 
                     // Requisição AJAX
                     $.ajax({
-                        type: "POST",
+                        type: "GET",
                         url: "http://191.252.192.67/os/cadastrar/",
                         data: dados,
                         dataType: 'json',
