@@ -436,6 +436,14 @@ class OsController extends Controller
             $total += $r->quantidade * $r->valor_unitario;
         }
 
+        if ($os->garantia != null) {
+            $dataEntrega = Carbon::createFromFormat('Y-m-d', $os->data_entrega);
+            $dataTerminoGarantia = $dataEntrega->addDays($os->garantia);
+            $os['garantiaFinalData'] = $dataTerminoGarantia->format('d-m-Y');
+        }else{
+            $os['garantiaFinalData'] = "Sem garantia";
+        }
+        //return $os;
         $data = [
             'title' => 'Relatório em PDF',
             'os' => $os,
@@ -513,7 +521,13 @@ class OsController extends Controller
             $total += $r->quantidade * $r->valor_unitario;
         }
 
-        //return $os;
+        if ($os->garantia != null) {
+            $dataEntrega = Carbon::createFromFormat('Y-m-d', $os->data_entrega);
+            $dataTerminoGarantia = $dataEntrega->addDays($os->garantia);
+            $os['garantiaFinalData'] = $dataTerminoGarantia->format('d-m-Y');
+        }else{
+            $os['garantiaFinalData'] = "Sem garantia";
+        }
 
         $data = [
             'title' => 'Relatório em PDF',

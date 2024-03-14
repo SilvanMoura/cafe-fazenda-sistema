@@ -225,7 +225,8 @@
             <div style="margin-top:-5px;" class="line-basic-alt">
                 <p>O.S. Nº: {{$os->id}}</p>
                 <p class="margin">Operação: {{$os->operacao_os_id}}</p>
-                <p>Data/Pedido: {{$os->data}}</p>
+                <p class="margin">Data/Pedido: {{$os->data}}</p>
+                <p>Garantia Até: {{$os->garantiaFinalData}} {{ $os->garantia != null ? " - $os->garantia dia(s)" : '' }}</p>
             </div>
 
             <div style=" margin-top: 20px; display: flex; justify-content: space-between">

@@ -146,9 +146,9 @@
             <table class="tabela-produto">
                 <thead>
                     <tr>
-                        <th>Produto</th>
+                        <th colspan="10">Produto</th>
                         <th>Repres.</th>
-                        <th>Quantidade</th>
+                        <th>Qnt.</th>
                         <th>Val. Unit.</th>
                         <th>Total</th>
                     </tr>
@@ -156,23 +156,23 @@
                 <tbody>
                     @foreach($products as $r)
                     <tr>
-                        <td>{{$r->produto_nome}}</td>
+                        <td colspan="10" style="width:50%;">{{$r->produto_nome}}</td>
                         <td>{{$r->representacao_nome}}</td>
                         <td>{{$r->quantidade}}</td>
-                        <td>R$ {{$r->valor_unitario}}</td>
-                        <td>R$ {{ $r->quantidade * $r->valor_unitario }}</td>
+                        <td>R$ {{ number_format($r->valor_unitario, 2, ',', '.') }}</td>
+                        <td>R$ {{ number_format($r->quantidade * $r->valor_unitario, 2, ',', '.') }}</td>
                     </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4">Desconto:</td>
-                        <td>R$ {{$os->desconto}}</td>
+                        <td colspan="13">Desconto:</td>
+                        <td colspan="1">R$ {{ number_format($os->desconto, 2, ',', '.') }}</td>
                     </tr>
                     <tr>
-                        <td colspan="4">Total:</td>
-                        <td>
-                            R$ {{$total - $os->desconto}}
+                        <td colspan="13">Total:</td>
+                        <td colspan="1">
+                            R$ {{ number_format($total - $os->desconto, 2, ',', '.') }}
                         </td>
                     </tr>
                 </tfoot>
@@ -226,7 +226,8 @@
             <div style="margin-top:-5px;" class="line-basic-alt">
                 <p>O.S. Nº: {{$os->id}}</p>
                 <p class="margin">Operação: {{$os->operacao_os_id}}</p>
-                <p>Data/Pedido: {{$os->data}}</p>
+                <p class="margin">Data/Pedido: {{$os->data}}</p>
+                <p>Garantia Até: {{$os->garantiaFinalData}} {{ $os->garantia != null ? " - $os->garantia dia(s)" : '' }}</p>
             </div>
 
             <div style=" margin-top: 20px; display: flex; justify-content: space-between">

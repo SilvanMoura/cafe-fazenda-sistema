@@ -105,24 +105,24 @@
                         <tr>
 
                             <td style="width:5%;">{{ $r->id }}</td>
-                            <td style="width:25%;"><a href="{{ 'os/visualizar/'.$r->id }}">{{ $r->cliente_id }}</a></td>
-                            <td style="width:12%;"><a href="{{ 'os/visualizar/'.$r->id }}">{{ $r->maquina_id }}</a></td>
-                            <td style="width:10%;"><a href="{{ 'os/visualizar/'.$r->id }}">{{ $r->status_os_id }}</a></td>
-                            <td style="width:6%;"><a href="{{ 'os/visualizar/'.$r->id }}">{{ $r->operacao_os_id }}</a></td>
-                            <td style="width:6%;"><a href="{{ 'os/visualizar/'.$r->id }}">{{ $r->data_avaliacao }}</a></td>
-                            <td style="width:7%;"><a href="{{ 'os/visualizar/'.$r->id }}">R$ {{ $r->valor_os }}</a></td>
+                            <td style="width:25%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->cliente_id }}</a></td>
+                            <td style="width:12%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->maquina_id }}</a></td>
+                            <td style="width:10%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->status_os_id }}</a></td>
+                            <td style="width:6%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->operacao_os_id }}</a></td>
+                            <td style="width:6%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->data_avaliacao }}</a></td>
+                            <td style="width:7%;"><a href="{{ '/os/visualizar/'.$r->id }}">R$ {{ $r->valor_os }}</a></td>
 
-                            <td style="width:8%;"><a href="{{ 'os/visualizar/'.$r->id }}">{{ $r->data_entrega }}</a></td>
+                            <td style="width:8%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->data_entrega }}</a></td>
                             @if( $r->garantia != null)
-                            <td style="width:9%;"><a href="{{ 'os/visualizar/'.$r->id }}"> {{ $r->garantiaFinalData }}</a></td>
+                            <td style="width:9%;"><a href="{{ '/os/visualizar/'.$r->id }}"> {{ $r->garantiaFinalData }}</a></td>
                             @else
-                            <td style="width:9%;"><a href="{{ 'os/visualizar/'.$r->id }}">sem garantia</a></td>
+                            <td style="width:9%;"><a href="{{ '/os/visualizar/'.$r->id }}">sem garantia</a></td>
                             @endif
                             <td style="width:12%;">
-                                <a href="{{ 'os/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
-                                <a href="{{ 'os/editar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="{{ 'os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
-                                <a href="{{ 'os/entregaOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
+                                <a href="{{ '/os/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
+                                <a href="{{ '/os/editar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
+                                <a href="{{ '/os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
+                                <a href="{{ '/os/entregaOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
                             </td>
                         </tr>
                         @endforeach
