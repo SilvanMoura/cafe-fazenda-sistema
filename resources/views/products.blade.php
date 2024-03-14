@@ -53,7 +53,7 @@
             </span>
             <h5>Produtos</h5>
         </div>
-        <div class="flexxn" style="display: flex; justify-content: space-between">
+        <div class="flexxn" style="display: block; flex-direction:column;">
             <a href="produtos/adicionar" class="button btn btn-mini btn-success" style="max-width: 160px">
                 <span class="button__icon">
                     <i class='bx bx-plus-circle'></i>
@@ -64,7 +64,7 @@
                 Pesquisar
                 <input type="search" id="searchInput" class="" placeholder="Nome" aria-controls="tabela">
             </label>
-        </div>
+   </div>
 
         <div class="widget-box">
             <h5 style="padding: 3px 0"></h5>

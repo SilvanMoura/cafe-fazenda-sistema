@@ -58,7 +58,7 @@
                 <div>
                     <label id="search">
                         Pesquisar
-                        <input type="search" id="searchInput" class="" placeholder="Id OS ou Nome Cliente" aria-controls="tabela">
+                        <input type="search" id="searchInput" class="" placeholder="Id OS" aria-controls="tabela">
                     </label>
                 </div>
 
@@ -144,9 +144,9 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#searchInput').on('input', function() {
-            performSearch();
-        });
+       // $('#searchInput').on('input', function() {
+       //     performSearch();
+       // });
 
         $('#searchInput').on('keydown', function(e) {
             if (e.key === 'Enter') {

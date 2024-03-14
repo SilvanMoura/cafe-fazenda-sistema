@@ -22,7 +22,7 @@
             </span>
             <h5>Clientes</h5>
         </div>
-        <div style="display: flex; justify-content: space-between">
+        <div style="display: block;">
             <a href="clientes/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
                 <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
                     Cliente / Fornecedor
@@ -32,7 +32,6 @@
                 Pesquisar
                 <input type="search" id="searchInput" class="" placeholder="Nome ou CPF/CNPJ" aria-controls="tabela">
             </label>
-
         </div>
 
         <div class="widget-box">
@@ -70,7 +69,7 @@
                             <td>
                                 <a href="{{ 'clientes/visualizar/'. $r->id }}" style="margin-right: 1%" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
                                 <a href="{{ 'clientes/editar/'. $r->id }}" style="margin-right: 1%" class="btn-nwe3" title="Editar Cliente"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="#modal-excluir" role="button" data-toggle="modal" cliente="{{ $r->id }}" style="margin-right: 1%" class="btn-nwe4" title="Excluir Cliente"><i class="bx bx-trash-alt bx-xs"></i></a>
+                                
                             </td>
                         </tr>
                         @endforeach
@@ -114,9 +113,9 @@
             $('#idCliente').val(cliente);
         });
 
-        $('#searchInput').on('input', function() {
-            performSearch();
-        });
+       // $('#searchInput').on('input', function() {
+       //    performSearch();
+       // });
 
         $('#searchInput').on('keydown', function(e) {
             if (e.key === 'Enter') {
