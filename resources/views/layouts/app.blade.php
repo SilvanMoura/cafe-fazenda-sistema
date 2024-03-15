@@ -296,7 +296,7 @@
         <div id="content-header">
             <div></div>
             <div id="breadcrumb">
-                <a href="/" title="" class="tip-bottom">Início</a>
+                <a href="/dashboard" title="" class="tip-bottom">Início</a>
 
                 @if(request()->segment(1) !== null)
                 <a href="{{ '/' . request()->segment(1) }}" class="tip-bottom" title="{{ ucfirst(request()->segment(1)) }}">

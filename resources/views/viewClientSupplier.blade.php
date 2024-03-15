@@ -181,13 +181,12 @@
                                 
                                 <td>
                                     
-                                    <a href="{{ url('os/visualizar/' . $r->idOs) }}" style="margin-right: 1%" class="btn tip-top" title="Ver mais detalhes">
+                                    <a href="{{ url('os/visualizar/' . $r->id) }}" style="margin-right: 1%" class="btn tip-top" title="Ver mais detalhes">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ url('os/editar/' . $r->idOs) }}" class="btn btn-info tip-top" title="Editar OS">
+                                     <a href="{{ url('os/editar/' . $r->id) }}" class="btn btn-info tip-top" title="Editar OS">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    
                                 </td>
                             </tr>
                         @endforeach
@@ -223,16 +222,6 @@
                                 <td style="width:20%">{{ $r->maquinaNome->nomemodelo }}</td>
                                 <td style="width:20%">{{ $r->maquinaNome->fabricante_nome }}</td>
                                 <td style="width:20%">{{ $r->temGarantia }}</td>
-                                <td>
-                                    
-                                    <a href="{{ url('os/visualizar/' . $r->idOs) }}" style="margin-right: 1%" class="btn tip-top" title="Ver mais detalhes">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ url('os/editar/' . $r->idOs) }}" class="btn btn-info tip-top" title="Editar OS">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    
-                                </td>
                             </tr>
                         @endforeach
                     @else

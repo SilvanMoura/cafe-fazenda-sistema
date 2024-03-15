@@ -29,7 +29,7 @@
             <h5>Máquinas</h5>
         </div>
         <!-- php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aCliente')) { ?> -->
-        <div class="flexxn" style="display: flex; justify-content: space-between">
+        <div class="flexxn" style="display: block; flex-direction:column;">
             <a class="button btn btn-mini btn-success open-modal-create" style="max-width: 165px">
                 <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
                     Máquina
