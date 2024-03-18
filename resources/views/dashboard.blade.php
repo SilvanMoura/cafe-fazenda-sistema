@@ -450,7 +450,6 @@
                             <th>Nome</th>
                             <th>Data Avaliação</th>
                             <th>Status</th>
-                            <th>Ver</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -471,7 +470,11 @@
                             </td>
                             <td>
                                 <a href="/os/visualizar/{{$osOrcamento->id}}" class="btn-nwe tip-top" title="Visualizar">
-                                    <i class="bx bx-show"></i> </a>
+                                    <i class="bx bx-show"></i>
+                                </a>
+                                <a href="{{ '/os/editar/'. $osOrcamento->id }}" class="btn-nwe5" title="Editar">
+                                    <i class="bx bx-edit bx-xs"></i>
+                                </a>
                             </td>
                         </tr>
                         @endforeach
@@ -499,7 +502,6 @@
                         <th>Data Avaliação</th>
                         <th>Status</th>
                         <th>Valor</th>
-                        <th>Ver</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -509,11 +511,11 @@
                         <td>
                             {{ $osServicos->id }}
                         </td>
-                        <td>
+                        <td class="cli1">
                             {{ $osServicos->cliente_id }}
                         </td>
 
-                        <td>
+                        <td style="width:5vw;">
                             {{ $osServicos->data_avaliacao }}
                         </td>
 
@@ -524,9 +526,12 @@
                             R$ {{ $osServicos->valor_os }}
                         </td>
                         <td>
-                            <a href="/os/visualizar/" class="btn-nwe tip-top" title="Visualizar">
-                                <i class="bx bx-show"></i> </a>
-
+                            <a href="/os/visualizar/{{$osOrcamento->id}}" class="btn-nwe tip-top" title="Visualizar">
+                                <i class="bx bx-show"></i>
+                            </a>
+                            <a href="{{ '/os/editar/'. $osOrcamento->id }}" class="btn-nwe5" title="Editar">
+                                <i class="bx bx-edit bx-xs"></i>
+                            </a>
                         </td>
                     </tr>
                     @endforeach
