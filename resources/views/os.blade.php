@@ -121,8 +121,11 @@
                             <td style="width:12%;">
                                 <a href="{{ '/os/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
                                 <a href="{{ '/os/editar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
-                                <a href="{{ '/os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
-                                <a href="{{ '/os/entregaOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
+                                @if( $r->status_os_id != 'Entregue' )
+                                    <a href="{{ '/os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
+                                @else
+                                    <a href="{{ '/os/entregaOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
