@@ -102,7 +102,7 @@
             <div>
                 <div class="line-basic">
                     <span>
-                        <h5>FECHAMENTO DE SERVIÇO - ASSISTÊNCIA TÉCNICA</h5>
+                        <h5>ORÇAMENTO - ASSISTÊNCIA TÉCNICA</h5>
                     </span>
                 </div>
 
@@ -143,40 +143,38 @@
             </div>
         </div>
 
-        <hr style="margin-bottom:30px; margin-left: 3%; margin-right: 3%;">
+        <hr style="margin-bottom:10px; margin-left: 3%; margin-right: 3%;">
 
         <div>
             <div class="line-basic-alt">
                 <p>Avaliação:</p>
             </div>
             <div class="margin-alt">
-                <p>{{$os->avaliacao}}</p>
+                <p style="font-size:14px;">{{$os->avaliacao}}</p>
             </div>
         </div>
 
-        <hr class="margin-alt" style="margin-bottom: 30px;">
+        <hr class="margin-alt" style="margin-bottom: 10px;">
 
         <div>
             <div class="line-basic-alt">
                 <p>Descrição do Cliente:</p>
             </div>
             <div class="margin-alt">
-                <p>{{$os->descricao_cliente}}</p>
+                <p style="font-size:14px;">{{$os->descricao_cliente}}</p>
             </div>
         </div>
 
-        <hr class="margin-alt" style="margin-bottom: 30px;">
+        <hr class="margin-alt" style="margin-bottom: 10px;">
 
-        <div>
+        <!-- <div>
             <div class="line-basic-alt">
                 <p>Observação:</p>
             </div>
             <div class="margin-alt">
                 <p>{{$os->obs}}</p>
             </div>
-        </div>
-
-        <hr class="margin-alt" style="margin-bottom: 30px;">
+        </div> -->
 
         <div class="line-basic-alt">
             <p>Peças e Serviços</p>
@@ -205,7 +203,45 @@
                 <span><strong>Reservatório D'água:</strong> {{ $os->reservatorio == 'n' ? 'Não' : 'Sim' }} <strong>Obs: </strong> {{ $os->reservatorio_obs }} </span>
             </div>
         </div>
+        
+        <hr class="margin-alt">
 
+        <div class="margin-alt">
+            <table class="tabela-produto">
+                <thead>
+                    <tr>
+                        <th colspan="10">Produto</th>
+                        <th>Repres.</th>
+                        <th>Qnt.</th>
+                        <th>Val. Unit.</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($products as $r)
+                    <tr>
+                        <td colspan="10" style="width:50%; font-size:14px;">{{$r->produto_nome}}</td>
+                        <td style="font-size:14px;">{{$r->representacao_nome}}</td>
+                        <td style="font-size:14px;">{{$r->quantidade}}</td>
+                        <td style="font-size:14px;">R$ {{ number_format($r->valor_unitario, 2, ',', '.') }}</td>
+                        <td style="font-size:14px;">R$ {{ number_format($r->quantidade * $r->valor_unitario, 2, ',', '.') }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="font-size:14px;" colspan="13">Desconto:</td>
+                        <td style="font-size:14px;" colspan="1">R$ {{ number_format($os->desconto, 2, ',', '.') }}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:14px;" colspan="13">Total:</td>
+                        <td style="font-size:14px;" colspan="1">
+                            R$ {{ number_format($total - $os->desconto, 2, ',', '.') }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
 
     </main>
 
