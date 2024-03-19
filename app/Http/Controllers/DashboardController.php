@@ -22,7 +22,7 @@ class DashboardController extends Controller
         // Lógica para carregar dados da dashboard
         $getClientesNumber = Client::count();
 
-        $getOsNumber = Os::count();
+        $getOsNumber = Os::max('id');
 
         $getProdutoNumber = Product::count();
 
