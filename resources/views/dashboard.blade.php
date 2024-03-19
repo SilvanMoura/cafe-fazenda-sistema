@@ -469,7 +469,7 @@
                                 {{ $osOrcamento->status_os_id }}
                             </td>
                             <td>
-                                <a href="/os/visualizar/{{$osOrcamento->id}}" class="btn-nwe tip-top" title="Visualizar">
+                                <a href="{{ '/os/visualizar/'. $osOrcamento->id }}" class="btn-nwe tip-top" title="Visualizar">
                                     <i class="bx bx-show"></i>
                                 </a>
                                 <a href="{{ '/os/editar/'. $osOrcamento->id }}" class="btn-nwe5" title="Editar">
@@ -526,10 +526,10 @@
                             R$ {{ $osServicos->valor_os }}
                         </td>
                         <td>
-                            <a href="/os/visualizar/{{$osOrcamento->id}}" class="btn-nwe tip-top" title="Visualizar">
+                            <a href="{{ '/os/visualizar/'. $osServicos->id }}" class="btn-nwe tip-top" title="Visualizar">
                                 <i class="bx bx-show"></i>
                             </a>
-                            <a href="{{ '/os/editar/'. $osOrcamento->id }}" class="btn-nwe5" title="Editar">
+                            <a href="{{ '/os/editar/'. $osServicos->id }}" class="btn-nwe5" title="Editar">
                                 <i class="bx bx-edit bx-xs"></i>
                             </a>
                         </td>
