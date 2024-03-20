@@ -133,24 +133,12 @@
             <div class="line-os">
                 <span><strong>Cliente:</strong> {{$client->nome}}</span>
                 <span><strong>CNPJ:</strong> {{$client->cnpj}}</span>
-                <span><strong>I.E/RG:</strong>{{$client->ierg}}</span>
             </div>
             <div class="line-os">
                 <span><strong>Endereço:</strong> {{$client->endereco}}, {{$client->complemento}} - {{$client->bairro}} - {{$client->cep}}</span>
                 <span><strong>Cidade/UF:</strong> {{$client->cidade}}/ {{$client->uf}}</span>
                 <span><strong>Contato(s):</strong> {{$client->telefone}}</span>
                 <span><strong>Nº de Série:</strong> {{$machine->numeroserie}}</span>
-            </div>
-        </div>
-
-        <hr style="margin-bottom:10px; margin-left: 3%; margin-right: 3%;">
-
-        <div>
-            <div class="line-basic-alt">
-                <p>Avaliação:</p>
-            </div>
-            <div class="margin-alt">
-                <p style="font-size:14px;">{{$os->avaliacao}}</p>
             </div>
         </div>
 
@@ -167,17 +155,8 @@
 
         <hr class="margin-alt" style="margin-bottom: 10px;">
 
-        <!-- <div>
-            <div class="line-basic-alt">
-                <p>Observação:</p>
-            </div>
-            <div class="margin-alt">
-                <p>{{$os->obs}}</p>
-            </div>
-        </div> -->
-
         <div class="line-basic-alt">
-            <p>Peças e Serviços</p>
+            <p>Checklist</p>
         </div>
         <div class="grid-container margin-alt">
             <div class="line-os-alt">
@@ -201,6 +180,17 @@
                 <span><strong>Bandeja:</strong> {{ $os->bandeja == 'n' ? 'Não' : 'Sim' }} </span>
                 <span><strong>Ev's:</strong> {{ $os->evs == 'n' ? 'Não' : 'Sim' }} / <strong>Qnt:</strong> {{ $os->evs_qtd}} </span>
                 <span><strong>Reservatório D'água:</strong> {{ $os->reservatorio == 'n' ? 'Não' : 'Sim' }} <strong>Obs: </strong> {{ $os->reservatorio_obs }} </span>
+            </div>
+        </div>
+
+        <hr style="margin-bottom:10px; margin-left: 3%; margin-right: 3%;">
+
+        <div>
+            <div class="line-basic-alt">
+                <p>Avaliação:</p>
+            </div>
+            <div class="margin-alt">
+                <p style="font-size:14px;">{{$os->avaliacao}}</p>
             </div>
         </div>
         
@@ -251,29 +241,6 @@
                 <p>Técnico Responsável: Max</p>
                 <p class="margin">Responsável pelo Checklist: Max</p>
                 <p>Data da Avaliação: {{$os->data_avaliacao}}</p>
-            </div>
-            <p style="margin-top:-25px;">-------------------------------------------------------------------------------------------------------------------------------------------------------recortar</p>
-
-            <div style="margin-top:-10px;" class="line-basic-alt">
-                <p>Café da Fazenda</p>
-            </div>
-
-            <div style="margin-top:-5px;" class="line-basic-alt">
-                <p>O.S. Nº: {{$os->id}}</p>
-                <p class="margin">Operação: {{$os->operacao_os_id}}</p>
-                <p class="margin">Data/Pedido: {{$os->data}}</p>
-                <p>Garantia Até: {{$os->garantiaFinalData}} {{ $os->garantia != null ? " - $os->garantia dia(s)" : '' }}</p>
-            </div>
-
-            <div style=" margin-top: 20px; display: flex; justify-content: space-between">
-                <div>
-                    <div>_____________________________________________</div>
-                    <div>{{$client->nome}}</div>
-                </div>
-                <div>
-                    <div>_____________________________________________</div>
-                    <div>Café da Fazenda</div>
-                </div>
             </div>
         </div>
     </footer>
