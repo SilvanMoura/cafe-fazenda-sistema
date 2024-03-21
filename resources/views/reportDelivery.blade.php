@@ -117,7 +117,7 @@
 
         <div class="grid-container margin-alt">
             <div class="line-os">
-                <span><strong>Data/Hora do pedido:</strong> {{$os->data}}</span>
+                <span><strong>Data da Avaliação:</strong> {{$os->data}}</span>
                 <span><strong>Status:</strong> {{$os->status_os_id}}</span>
                 <span><strong>Número da Ordem:</strong> {{$os->id}}</span>
                 <span><strong>Máquina/Modelo:</strong> {{$machine->nomemodelo}}</span>
@@ -125,7 +125,6 @@
             <div class="line-os">
                 <span><strong>Cliente:</strong> {{$client->nome}}</span>
                 <span><strong>CNPJ:</strong> {{$client->cnpj}}</span>
-                <span><strong>I.E/RG:</strong>{{$client->ierg}}</span>
             </div>
             <div class="line-os">
                 <span><strong>Endereço:</strong> {{$client->endereco}}, {{$client->complemento}} - {{$client->bairro}} - {{$client->cep}}</span>
@@ -215,7 +214,7 @@
             <div class="line-basic-alt">
                 <p>Técnico Responsável: Max</p>
                 <p class="margin">Responsável pelo Checklist: Max</p>
-                <p>Data da Avaliação: {{$os->data_avaliacao}}</p>
+                <p>Garantia Até: {{$os->garantiaFinalData}} {{ $os->garantia != null ? " - $os->garantia dia(s)" : '' }}</p>
             </div>
             <p style="margin-top:-25px;">-------------------------------------------------------------------------------------------------------------------------------------------------------recortar</p>
 
