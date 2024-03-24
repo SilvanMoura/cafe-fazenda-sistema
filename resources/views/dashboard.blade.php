@@ -475,6 +475,11 @@
                                 <a href="{{ '/os/editar/'. $osOrcamento->id }}" class="btn-nwe5" title="Editar">
                                     <i class="bx bx-edit bx-xs"></i>
                                 </a>
+                                @if( $osOrcamento->status_os_id != 'Finalizado' )
+                                <a href="{{ '/os/imprimirOs/'. $osOrcamento->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
+                                @else
+                                <a href="{{ '/os/entregaOs/'. $osOrcamento->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -532,6 +537,11 @@
                             <a href="{{ '/os/editar/'. $osServicos->id }}" class="btn-nwe5" title="Editar">
                                 <i class="bx bx-edit bx-xs"></i>
                             </a>
+                            @if( $osServicos->status_os_id != 'Finalizado' )
+                                <a href="{{ '/os/imprimirOs/'. $osServicos->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
+                            @else
+                                <a href="{{ '/os/entregaOs/'. $osServicos->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
