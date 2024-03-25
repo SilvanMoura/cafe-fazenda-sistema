@@ -599,6 +599,7 @@ class OsController extends Controller
         $os->garantia = $request->input('garantia');
         $os->data_entrega = $dataFormatada;
         $os->desconto = $request->input('desconto') != '' ? $request->input('desconto') : 0;
+        $os->status_os_id = '9';
 
         $os->save();
 
