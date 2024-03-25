@@ -11,7 +11,7 @@ class MachineController extends Controller
     public function getInfoMachines()
     {
 
-        $getMachines = Machine::orderByDesc('id')->get();
+        $getMachines = Machine::orderBy('nomemodelo')->get();
         $manufactures = Manufacturer::select('*')->get();
 
         foreach ($getMachines as $key => $machine) {
