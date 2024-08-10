@@ -64,6 +64,7 @@
                             <td style="width:20%;">{{ $r->numeroserie }}</td>
                             <td style="width:20%;">{{ $r->fabricante_id }}</td>
                             <td style="width:6%;">
+                            <a href="http://localhost:8000/hisotry/{{ $r->numeroserie }}" role="button" class="btn-nwe" title="Histórico da máquina"><i class="bx bx-spreadsheet bx-xs"></i></a>
                                 <a href="#modal-edit" role="button" data-toggle="modal" data-machineId="{{ $r->id }}" data-machineName="{{ $r->nomemodelo }}" data-machineNumber="{{ $r->numeroserie }}" data-machineManufacturer="{{ $r->fabricante_id }}" class="btn-nwe3 open-edit-machine" title="Editar Máquina"><i class="bx bx-edit bx-xs"></i></a>
                                 <a href="#modal-delete" role="button" data-toggle="modal" data-machineId="{{ $r->id }}" data-machineName="{{ $r->nomemodelo }}" data-machineNumber="{{ $r->numeroserie }}" data-machineManufacturer="{{ $r->fabricante_id }}" class="btn-nwe4 open-modal-delete" title="Excluir Máquina"><i class="bx bx-trash-alt bx-xs"></i></a>
                             </td>
