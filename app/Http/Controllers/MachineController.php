@@ -100,5 +100,9 @@ class MachineController extends Controller
         //return $getMachines;
         return view('machine', ["infoMachines" => $getMachines, "manufactures" => $manufactures, "createMachine"=> true]);
     }
+
+    public function historyMachines($id){
+        
+    }
     
 }
