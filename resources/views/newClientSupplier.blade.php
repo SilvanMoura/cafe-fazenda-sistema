@@ -127,7 +127,7 @@
                             <div class="control-group">
                                 <label for="email" class="control-label">Email</label>
                                 <div class="controls">
-                                    <input id="email" type="text" name="email" value="" />
+                                    <input id="email" type="text" name="email" value="sem@email.com" />
                                 </div>
                             </div>
                             <div class="control-group">
