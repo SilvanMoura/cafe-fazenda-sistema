@@ -440,7 +440,7 @@ class OsController extends Controller
             $dataEntrega = Carbon::createFromFormat('Y-m-d', $os->data_entrega);
             $dataTerminoGarantia = $dataEntrega->addDays($os->garantia);
             $os['garantiaFinalData'] = $dataTerminoGarantia->format('d-m-Y');
-        }else{
+        } else {
             $os['garantiaFinalData'] = "Sem garantia";
         }
         //return $os;
@@ -525,7 +525,7 @@ class OsController extends Controller
             $dataEntrega = Carbon::createFromFormat('Y-m-d', $os->data_entrega);
             $dataTerminoGarantia = $dataEntrega->addDays($os->garantia);
             $os['garantiaFinalData'] = $dataTerminoGarantia->format('d-m-Y');
-        }else{
+        } else {
             $os['garantiaFinalData'] = "Sem garantia";
         }
 
@@ -638,5 +638,39 @@ class OsController extends Controller
             }
         }
         return $getOs;
+    }
+
+    public function historyMachines($id)
+    {
+        /* return Os::where('maquina_id', $id)->get(); */
+        // Obtém todas as ordens de serviço relacionadas à máquina com o id fornecido
+        $osList = Os::where('maquina_id', $id)->get();
+
+        foreach ($osList as $os) {
+            $clientById = Client::select('*')->where('id', $os->cliente_id)->first();
+            $machineById = Machine::select('*')->where('id', $os->maquina_id)->first();
+            $operacaoOs = Operation_os::select('nome')->where('id', $os->operacao_os_id)->first();
+            $statusOs = Status_os::select('nome')->where('id', $os->status_os_id)->first();
+            $productsByIdOs = Product_os::select('*')->where('os_id', $os->id)->get();
+            $valorOs = Product_os::where('os_id', $os->id)->sum('valor_unitario');
+
+            foreach ($productsByIdOs as $chave => $valor) {
+                // Obtém o ID da representação do produto
+                $representacao_id = Product::select('representacao_id')->where('id', $valor['produto_id'])->first();
+                $productsByIdOs[$chave]['representacao_id'] = $representacao_id->representacao_id;
+
+                // Obtém o nome da representação
+                $representacao_name = Representation::select('nome')->where('id', $productsByIdOs[$chave]['representacao_id'])->first();
+                $productsByIdOs[$chave]['representacao_nome'] = $representacao_name->nome;
+            }
+            $os->cliente_id = $clientById['nome'];
+            $os->maquina_id = $machineById['nomemodelo'];
+            $os->operacao_os_id = $operacaoOs['nome'];
+            $os->valor_os = $valorOs;
+            $os->status_os_id = $statusOs['nome'];
+        }
+        return view('os', ['getOS' => $osList]);
+        // Agora $osList contém todas as OSs com as informações adicionais de cliente, máquina e produtos
+
     }
 }
