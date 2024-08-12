@@ -50,6 +50,7 @@ Route::get('/os', [OsController::class, 'getInfoOs'])->middleware(['auth', 'veri
 Route::get('/os/adicionar', [OsController::class, 'createOs'])->middleware(['auth', 'verified'])->name('os');
 Route::get('/os/editar/{id}', [OsController::class, 'editOs'])->middleware(['auth', 'verified'])->name('os');
 Route::get('os/visualizar/{id}', [OsController::class, 'viewOs'])->middleware(['auth', 'verified'])->name('os');
+Route::get('/historico/{id}', [OSController::class, 'historyMachines'])->middleware(['auth', 'verified'])->name('os');
 
 Route::get('/maquinas', [MachineController::class, 'getInfoMachines'])->middleware(['auth', 'verified'])->name('machines');
 Route::get('/maquinas-adicionar', [MachineController::class, 'createMachines'])->middleware(['auth', 'verified'])->name('machines');
