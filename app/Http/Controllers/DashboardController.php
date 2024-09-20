@@ -33,20 +33,26 @@ class DashboardController extends Controller
                 $query->where('operacao_os_id', 2);
                 //$query->where('status_os_id', '<>', 5);
                 $query->where('status_os_id', '<>', 6);
-                $query->where('status_os_id', '<>', 8);
                 $query->where('status_os_id', '<>', 9);
                 $query->where('data_entrega', null);
             })
             ->orderBy('id', 'desc')
             //->where('status_os_id', 3)
             ->get(); //->count();
-
+        //return $getOsServicos;
         $getMaquinaNumber = Machine::max('id');;
 
-        $getOsOrcamentos = Os::select('*')
-            ->where('operacao_os_id', 1)
-            ->orderBy('id', 'desc')
-            ->get();
+        $getOsOrcamentos = 
+
+        Os::select('*')
+        ->where(function ($query) {
+            $query->where('operacao_os_id', 1);
+            $query->where('status_os_id', '<>', 8);
+            $query->where('data_entrega', null);
+        })
+        ->orderBy('id', 'desc')
+        ->get();
+        
 
         /* $getOsServicos = Os::select('*')
             ->where(function ($query) {

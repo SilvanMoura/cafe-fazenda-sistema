@@ -129,7 +129,7 @@
                                 
                                 $.ajax({
                                     type: "POST",
-                                    url: "http://localhost:8000/login",
+                                    url: "http://191.252.192.67/login",
                                     data: dados,
                                     dataType: 'json',
                                     headers: {
@@ -137,7 +137,7 @@
                                     },
                                     success: function(data) {
                                         if (data.success === true) {
-                                            window.location.href = "http://localhost:8000/dashboard";
+                                            window.location.href = "http://191.252.192.67/dashboard";
                                         } else {
                                             $('#btn-acessar').removeClass('disabled');
                                             $('#progress-acessar').addClass('hide');
