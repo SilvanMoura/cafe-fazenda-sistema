@@ -611,6 +611,9 @@
                                     </span>
                                 </button>
                             </div>
+                            <div id="totalServico" style="margin-top: 20px; text-align: center; font-weight: bold;">
+                                <p>Total do Serviço: <span id="totalServicoValor">R$ 0,00</span></p>
+                            </div>
                         </div>
 
                         <div class="form-group" style=" width:85vw; display: flex; margin-top:10px">
@@ -632,8 +635,8 @@
                                 <div class="span6 offset3" style="display:flex;justify-content: center">
                                     <!-- <button id="btnCreate" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button> -->
                                     <button id="btnUpdate" type="submit" class="button btn btn-primary" style="max-width: 160px">
-                                        <span class="button__icon"><i class="bx bx-sync"></i></span><span class="button__text2">Atualizar</span></button>
-                                    <a title="Voltar" class="button btn btn-warning" href="/clientes"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
+                                        <span class="button__icon"><i class="bx bx-sync"></i></span><span id='btnUpdateText' class="button__text2">Atualizar</span></button>
+                                    <a title="Voltar" class="button btn btn-warning" href="/dashboard"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
                                 </div>
                             </div>
                         </div>
@@ -651,6 +654,38 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
+            $(document).on('change', '[id^="qtd_"], [id^="valUnit_"]', function() {
+                changeTotalById(this);
+            });
+
+            function changeTotalById(selectElement) {
+                var linhaID = $(selectElement).closest('tr').attr('id');
+                var partes = linhaID.split("_");
+                var numeroDaLinha = parseInt(partes[partes.length - 1]);
+
+                var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
+                var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
+                var total = quantidade * valorUnitario;
+
+                // Atualiza o valor total da linha
+                $('#total_' + numeroDaLinha).text("R$ " + total.toFixed(2));
+
+                // Atualiza o total geral sempre que um valor muda
+                updateTotalServico();
+            }
+
+            function updateTotalServico() {
+                var totalGeral = 0;
+                $('[id^="total_"]').each(function() {
+                    var valorTexto = $(this).text().replace("R$ ", "").replace(",", ".");
+                    var valor = parseFloat(valorTexto) || 0;
+                    totalGeral += valor;
+                });
+
+                $('#totalServicoValor').text("R$ " + totalGeral.toFixed(2));
+            }
+
+            updateTotalServico();
             var contadorLinhas = $("#tabela tbody tr").length;
 
             if ($('#evs-sim').prop('checked')) {
@@ -955,6 +990,14 @@
                 cloneRow.find('.btn-nwe4').on('click', function(e) {
                     e.preventDefault();
                     $(this).closest('tr').remove();
+                    var totalGeral = 0;
+                    $('[id^="total_"]').each(function() {
+                        var valorTexto = $(this).text().replace("R$ ", "").replace(",", ".");
+                        var valor = parseFloat(valorTexto) || 0;
+                        totalGeral += valor;
+                    });
+
+                    $('#totalServicoValor').text("R$ " + totalGeral.toFixed(2));
                 });
 
                 $('#select_' + contadorLinhas).prop('disabled', false).select2({
@@ -964,6 +1007,18 @@
                 $('#select_1').prop('disabled', false).select2({
                     tags: true
                 });
+            });
+
+            $("#linha_1 .btn-nwe4").on('click', function() {
+                $(this).closest('tr').remove();
+                var totalGeral = 0;
+                $('[id^="total_"]').each(function() {
+                    var valorTexto = $(this).text().replace("R$ ", "").replace(",", ".");
+                    var valor = parseFloat(valorTexto) || 0;
+                    totalGeral += valor;
+                });
+
+                $('#totalServicoValor').text("R$ " + totalGeral.toFixed(2));
             });
 
             $("#linha_2 .btn-nwe4").on('click', function() {
@@ -1042,6 +1097,8 @@
             if ($("#formOs").valid()) {
 
                 var dados = $("#formOs").serializeArray();
+                $('#btnUpdate').prop('disabled', true);
+                $('#btnUpdateText').text('Processando...');
 
                 // Requisição AJAX
                 $.ajax({
@@ -1075,6 +1132,8 @@
                             title: 'Erro na alteração',
                             text: xhr.responseJSON.message,
                         });
+                        $('#btnUpdate').prop('disabled', false);
+                        $('#btnUpdateText').text('Atualizar');
                     }
                 });
             }

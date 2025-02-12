@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
         $getProdutoNumber = Product::max('id');
 
-        $getOsOrcamentosNumber = Os::where('operacao_os_id', 1)->count();
+        //$getOsOrcamentosNumber = Os::where('operacao_os_id', 1)->count();
 
         $getOsServicos = Os::select('*')
             ->where(function ($query) {
@@ -124,7 +124,7 @@ class DashboardController extends Controller
         $dashboard['clientes'] = $getClientesNumber;
         $dashboard['produto'] = $getProdutoNumber;
         $dashboard['os'] = $getOsNumber;
-        $dashboard['osOrcamentoNumber'] = $getOsOrcamentosNumber;
+        $dashboard['osOrcamentoNumber'] = count($getOsOrcamentos);//$getOsOrcamentosNumber;
         $dashboard['osServicoNumber'] = count($getOsServicos);
         $dashboard['maquinaNumber'] = $getMaquinaNumber;
         $dashboard['osOrcamento'] = $getOsOrcamentos;

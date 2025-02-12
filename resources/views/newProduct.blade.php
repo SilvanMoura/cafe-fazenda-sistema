@@ -55,21 +55,21 @@
                                     </div>
                                 </div>
 
-                                <div class="control-group">
+                                <!-- <div class="control-group">
                                     <label for="tags" class="control-label">Tags<span class="required">*</span></label>
                                     <div class="controls">
                                         <input id="tags" type="text" name="tags" value="" />
                                     </div>
-                                </div>
+                                </div> -->
 
-                                <div class="control-group">
+                                <!-- <div class="control-group">
                                     <label for="descricao" class="control-label">Descrição<span class="required">*</span></label>
                                     <div class="controls">
                                         <input id="descricao" type="text" name="descricao" value="" />
                                     </div>
-                                </div>
+                                </div> -->
 
-                                <div class="control-group">
+                                <!-- <div class="control-group">
                                     <label for="representacao" class="control-label">Representação<span class="required">*</span></label>
                                     <div class="controls">
                                         <select id="representacao" name="representacao">
@@ -79,7 +79,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
 
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
 
-                                <div class="control-group">
+                                <!-- <div class="control-group">
                                     <label for="estoque" class="control-label">Estoque<span class="required">*</span></label>
                                     <div class="controls">
                                         <input id="estoque" type="text" name="estoque" value="" />
@@ -104,7 +104,7 @@
                                     <div class="controls">
                                         <input id="estoqueMinimo" type="text" name="estoqueMinimo" value="" />
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>

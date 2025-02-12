@@ -51,12 +51,12 @@ class ProductController extends Controller
 
         $produto = Product::create([
             'nome' => $request->input('nome'),
-            'tags' => $request->input('tags'),
-            'descricao' => $request->input('descricao'),
-            'representacao_id' => $request->input('representacao'),
+            'tags' => $request->input('nome'),
+            'descricao' => $request->input('nome'),
+            'representacao_id' => 3,
             'valor' => $request->input('valor'),
-            'estoque' => $request->input('estoque'),
-            'estoque_minimo' => $request->input('estoqueMinimo'),
+            'estoque' => 10,
+            'estoque_minimo' => 1,
         ]);
 
         return response()->json(['message' => 'Produto registrado com sucesso'], 201);

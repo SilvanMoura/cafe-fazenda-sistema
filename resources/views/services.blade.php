@@ -2,7 +2,7 @@
 
 @section('content')
 <div style="margin-left: 7%; width: 91vw; min-height: 90vh">
-    <a href="clientes/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
+    <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
         <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
             Orçamento
         </span>

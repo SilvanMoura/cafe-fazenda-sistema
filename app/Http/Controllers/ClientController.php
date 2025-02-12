@@ -58,9 +58,9 @@ class ClientController extends Controller
             'cpf' => $cpf,
             'cnpj' => $cnpj,
             'pessoa' => $pessoaType,
-            'ierg' => $request->input('ierg'),
+            'ierg' => '',
             'telefone' => $request->input('telefone'),
-            'celular' => $request->input('celular'),
+            'celular' => $request->input('telefone'),
             'endereco' => $request->input('endereco'),
             'complemento' => $request->input('complemento'),
             'bairro' => $request->input('bairro'),
@@ -153,9 +153,9 @@ class ClientController extends Controller
         $cliente->cpf = $cpf;
         $cliente->cnpj = $cnpj;
         $cliente->pessoa = $pessoaType;
-        $cliente->ierg = $request->input('ierg');
+        $cliente->ierg = '';
         $cliente->telefone = $request->input('telefone');
-        $cliente->celular = $request->input('celular');
+        $cliente->celular = $request->input('telefone');
         $cliente->endereco = $request->input('endereco');
         $cliente->complemento = $request->input('complemento');
         $cliente->bairro = $request->input('bairro');

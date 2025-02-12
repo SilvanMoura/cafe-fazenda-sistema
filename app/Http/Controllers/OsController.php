@@ -21,39 +21,39 @@ use Illuminate\Http\Response;
 class OsController extends Controller
 {
     public function getInfoOs()
-    {
-        $getOs = Os::orderByDesc('id')->get();
+{
+    $dataAtual = Carbon::now()->format('Y-m-d');
 
-        $count = count($getOs);
-        $dataAtual = Carbon::now()->format('Y-m-d');
+    $getOs = Os::with([
+        'cliente:id,nome',
+        'maquina:id,nomemodelo',
+        'operacao_os:id,nome',
+        'status_os:id,nome'
+    ])->orderByDesc('id')
+    ->select('id', 'cliente_id', 'maquina_id', 'operacao_os_id', 'status_os_id', 'data_avaliacao', 'data_entrega', 'garantia')
+    ->get();
 
-        foreach ($getOs as $key => $os) {
-            $cliente = Client::select('nome')->where('id', $os->cliente_id)->first();
-            $maquina = Machine::select('nomemodelo')->where('id', $os->maquina_id)->first();
-            $operacaoOs = Operation_os::select('nome')->where('id', $os->operacao_os_id)->first();
-            $statusOs = Status_os::select('nome')->where('id', $os->status_os_id)->first();
+    foreach ($getOs as $os) {
+        // Calcula o valor total dos produtos associados à OS
+        $os->valor_os = Product_os::where('os_id', $os->id)->sum('valor_unitario');
 
-            $valorOs = Product_os::where('os_id', $os->id)->sum('valor_unitario');
+        // Substitui IDs pelos nomes correspondentes
+        $os->cliente_id = $os->cliente ? $os->cliente->nome : null;
+        $os->maquina_id = $os->maquina ? $os->maquina->nomemodelo : null;
+        $os->operacao_os_id = $os->operacao_os ? $os->operacao_os->nome : null;
+        $os->status_os_id = $os->status_os ? $os->status_os->nome : null;
 
-            $getOs[$key]['valor_os'] = $cliente ? $valorOs : null;
-            $getOs[$key]['cliente_id'] = $cliente ? $cliente->nome : null;
-            $getOs[$key]['maquina_id'] = $maquina ? $maquina->nomemodelo : null;
-            $getOs[$key]['operacao_os_id'] = $operacaoOs ? $operacaoOs->nome : null;
-            $getOs[$key]['status_os_id'] = $statusOs ? $statusOs->nome : null;
-
-            // Verifica se a data de entrega existe antes de calcular a garantia final
-            if ($os->data_entrega) {
-                $dataEntrega = Carbon::createFromFormat('Y-m-d', $os->data_entrega);
-                $dataTerminoGarantia = $dataEntrega->addDays($os->garantia);
-                $getOs[$key]['garantiaFinalData'] = $dataTerminoGarantia->format('Y-m-d');
-            } else {
-                $getOs[$key]['garantiaFinalData'] = null;
-            }
+        // Calcula a data final da garantia
+        if ($os->data_entrega) {
+            $dataEntrega = Carbon::createFromFormat('Y-m-d', $os->data_entrega);
+            $os->garantiaFinalData = $dataEntrega->copy()->addDays($os->garantia)->format('Y-m-d');
+        } else {
+            $os->garantiaFinalData = null;
         }
-
-        //return $getOs;
-        return view('os', ['getOS' => $getOs]);
     }
+
+    return view('os', ['getOS' => $getOs]);
+}
 
     public function createOs()
     {

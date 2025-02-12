@@ -53,4 +53,25 @@ class Os extends Model
     ];
 
     public $timestamps = false;
+
+    public function cliente()
+    {
+        return $this->belongsTo(Client::class, 'cliente_id', 'id');
+    }
+
+    public function maquina()
+    {
+        return $this->belongsTo(Machine::class, 'maquina_id', 'id');
+    }
+
+    public function operacao_os()
+    {
+        return $this->belongsTo(Operation_os::class, 'operacao_os_id', 'id');
+    }
+
+    public function status_os()
+    {
+        return $this->belongsTo(Status_os::class, 'status_os_id', 'id');
+    }
+
 }

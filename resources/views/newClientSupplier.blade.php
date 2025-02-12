@@ -106,24 +106,24 @@
                                     <input id="nome" type="text" name="nome" value="" />
                                 </div>
                             </div>
-                            <div class="control-group">
+                            <!-- <div class="control-group">
                                 <label for="ierg" class="control-label">I.E/RG:</label>
                                 <div class="controls">
                                     <input class="ierg" type="text" name="ierg" value="" />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="control-group">
                                 <label for="telefone" class="control-label">Telefone</label>
                                 <div class="controls">
                                     <input id="telefone" type="text" name="telefone" value="" />
                                 </div>
                             </div>
-                            <div class="control-group">
+                            <!-- <div class="control-group">
                                 <label for="celular" class="control-label">Celular</label>
                                 <div class="controls">
                                     <input id="celular" type="text" name="celular" value="" />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="control-group">
                                 <label for="email" class="control-label">Email</label>
                                 <div class="controls">

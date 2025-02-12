@@ -546,6 +546,10 @@
                                     </span>
                                 </button>
                             </div>
+
+                            <div id="totalServico" style="margin-top: 20px; text-align: center; font-weight: bold;">
+                                <p>Total do Serviço: <span id="totalServicoValor">R$ 0,00</span></p>
+                            </div>
                         </div>
 
                         <div class="form-group" style=" width:85vw; display: flex; margin-top:10px">
@@ -566,7 +570,7 @@
                             <div class="span12">
                                 <div class="span6 offset3" style="display:flex;justify-content: center">
                                     <button id="btnCreate" type="submit" class="button btn btn-mini btn-success"><span class="button__icon"><i class='bx bx-save'></i></span> <span class="button__text2">Salvar</span></a></button>
-                                    <a title="Voltar" class="button btn btn-warning" href="/clientes"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
+                                    <a title="Voltar" class="button btn btn-warning" href="/dashboard"><span class="button__icon"><i class="bx bx-undo"></i></span> <span class="button__text2">Voltar</span></a>
                                 </div>
                             </div>
                         </div>
@@ -581,6 +585,38 @@
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+
+            $(document).on('change', '[id^="qtd_"], [id^="valUnit_"]', function() {
+                changeTotalById(this);
+            });
+
+            function changeTotalById(selectElement) {
+                var linhaID = $(selectElement).closest('tr').attr('id');
+                var partes = linhaID.split("_");
+                var numeroDaLinha = parseInt(partes[partes.length - 1]);
+
+                var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
+                var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
+                var total = quantidade * valorUnitario;
+
+                // Atualiza o valor total da linha
+                $('#total_' + numeroDaLinha).text("R$ " + total.toFixed(2));
+
+                // Atualiza o total geral sempre que um valor muda
+                updateTotalServico();
+            }
+
+            function updateTotalServico() {
+                var totalGeral = 0;
+                $('[id^="total_"]').each(function() {
+                    var valorTexto = $(this).text().replace("R$ ", "").replace(",", ".");
+                    var valor = parseFloat(valorTexto) || 0;
+                    totalGeral += valor;
+                });
+
+                $('#totalServicoValor').text("R$ " + totalGeral.toFixed(2));
+            }
+
             $('#maquina').select2({
                 tags: true
             });
@@ -793,6 +829,14 @@
                 cloneRow.find('.btn-nwe4').on('click', function(e) {
                     e.preventDefault();
                     $(this).closest('tr').remove();
+                    var totalGeral = 0;
+                    $('[id^="total_"]').each(function() {
+                        var valorTexto = $(this).text().replace("R$ ", "").replace(",", ".");
+                        var valor = parseFloat(valorTexto) || 0;
+                        totalGeral += valor;
+                    });
+
+                    $('#totalServicoValor').text("R$ " + totalGeral.toFixed(2));
                 });
 
                 $('#select_' + contadorLinhas).prop('disabled', false).select2({
@@ -806,11 +850,19 @@
 
             $("#linha_1 .btn-nwe4").on('click', function() {
                 $(this).closest('tr').remove();
+                var totalGeral = 0;
+                $('[id^="total_"]').each(function() {
+                    var valorTexto = $(this).text().replace("R$ ", "").replace(",", ".");
+                    var valor = parseFloat(valorTexto) || 0;
+                    totalGeral += valor;
+                });
+
+                $('#totalServicoValor').text("R$ " + totalGeral.toFixed(2));
             });
 
         })
 
-        function changeTotalById(selectElement){
+        function changeTotalById(selectElement) {
             var linhaID = $(selectElement).closest('tr').attr('id');
             var partes = linhaID.split("_");
 
@@ -820,7 +872,7 @@
             var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
             var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
 
-            parseFloat($('#total_' + numeroDaLinha).text("R$ "+ quantidade * valorUnitario));
+            parseFloat($('#total_' + numeroDaLinha).text("R$ " + quantidade * valorUnitario));
         }
 
         function getServiceById(selectElement) {
@@ -846,7 +898,16 @@
 
                         var quantidade = parseFloat($('#qtd_' + numeroDaLinha).val()) || 0;
                         var valorUnitario = parseFloat($('#valUnit_' + numeroDaLinha).val()) || 0;
-                        $('#total_' + numeroDaLinha).text("R$ "+quantidade * valorUnitario);
+                        var valorTotal = $('#total_' + numeroDaLinha).text("R$ " + quantidade * valorUnitario);
+
+                        var totalGeral = 0;
+                        $('[id^="total_"]').each(function() {
+                            var valorTexto = $(this).text().replace("R$ ", "").replace(",", ".");
+                            var valor = parseFloat(valorTexto) || 0;
+                            totalGeral += valor;
+                        });
+
+                        $('#totalServicoValor').text("R$ " + totalGeral.toFixed(2));
                     } else {
                         Swal.fire({
                             icon: 'error',
