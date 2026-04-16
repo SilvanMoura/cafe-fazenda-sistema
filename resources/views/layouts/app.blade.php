@@ -64,6 +64,38 @@
         }
     </style>
 
+    <style>
+        .botton-content form button {
+            border: none;
+            background: none;
+            /* Add this line if you want to remove the button background */
+            cursor: pointer;
+            outline: none;
+        }
+
+        @media (min-width: 1367px) {
+            .ajuste-container {
+                margin-left: 65% !important;
+                max-width: 75vw !important;
+            }
+
+            #sidebar {
+                width: 180px;
+            }
+
+            #breadcrumb {
+                margin-left: 12%;
+            }
+        }
+
+        @media (max-width: 485px) {
+            .ajuste-navbar {
+                margin-bottom: -190% !important;
+            }
+
+        }
+    </style>
+
 </head>
 
 <body>
@@ -158,7 +190,7 @@
         </li> -->
         <!-- End Pesquisar-->
 
-        <div class="menu-bar" style="display:flex; justify-content: space-around;">
+        <div class="menu-bar botton-content" style="display:flex; justify-content: space-around;">
             <div class="menu">
 
                 <ul class="menu-links" style="position: relative;">
@@ -176,7 +208,7 @@
                                 }; ?>">
                         <a class="tip-bottom" title="" href="/clientes">
                             <i class='bx bx-user iconX'></i>
-                            <span class="title">Cliente / Fornecedor</span>
+                            <span class="title">Clientes</span>
                             <span class="title-tooltip">Clientes</span>
                         </a>
                     </li>
@@ -221,7 +253,7 @@
                                 } ?>">
                         <a class="tip-bottom" title="Ordens de Serviço" href="/os">
                             <i class='bx bx-file iconX'></i>
-                            <span class="title">Ordens de Serviço</span>
+                            <span class="title">Ordens</span>
                             <span class="title-tooltip">Ordens</span>
                         </a>
 
@@ -252,7 +284,7 @@
 
                     </li>
 
-                    <li class="<?php if (isset($menuArquivos)) {
+                    <!-- <li class="<?php if (isset($menuArquivos)) {
                                     echo 'active';
                                 } ?>">
                         <a class="tip-bottom" title="Máquinas Explodidas" href="/maquinas-explodidas">
@@ -261,7 +293,7 @@
                             <span class="title-tooltip">Máquinas Explodidas</span>
                         </a>
 
-                    </li>
+                    </li> -->
 
                     <li class="<?php if (isset($menuCobrancas)) {
                                     echo 'active';

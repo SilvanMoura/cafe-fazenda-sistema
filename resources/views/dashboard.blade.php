@@ -1,6 +1,60 @@
 @extends('layouts/app')
 
 @section('content')
+<style>
+    @media (min-width: 1368px) {
+        .ajuste-cardbox {
+            margin-top: -45% !important;
+            min-height: 85vh !important;
+        }
+
+        .ajuste-statisc {
+            margin-left: 7vw;
+        }
+
+        .ajuste-status {
+            margin-left: 14%;
+            width: 84vw;
+        }
+
+        .atalhos {
+            margin-left: 14%;
+        }
+    }
+
+    @media (max-width: 1367px) {
+        .ajuste-cardbox {
+            margin-top: 3% !important;
+            max-height: 70vh !important;
+        }
+
+        .ajuste-statisc {
+            margin-left: 7vw;
+            width: 88vw;
+        }
+
+        .display1366 {
+            margin-left: -5%;
+        }
+
+        .ajuste-status {
+            margin-left: 13%;
+            width: 89vw;
+        }
+
+        .atalhos {
+            margin-left: 14vw;
+        }
+    }
+
+    @media (max-width: 485px) {
+        .ajuste-statisc {
+            width: 92%;
+            margin-top: 5%;
+        }
+
+    }
+</style>
 <!-- New Bem-vindos -->
 <div id="content-bemv">
     <div class="bemv">Dashboard</div>
