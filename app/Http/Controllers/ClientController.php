@@ -15,7 +15,7 @@ class ClientController extends Controller
 {
     public function getInfoClients()
     {
-        $infosClients = Client::orderBy('nome', 'asc')->get();
+        $infosClients = Client::select('*')->limit(50)->get();
         return view('clients', ['infoClients' => $infosClients]);
     }
 

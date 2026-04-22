@@ -31,6 +31,7 @@ class OsController extends Controller
         'status_os:id,nome'
     ])->orderByDesc('id')
     ->select('id', 'cliente_id', 'maquina_id', 'operacao_os_id', 'status_os_id', 'data_avaliacao', 'data_entrega', 'garantia')
+    ->limit(50)
     ->get();
 
     foreach ($getOs as $os) {
@@ -92,7 +93,7 @@ class OsController extends Controller
             'cliente_id' => $request->input('cliente'),
             'maquina_id' => $request->input('maquina'),
             'operacao_os_id' => '1',
-            'status_os_id' => '1',
+            'status_os_id' => '3',
             'data' => $dataFormatada . ' ' . $request->input('hora'),
             'obs' => $request->input('obs'),
             'descricao_cliente' => $request->input('descricao_cliente'),
