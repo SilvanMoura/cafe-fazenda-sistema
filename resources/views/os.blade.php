@@ -14,12 +14,13 @@
         /* Adiciona rolagem vertical quando necessário */
     }
 
-    @media (min-width: 1368px) {
+    @media (min-width: 1370px) {
         .ajuste-cardbox {
-            margin-top: -60% !important;
+            margin-top: -50% !important;
+            margin-left: 1%;
         }
 
-        .ajuste-statisc {
+        /* .ajuste-statisc {
             margin-left: 7vw;
         }
 
@@ -30,10 +31,10 @@
 
         .atalhos {
             margin-left: 14%;
-        }
+        } */
     }
 
-    @media (max-width: 1367px) {
+    @media (max-width: 1369px) {
         .ajuste-cardbox {
             margin-top: 3% !important;
         }
@@ -66,134 +67,136 @@
     }
 </style>
 
-<div class="ajuste-cardbox" style="height: 90vh; width: 99vw;">
-    <div class="new122" style="margin: 1% 1% 0 10%;">
-        <div class="widget-title" style="margin: -20px 0 0">
-            <span class="icon">
-                <i class="fas fa-user"></i>
-            </span>
-            <h5>Ordens de Serviço</h5>
-        </div>
-        <!-- php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aCliente')) { ?> -->
-        <!-- <div class="flexxn" style="background-color:red; display: block;">
-            <div style="background-color:blue; display: flex; justify-content:space-between;">
-
-                <div>
-                    <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
-                        <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
-                            Ordem de Serviço
-                        </span>
-                    </a>
-                </div>
-
-                <div>
-                    <label id="search">
-                        Pesquisar
-                        <input type="search" id="searchInput" class="" placeholder="Id OS ou Nome Cliente" aria-controls="tabela">
-                    </label>
-                </div>
-
-            </div>
-        </div> -->
-
-        <div class="flexxn" style="display:block;">
-            <div style="display: block; flex-direction:column;">
-
-                <div>
-                    <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
-                        <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
-                            Ordem de Serviço
-                        </span>
-                    </a>
-                </div>
-
-                <div>
-                    <label id="search">
-                        Pesquisar
-                        <input type="search" id="searchInput" class="" placeholder="Id OS" aria-controls="tabela">
-                    </label>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- <div class="flexxn" style="background-color:red; display: block;">
-            <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
-                <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
-                    Ordem de Serviço
+<div >
+    <div class="ajuste-cardbox" style="height: auto; width: 99vw;">
+        <div class="new122" style="margin: 1% 1% 0 10%;">
+            <div class="widget-title" style="margin: -20px 0 0">
+                <span class="icon">
+                    <i class="fas fa-user"></i>
                 </span>
-            </a>
-        </div>
-        <div class="flexxn" style="background-color:red; display: block;">
-            <label id="search">
-                Pesquisar
-                <input type="search" id="searchInput" class="" placeholder="Id OS ou Nome Cliente" aria-controls="tabela">
-            </label>
-        </div> -->
-        <!-- ?php } ?> -->
-
-        <div class="widget-box">
-            <h5 style="padding: 3px 0"></h5>
-            <div class="widget-content nopadding tab-content scrollable-container">
-                <table id="tabela" class="table table-bordered ">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nome</th>
-                            <th>Máquina</th>
-                            <th>Status</th>
-                            <th>Tipo</th>
-                            <th>Avaliação</th>
-                            <th>Valor</th>
-                            <th>Data Entrega</th>
-                            <th>Garantia</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-
-                        @if($getOS->count() > 0)
-                        @foreach ($getOS as $r)
-                        <tr>
-
-                            <td style="width:5%;">{{ $r->id }}</td>
-                            <td style="width:25%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->cliente_id }}</a></td>
-                            <td style="width:12%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->maquina_id }}</a></td>
-                            <td style="width:10%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->status_os_id }}</a></td>
-                            <td style="width:6%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->operacao_os_id }}</a></td>
-                            <td style="width:6%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->data_avaliacao }}</a></td>
-                            <td style="width:7%;"><a href="{{ '/os/visualizar/'.$r->id }}">R$ {{ $r->valor_os }}</a></td>
-
-                            <td style="width:8%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->data_entrega }}</a></td>
-                            @if( $r->garantia != null)
-                            <td style="width:9%;"><a href="{{ '/os/visualizar/'.$r->id }}"> {{ $r->garantiaFinalData }}</a></td>
-                            @else
-                            <td style="width:9%;"><a href="{{ '/os/visualizar/'.$r->id }}">sem garantia</a></td>
-                            @endif
-                            <td style="width:12%;">
-                                <a href="{{ '/os/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
-                                <a href="{{ '/os/editar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
-                                @if( $r->status_os_id == 'Finalizado' || $r->status_os_id == 'Entregue' )
-                                <a href="{{ '/os/entregaOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
-                                @else
-                                <a href="{{ '/os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-                        @else
-                        <tr>
-                            <td colspan="6">Nenhum OS Cadastrado</td>
-                        </tr>
-                        @endif
-
-
-                    </tbody>
-                </table>
+                <h5>Ordens de Serviço</h5>
             </div>
-        </div>
-        <!-- <php echo $this->pagination->create_links(); ?> -->
+            <!-- php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aCliente')) { ?> -->
+            <!-- <div class="flexxn" style="background-color:red; display: block;">
+                <div style="background-color:blue; display: flex; justify-content:space-between;">
 
+                    <div>
+                        <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
+                            <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
+                                Ordem de Serviço
+                            </span>
+                        </a>
+                    </div>
+
+                    <div>
+                        <label id="search">
+                            Pesquisar
+                            <input type="search" id="searchInput" class="" placeholder="Id OS ou Nome Cliente" aria-controls="tabela">
+                        </label>
+                    </div>
+
+                </div>
+            </div> -->
+
+            <div class="flexxn" style="display:block;">
+                <div style="display: block; flex-direction:column;">
+
+                    <div>
+                        <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
+                            <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
+                                Ordem de Serviço
+                            </span>
+                        </a>
+                    </div>
+
+                    <div>
+                        <label id="search">
+                            Pesquisar
+                            <input type="search" id="searchInput" class="" placeholder="Id OS" aria-controls="tabela">
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <div class="flexxn" style="background-color:red; display: block;">
+                <a href="os/adicionar" class="button btn btn-mini btn-success" style="max-width: 165px">
+                    <span class="button__icon"><i class='bx bx-plus-circle'></i></span><span class="button__text2">
+                        Ordem de Serviço
+                    </span>
+                </a>
+            </div>
+            <div class="flexxn" style="background-color:red; display: block;">
+                <label id="search">
+                    Pesquisar
+                    <input type="search" id="searchInput" class="" placeholder="Id OS ou Nome Cliente" aria-controls="tabela">
+                </label>
+            </div> -->
+            <!-- ?php } ?> -->
+
+            <div class="widget-box">
+                <h5 style="padding: 3px 0"></h5>
+                <div class="widget-content nopadding tab-content">
+                    <table id="tabela" class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Máquina</th>
+                                <th>Status</th>
+                                <th>Tipo</th>
+                                <th>Avaliação</th>
+                                <th>Valor</th>
+                                <th>Data Entrega</th>
+                                <th>Garantia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @if($getOS->count() > 0)
+                            @foreach ($getOS as $r)
+                            <tr>
+
+                                <td style="width:5%;">{{ $r->id }}</td>
+                                <td style="width:25%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->cliente_id }}</a></td>
+                                <td style="width:12%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->maquina_id }}</a></td>
+                                <td style="width:10%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->status_os_id }}</a></td>
+                                <td style="width:6%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->operacao_os_id }}</a></td>
+                                <td style="width:6%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->data_avaliacao }}</a></td>
+                                <td style="width:7%;"><a href="{{ '/os/visualizar/'.$r->id }}">R$ {{ $r->valor_os }}</a></td>
+
+                                <td style="width:8%;"><a href="{{ '/os/visualizar/'.$r->id }}">{{ $r->data_entrega }}</a></td>
+                                @if( $r->garantia != null)
+                                <td style="width:9%;"><a href="{{ '/os/visualizar/'.$r->id }}"> {{ $r->garantiaFinalData }}</a></td>
+                                @else
+                                <td style="width:9%;"><a href="{{ '/os/visualizar/'.$r->id }}">sem garantia</a></td>
+                                @endif
+                                <td style="width:12%;">
+                                    <a href="{{ '/os/visualizar/'. $r->id }}" class="btn-nwe" title="Ver mais detalhes"><i class="bx bx-show bx-xs"></i></a>
+                                    <a href="{{ '/os/editar/'. $r->id }}" class="btn-nwe5" title="Editar"><i class="bx bx-edit bx-xs"></i></a>
+                                    @if( $r->status_os_id == 'Finalizado' || $r->status_os_id == 'Entregue' )
+                                    <a href="{{ '/os/entregaOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-exit bx-xs"></i></a>
+                                    @else
+                                    <a href="{{ '/os/imprimirOs/'. $r->id }}" class="btn-nwe3" title="Imprimir OS"><i class="bx bx-printer bx-xs"></i></a>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                            @else
+                            <tr>
+                                <td colspan="6">Nenhum OS Cadastrado</td>
+                            </tr>
+                            @endif
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- <php echo $this->pagination->create_links(); ?> -->
+
+        </div>
     </div>
 </div>
 
