@@ -7,13 +7,6 @@
         width: 70px;
     }
 
-    .scrollable-container {
-        height: 400px;
-        /* Altura fixa da div */
-        overflow-y: auto;
-        /* Adiciona rolagem vertical quando necessário */
-    }
-
     @media (min-width: 1370px) {
         .ajuste-cardbox {
             margin-top: -50% !important;
@@ -217,7 +210,7 @@
             var searchTerm = $('#searchInput').val();
 
             // Selecione o elemento `tbody` dentro do widget
-            var tableBody = $('.widget-box .widget-content.nopadding.tab-content.scrollable-container #tabela tbody');
+            var tableBody = $('.widget-box .widget-content.nopadding.tab-content #tabela tbody');
 
             $.ajax({
                 type: 'POST',
