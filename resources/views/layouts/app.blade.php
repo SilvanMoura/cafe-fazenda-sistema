@@ -80,7 +80,7 @@
             }
 
             #sidebar {
-                width: 180px;
+                width: 150px;
             }
 
             #breadcrumb {
@@ -126,10 +126,8 @@
                 $hora = date('H');
                 if ($hora >= 8 && $hora < 12) {
                     return 'Bom dia ';
-                } elseif ($hora >= 12 && $hora < 18) {
+                } else{
                     return 'Boa tarde ';
-                } else {
-                    return 'Boa noite ';
                 }
             }
 

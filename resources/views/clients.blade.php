@@ -3,19 +3,65 @@
 @section('content')
 
 <style>
+
     select {
         width: 70px;
     }
 
-    .scrollable-container {
-        height: 400px;
-        /* Altura fixa da div */
-        overflow-y: auto;
-        /* Adiciona rolagem vertical quando necessário */
+    @media (min-width: 1370px) {
+        .ajuste-cardbox {
+            margin-top: -50% !important;
+            margin-left: 1%;
+        }
+
+        /* .ajuste-statisc {
+            margin-left: 7vw;
+        }
+
+        .ajuste-status {
+            margin-left: 14%;
+            width: 84vw;
+        }
+
+        .atalhos {
+            margin-left: 14%;
+        } */
+    }
+
+    @media (max-width: 1369px) {
+        .ajuste-cardbox {
+            margin-top: 3% !important;
+        }
+
+        .ajuste-statisc {
+            margin-left: 7vw;
+            width: 80vw;
+        }
+
+        .display1366 {
+            margin-left: -5%;
+        }
+
+        .ajuste-status {
+            margin-left: 13%;
+            width: 89vw;
+        }
+
+        .atalhos {
+            margin-left: 14vw;
+        }
+    }
+
+    @media (max-width: 485px) {
+        .ajuste-statisc {
+            width: 92%;
+            margin-top: 5%;
+        }
+
     }
 </style>
-<div style="height: 90vh; width: 99vw;">
-    <div class="new122" style="margin: 1% 1% 0 7%;">
+<div class="ajuste-cardbox" style="height: auto; width: 99vw;">
+    <div class="new122" style="margin: 1% 1% 0 10%;">
         <div class="widget-title" style="margin: -20px 0 0">
             <span class="icon">
                 <i class="fas fa-user"></i>
@@ -36,7 +82,7 @@
 
         <div class="widget-box">
             <h5 style="padding: 3px 0"></h5>
-            <div class="widget-content nopadding tab-content scrollable-container">
+            <div class="widget-content nopadding tab-content">
                 <table id="tabela" class="table table-bordered ">
                     <thead>
                         <tr>
@@ -127,7 +173,7 @@
             var searchTerm = $('#searchInput').val();
 
             // Selecione o elemento `tbody` dentro do widget
-            var tableBody = $('.widget-content.nopadding.tab-content.scrollable-container #tabela tbody');
+            var tableBody = $('.widget-content.nopadding.tab-content #tabela tbody');
 
             // Faça a requisição AJAX
             $.ajax({
