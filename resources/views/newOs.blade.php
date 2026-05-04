@@ -100,7 +100,7 @@
                     <form id="formOs">
                         @csrf
                         <!-- Primeira Linha -->
-                        <!-- <div class="form-row" style="display:flex; justify-content: space-between;">
+                        <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="operacao" style="margin-right: 10px;">Operação:</label>
                                 <input type="text" style="background-color: #EEE" class="form-control" id="operacao" name="operacao" style="margin-right: 20px" readonly value="Orçamento" placeholder="Operação">
@@ -113,7 +113,7 @@
                                 <label for="hora" style="margin-right: 10px">Hora:</label>
                                 <input type="text" class="form-control" id="hora" name="hora" placeholder="Hora">
                             </div>
-                        </div> -->
+                        </div>
 
                         <!-- Segunda Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between; margin-bottom:10px;">
