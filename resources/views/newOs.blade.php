@@ -100,11 +100,11 @@
                     <form id="formOs">
                         @csrf
                         <!-- Primeira Linha -->
-                        <div class="form-row" style="display:flex; justify-content: space-between;">
+                        <!-- <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="operacao" style="margin-right: 10px;">Operação:</label>
                                 <input type="text" style="background-color: #EEE" class="form-control" id="operacao" name="operacao" style="margin-right: 20px" readonly value="Orçamento" placeholder="Operação">
-                            </div>
+                            </div> 
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="data" style="margin-right: 10px">Data:</label>
                                 <input type="text" class="form-control" id="data" name="data" placeholder="Data" style="margin-right: 20px">
@@ -113,14 +113,14 @@
                                 <label for="hora" style="margin-right: 10px">Hora:</label>
                                 <input type="text" class="form-control" id="hora" name="hora" placeholder="Hora">
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Segunda Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between; margin-bottom:10px;">
-                            <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="form-group col-sm-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="maquina" style="margin-right: 20px">Máquina:</label>
-                                <div class="controls">
-                                    <select id="maquina" class="form-control" style="width: 35vw; margin-right: 20px">
+                                <div class="controls" style="margin-right: 20px">
+                                    <select id="maquina" class="form-control" style="width: 15vw; margin-right: 20px">
                                         <option>Selecione</option>
                                         @foreach($machines as $f)
                                         <option value="{{ $f->id }}">{{ $f->nomemodelo }}</option>
@@ -128,10 +128,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="form-group col-md-12" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="cliente" style="margin-right: 20px">Cliente:</label>
                                 <div class="controls">
-                                    <select id="cliente" class="form-control" style="width: 35vw;">
+                                    <select id="cliente" class="form-control" style="width: 44vw;">
                                         <option>Selecione</option>
                                         @foreach($clients as $f)
                                         <option value="{{ $f->id }}">{{ $f->nome }}</option>
@@ -143,13 +143,13 @@
 
                         <!-- Terceira Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between;">
-                            <div class="form-group col-md-8" style="display: flex; flex-direction: row; align-items: center;">
-                                <label for="endereco" style="margin-right: 20px">Endereço:</label>
-                                <input type="text" class="form-control" readonly id="endereco" name="endereco" style="width:50vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw">
+                            <div class="form-group col-md-8" style="width:44vw; display: flex; flex-direction: row; align-items: center;">
+                                <label for="endereco" style="margin-right: 10px">Endereço:</label>
+                                <input type="text" class="form-control" readonly id="endereco" name="endereco" style="width:53vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
-                                <label for="complemento" style="margin-right: 20px">Complemento:</label>
-                                <input type="text" class="form-control" id="complemento" name="complemento" style="background-color: #EEE; width:15vw;" readonly placeholder="Complemento">
+                                <label for="complemento" style="margin-right: 10px">Complemento:</label>
+                                <input type="text" class="form-control" id="complemento" name="complemento" style="background-color: #EEE; width:17vw;" readonly placeholder="Complemento">
                             </div>
                         </div>
 
@@ -159,9 +159,9 @@
                                 <label for="bairro" style="margin-right: 10px">Bairro:</label>
                                 <input type="text" class="form-control" style="background-color: #EEE" readonly id="bairro" name="bairro" style="width: 20vw; background-color:EEE; margin-right: 20px" placeholder="Bairro" style="width: 40vw">
                             </div>
-                            <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="form-group col-md-4" style="width:45vw; display: flex; flex-direction: row; align-items: center;">
                                 <label for="cpfcnpj" style="margin-right: 10px">CPF/CNPJ:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="cpfcnpj" name="cpfcnpj" placeholder="CPF" style="width: 20vw; background-color:EEE; margin-right:20px">
+                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="cpfcnpj" name="cpfcnpj" placeholder="CPF" style="width: 23vw; background-color:EEE; margin-right:20px">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="telefone" style="margin-right: 10px">Telefone:</label>
@@ -170,7 +170,7 @@
                         </div>
 
                         <!-- Quinta Linha -->
-                        <div class="form-row" style="display: flex; justify-content: space-between;">
+                        <!-- <div class="form-row" style="display: flex; justify-content: space-between;">
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="bebidas" style="margin-right: 10px;">Nº de Bebidas Extraídas:</label>
                                 <input type="text" class="form-control" id="bebidas" name="bebidas" style="width: 35vw;" placeholder="Nº de Bebidas Extraídas">
@@ -179,9 +179,9 @@
                                 <label for="checklist" style="margin-right: 10px;">Checklist:</label>
                                 <input type="text" class="form-control" id="checklist" name="checklist" style="width: 30vw; background-color: #EEE;" readonly placeholder="Checklist">
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 84vw; margin-bottom: 10px;">
+                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 103%; margin-bottom: 10px;">
 
                             <div class="row" style="display: flex; justify-content: space-around;">
                                 <div class="col-md-4">
@@ -228,7 +228,7 @@
                             </div>
                         </div>
 
-                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 84vw; margin-bottom: 10px;">
+                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 103%; margin-bottom: 10px;">
 
                             <div class="row" style="display: flex; justify-content: space-around;">
                                 <div class="col-md-4">
@@ -276,7 +276,7 @@
 
                         </div>
 
-                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 84vw; margin-bottom: 10px;">
+                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 103%; margin-bottom: 10px;">
 
                             <div class="row" style="display: flex; justify-content: space-around;">
                                 <div class="col-md-4">
@@ -324,7 +324,7 @@
 
                         </div>
 
-                        <div class="panel-body panel panel-default" style="padding: 20px 0; display: flex; justify-content: center; border: 1px solid #DDDDDD">
+                        <div class="panel-body panel panel-default" style="padding: 20px 0; width:105%; display: flex; justify-content: center; border: 1px solid #DDDDDD">
                             <div class="row">
                                 <div class="col-md-12" style="display: flex; justify-content:center; flex-flow: row wrap;">
                                     <div class="form-group" style="padding: 15px; margin-right:20px; display: flex; border: 1px solid #DDDDDD">
@@ -344,7 +344,7 @@
                                         <div id="evs-container" class="radio-inline hide fade">
                                             <input type="number" class="form-control" id="evs_qtd" name="evs_qtd" min="1" placeholder="Quant.">
                                             <br>
-                                            <input type="text" class="form-control" id="evs_obs" name="evs_obs" placeholder="Obs">
+                                            <input type="text" class="form-control" id="evs_obs" name="evs_obs" placeholder="Obs" value="1">
                                         </div>
                                     </div>
 
@@ -364,9 +364,6 @@
                                                             <label class="form-check-label" for="reservatorioAgua-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div id="reservatorioAgua-container" class="radio-inline hide fade">
-                                                    <input type="text" class="form-control" id="reservatorioAgua_obs" name="reservatorioAgua_obs" placeholder="Obs">
                                                 </div>
                                             </div>
 
@@ -393,7 +390,7 @@
                                     </div>
 
 
-                                    <div class="form-group" style="padding: 15px; width: 66vw; margin-top: 20px; border: 1px solid #DDDDDD">
+                                    <div class="form-group" style="padding: 15px; width: 60vw; margin-top: 20px; border: 1px solid #DDDDDD">
                                         <div style="display: flex; flex-direction: column;">
 
                                             <div style="display: flex; justify-content:center; flex-direction: row;">
@@ -409,9 +406,6 @@
                                                             <label class="form-check-label" for="compartimentos-nao" style="margin-left: 5px; padding-top: 5px; margin-right:10px">Não</label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div id="compartimentos-container" class="radio-inline hide fade">
-                                                    <input type="number" class="form-control" id="compartimentos_qtd" name="compartimentos_qtd" placeholder="Quant.">
                                                 </div>
                                             </div>
 
@@ -429,18 +423,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="tampaCompartimentos-container" class="radio-inline hide fade">
-                                                    <input type="number" class="form-control" id="tampaCompartimentos_qtd" name="tampaCompartimentos_qtd" min="1" placeholder="Quant.">
-                                                    <br>
-                                                    <input type="text" class="form-control" id="tampaCompartimentos_obs" name="tampaCompartimentos_obs" placeholder="Obs">
-                                                </div>
                                             </div>
 
                                         </div>
 
                                     </div>
 
-                                    <div class="form-group" style="padding: 15px; width: 66vw; margin-top: 20px; border: 1px solid #DDDDDD">
+                                    <div class="form-group" style="padding: 15px; width: 60vw; margin-top: 20px; border: 1px solid #DDDDDD">
                                         <div style="display: flex; flex-direction: column;">
 
                                             <div style="display: flex; justify-content:center; flex-direction: row;">
@@ -484,15 +473,15 @@
 
                                 </div>
 
-                                <div class="form-group" style="margin-left: 6vw; width:70vw; display: flex; justify-content: center; margin-top:10px">
-                                    <label for="obs" class="control-label col-md-2" style="margin-right: 10px;">Observação:</label>
+                                <div class="form-group" style="margin-left: 4vw; width:85%; margin-top:10px">
+                                    <label for="obs" class="control-label col-md-2" style="margin-right: 10px;">Observações:</label>
                                     <div class="col-md-10">
-                                        <textarea name="obs" style="width:67vw" id="obs" class="form-control" rows="8"></textarea>
+                                        <textarea name="obs" style="width:98%" id="obs" class="form-control" rows="8"></textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-group" style="margin-left: 4vw; width:74vw; display: flex; justify-content: center; margin-top:10px">
-                                    <label for="descricao_cliente" class="control-label col-md-2" style="width: 75px; margin-right: 10px;">Defeito descrito pelo cliente:</label>
+                                <div class="form-group" style="margin-left: 4vw; width:85%; margin-top:10px">
+                                    <label for="descricao_cliente" class="control-label col-md-2" style="margin-right: 10px;">Defeito descrito pelo cliente:</label>
                                     <div class="col-md-10" style="width:100%">
                                         <textarea name="descricao_cliente" style="width:98%" id="descricao_cliente" class="form-control" rows="8"></textarea>
                                     </div>
@@ -523,7 +512,7 @@
                                             </select>
                                         </td>
                                         <td id="rep_1" name="rep_1" style="width: 10vw;"></td>
-                                        <td style="width: 10vw;">
+                                        <td style="width: 13vw;">
                                             <input type="number" class="form-control" id="qtd_1" name="qtd_1" min="1" onchange="changeTotalById(this)" placeholder="Quant.">
                                         </td>
                                         <td style="width: 10vw;">
@@ -552,10 +541,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style=" width:85vw; display: flex; margin-top:10px">
+                        <div class="form-group" style=" width:78vw; margin-top:10px">
                             <label for="avaliacao" class="control-label col-md-2" style="margin-right: 10px;">Avaliação Técnica:</label>
                             <div class="col-md-6">
-                                <textarea name="avaliacao" style="width:66vw" id="avaliacao" class="form-control" rows="5"></textarea>
+                                <textarea name="avaliacao" style="width:67vw" id="avaliacao" class="form-control" rows="5"></textarea>
                             </div>
                         </div>
 

@@ -292,15 +292,6 @@
                         </a>
 
                     </li> -->
-
-                    <li class="<?php if (isset($menuCobrancas)) {
-                                    echo 'active';
-                                }; ?>">
-                        <a class="tip-bottom" title="" href="/usuarios"><i class='bx bx-user iconX'></i>
-                            <span class="title">Usuários</span>
-                            <span class="title-tooltip">Usuários</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
 

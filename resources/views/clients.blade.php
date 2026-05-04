@@ -10,7 +10,7 @@
 
     @media (min-width: 1370px) {
         .ajuste-cardbox {
-            margin-top: -50% !important;
+            margin-top: -45% !important;
             margin-left: 1%;
         }
 
