@@ -12,19 +12,6 @@
             margin-top: -45% !important;
             margin-left: 1%;
         }
-
-        /* .ajuste-statisc {
-            margin-left: 7vw;
-        }
-
-        .ajuste-status {
-            margin-left: 14%;
-            width: 84vw;
-        }
-
-        .atalhos {
-            margin-left: 14%;
-        } */
     }
 
     @media (max-width: 1369px) {

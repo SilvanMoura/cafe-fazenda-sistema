@@ -69,6 +69,45 @@
         font-weight: 500;
     }
 
+    @media (min-width: 1370px) {
+        .ajuste-cardbox {
+            margin-top: -65% !important;
+            margin-left: 1%;
+        }
+    }
+
+    @media (max-width: 1369px) {
+        .ajuste-cardbox {
+            margin-top: 3% !important;
+        }
+
+        .ajuste-statisc {
+            margin-left: 7vw;
+            width: 80vw;
+        }
+
+        .display1366 {
+            margin-left: -5%;
+        }
+
+        .ajuste-status {
+            margin-left: 13%;
+            width: 89vw;
+        }
+
+        .atalhos {
+            margin-left: 14vw;
+        }
+    }
+
+    @media (max-width: 485px) {
+        .ajuste-statisc {
+            width: 92%;
+            margin-top: 5%;
+        }
+
+    }
+
     @media (max-width: 480px) {
         form {
             display: contents !important;
@@ -83,8 +122,8 @@
         }
     }
 </style>
-<div style="height: 92vh;">
-    <div class="row-fluid" style="margin: 0% 0% 0 7%; width: 91vw;">
+<div>
+    <div class="row-fluid ajuste-cardbox" style="margin-left: 9%; width: 88vw;">
         <div class="span12">
             <div class="widget-box">
                 <div class="widget-title" style="margin: -10px 0 0">
@@ -100,11 +139,11 @@
                     <form id="formOs">
                         @csrf
                         <!-- Primeira Linha -->
-                        <div class="form-row" style="display:flex; justify-content: space-between;">
+                        <div class="form-row" style="display:none; justify-content: space-between;">
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="operacao" style="margin-right: 10px;">Operação:</label>
                                 <input type="text" style="background-color: #EEE" class="form-control" id="operacao" name="operacao" style="margin-right: 20px" readonly value="Orçamento" placeholder="Operação">
-                            </div> 
+                            </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="data" style="margin-right: 10px">Data:</label>
                                 <input type="text" class="form-control" id="data" name="data" placeholder="Data" style="margin-right: 20px">
@@ -120,7 +159,7 @@
                             <div class="form-group col-sm-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="maquina" style="margin-right: 20px">Máquina:</label>
                                 <div class="controls" style="margin-right: 20px">
-                                    <select id="maquina" class="form-control" style="width: 15vw; margin-right: 20px">
+                                    <select id="maquina" class="form-control" style="width: 16vw; margin-right: 20px">
                                         <option>Selecione</option>
                                         @foreach($machines as $f)
                                         <option value="{{ $f->id }}">{{ $f->nomemodelo }}</option>
@@ -129,9 +168,9 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-12" style="display: flex; flex-direction: row; align-items: center;">
-                                <label for="cliente" style="margin-right: 20px">Cliente:</label>
+                                <label for="cliente" style="margin-right: 10px">Cliente:</label>
                                 <div class="controls">
-                                    <select id="cliente" class="form-control" style="width: 44vw;">
+                                    <select id="cliente" class="form-control" style="width: 41vw;">
                                         <option>Selecione</option>
                                         @foreach($clients as $f)
                                         <option value="{{ $f->id }}">{{ $f->nome }}</option>
@@ -143,9 +182,9 @@
 
                         <!-- Terceira Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between;">
-                            <div class="form-group col-md-8" style="width:44vw; display: flex; flex-direction: row; align-items: center;">
+                            <div class="form-group col-md-8" style="width:42vw; display: flex; flex-direction: row; align-items: center;">
                                 <label for="endereco" style="margin-right: 10px">Endereço:</label>
-                                <input type="text" class="form-control" readonly id="endereco" name="endereco" style="width:53vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw">
+                                <input type="text" class="form-control" readonly id="endereco" name="endereco" style="width:51vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="complemento" style="margin-right: 10px">Complemento:</label>
@@ -155,13 +194,13 @@
 
                         <!-- Quarta Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between;">
-                            <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="form-group col-md-4" style="margin-right:10px; display: flex; flex-direction: row; align-items: center;">
                                 <label for="bairro" style="margin-right: 10px">Bairro:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="bairro" name="bairro" style="width: 20vw; background-color:EEE; margin-right: 20px" placeholder="Bairro" style="width: 40vw">
+                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="bairro" name="bairro" style="width: 20vw; background-color:EEE; margin-right: 10px" placeholder="Bairro" style="width: 40vw">
                             </div>
-                            <div class="form-group col-md-4" style="width:45vw; display: flex; flex-direction: row; align-items: center;">
+                            <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="cpfcnpj" style="margin-right: 10px">CPF/CNPJ:</label>
-                                <input type="text" class="form-control" style="background-color: #EEE" readonly id="cpfcnpj" name="cpfcnpj" placeholder="CPF" style="width: 23vw; background-color:EEE; margin-right:20px">
+                                <input type="text" class="form-control" readonly id="cpfcnpj" name="cpfcnpj" placeholder="CPF" style="width: 21vw; background-color:#EEE; margin-right:10px">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="telefone" style="margin-right: 10px">Telefone:</label>
@@ -342,9 +381,9 @@
                                             </div>
                                         </div>
                                         <div id="evs-container" class="radio-inline hide fade">
-                                            <input type="number" class="form-control" id="evs_qtd" name="evs_qtd" min="1" placeholder="Quant.">
-                                            <br>
-                                            <input type="text" class="form-control" id="evs_obs" name="evs_obs" placeholder="Obs" value="1">
+                                            <input type="number" class="form-control" id="evs_qtd" name="evs_qtd" min="1" placeholder="Quant." value="1">
+                                            <!-- <br>
+                                            <input type="text" class="form-control" id="evs_obs" name="evs_obs" placeholder="Obs" value="1"> -->
                                         </div>
                                     </div>
 
@@ -407,6 +446,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div id="compartimentos-container" class="radio-inline hide fade">
+                                                    <input type="number" class="form-control" id="compartimentos_qtd" name="compartimentos_qtd" placeholder="Quant." value="2">
+                                                </div>
                                             </div>
 
                                             <div style="display: flex; justify-content:center;">
@@ -423,7 +466,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div id="tampaCompartimentos-container" class="radio-inline hide fade">
+                                                    <input type="number" class="form-control" id="tampaCompartimentos_qtd" name="tampaCompartimentos_qtd" min="1" placeholder="Quant." value="2">
+                                                    <!-- <br>
+                                                    <input type="text" class="form-control" id="tampaCompartimentos_obs" name="tampaCompartimentos_obs" placeholder="Obs">-->
+                                                </div>
                                             </div>
+
+
 
                                         </div>
 
@@ -463,9 +513,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="produtos-container" class="radio-inline fade hide" style="display: flex; justify-content:center;">
+                                            <!-- <div id="produtos-container" class="radio-inline fade hide" style="display: flex; justify-content:center;">
                                                 <input type="text" class="form-control" id="produtos_quais" style="width:50vw;" name="produtos_quais" placeholder="Quais">
-                                            </div>
+                                            </div> -->
 
                                         </div>
 
