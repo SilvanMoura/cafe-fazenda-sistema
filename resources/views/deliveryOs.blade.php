@@ -89,11 +89,48 @@
         #elementServico {
             display: none;
         }
+    }
+    @media (min-width: 1370px) {
+        .ajuste-cardbox {
+            margin-top: -45% !important;
+            margin-left: 2%;
+        }
+    }
+
+    @media (max-width: 1369px) {
+        .ajuste-cardbox {
+            margin-top: 3% !important;
+        }
+
+        .ajuste-statisc {
+            margin-left: 7vw;
+            width: 80vw;
+        }
+
+        .display1366 {
+            margin-left: -5%;
+        }
+
+        .ajuste-status {
+            margin-left: 13%;
+            width: 89vw;
+        }
+
+        .atalhos {
+            margin-left: 14vw;
+        }
+    }
+
+    @media (max-width: 485px) {
+        .ajuste-statisc {
+            width: 92%;
+            margin-top: 5%;
+        }
 
     }
 </style>
-<div style="height: 92vh;">
-    <div class="row-fluid" style="margin: 0% 0% 0 7%; width: 91vw;">
+<div class="ajuste-cardbox" style="height: 97vh;">
+    <div class="row-fluid" style="margin: 0% 0% 0% 9%; width: 87vw;">
         <div class="span12">
             <div class="widget-box">
                 <div class="widget-title" style="margin: -10px 0 0">

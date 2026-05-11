@@ -418,23 +418,34 @@
                         <tbody>
                             @if(isset($dashboard['osOrcamento']))
                             @foreach($dashboard['osOrcamento'] as $osOrcamento)
+                            
                             <tr>
+                                
                                 <td>
+                                    <a href="{{ '/os/visualizar/'. $osOrcamento->id }}" target="_blank" class="" title="Visualizar">
                                     {{ $osOrcamento->id }}
+                                    </a>
                                 </td>
                                 <td class="cli1">
+                                    <a href="{{ '/os/visualizar/'. $osOrcamento->id }}" target="_blank" class="" title="Visualizar">
                                     {{ $osOrcamento->cliente_id }}
-                                </td>
-                                <td>
-                                    {{ $osOrcamento->data }}
-                                </td>
-                                <td>
-                                    {{ $osOrcamento->status_os_id }}
-                                </td>
-                                <td>
-                                    <a href="{{ '/os/visualizar/'. $osOrcamento->id }}" class="btn-nwe tip-top" title="Visualizar">
-                                        <i class="bx bx-show"></i>
                                     </a>
+                                </td>
+                                
+                                <td>
+                                    <a href="{{ '/os/visualizar/'. $osOrcamento->id }}" target="_blank" class="" title="Visualizar">
+                                    {{ $osOrcamento->data }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ '/os/visualizar/'. $osOrcamento->id }}" target="_blank" class="" title="Visualizar">
+                                    {{ $osOrcamento->status_os_id }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <!-- <a href="{{ '/os/visualizar/'. $osOrcamento->id }}" class="btn-nwe tip-top" title="Visualizar">
+                                        <i class="bx bx-show"></i>
+                                    </a> -->
                                     <a href="{{ '/os/editar/'. $osOrcamento->id }}" class="btn-nwe5" title="Editar">
                                         <i class="bx bx-edit bx-xs"></i>
                                     </a>
@@ -445,6 +456,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            
                             @endforeach
                             @else
                             <tr>
