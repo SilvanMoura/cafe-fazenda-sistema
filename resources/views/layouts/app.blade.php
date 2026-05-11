@@ -222,7 +222,7 @@
                     </li>
 
 
-                    <li class="<?php if (isset($menuServicos)) {
+                    <!-- <li class="<?php if (isset($menuServicos)) {
                                     echo 'active';
                                 } ?>">
                         <a class="tip-bottom" title="Serviços" href="/servicos">
@@ -231,7 +231,7 @@
                             <span class="title-tooltip">Serviços</span>
                         </a>
 
-                    </li>
+                    </li> -->
 
 
                     <!-- <li class="<?php if (isset($menuVendas)) {
