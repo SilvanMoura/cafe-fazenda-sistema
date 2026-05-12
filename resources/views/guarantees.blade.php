@@ -9,8 +9,8 @@
 
     @media (min-width: 1370px) {
         .ajuste-cardbox {
-            margin-top: -60% !important;
-            margin-left: 1%;
+            margin-top: -45% !important;
+            margin-left: 2%;
         }
     }
 
