@@ -492,7 +492,9 @@
                                 {{ $osServicos->id }}
                             </td>
                             <td class="cli1">
+                                <a href="{{ '/os/visualizar/'. $osServicos->id }}" target="_blank" class="tip-top" title="Visualizar">
                                 {{ $osServicos->cliente_id }}
+                                </a>
                             </td>
 
                             <td style="width:5vw;">
@@ -506,9 +508,9 @@
                                 R$ {{ $osServicos->valor_os }}
                             </td>
                             <td>
-                                <a href="{{ '/os/visualizar/'. $osServicos->id }}" class="btn-nwe tip-top" title="Visualizar">
+                                <!-- <a href="{{ '/os/visualizar/'. $osServicos->id }}" class="btn-nwe tip-top" title="Visualizar">
                                     <i class="bx bx-show"></i>
-                                </a>
+                                </a> -->
                                 <a href="{{ '/os/editar/'. $osServicos->id }}" class="btn-nwe5" title="Editar">
                                     <i class="bx bx-edit bx-xs"></i>
                                 </a>
