@@ -47,7 +47,7 @@
     }
 </style>
 
-<div >
+<div>
     <div class="ajuste-cardbox" style="height: auto; width: 99vw;">
         <div class="new122" style="margin: 1% 1% 0 10%;">
             <div class="widget-title" style="margin: -20px 0 0">

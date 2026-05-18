@@ -91,9 +91,48 @@
         }
 
     }
+
+    @media (min-width: 1370px) {
+        .ajuste-cardbox {
+            margin-top: -45% !important;
+            margin-left: 1%;
+        }
+    }
+
+    @media (max-width: 1369px) {
+        .ajuste-cardbox {
+            margin-top: 3% !important;
+        }
+
+        .ajuste-statisc {
+            margin-left: 7vw;
+            width: 80vw;
+        }
+
+        .display1366 {
+            margin-left: -5%;
+        }
+
+        .ajuste-status {
+            margin-left: 13%;
+            width: 89vw;
+        }
+
+        .atalhos {
+            margin-left: 14vw;
+        }
+    }
+
+    @media (max-width: 485px) {
+        .ajuste-statisc {
+            width: 92%;
+            margin-top: 5%;
+        }
+
+    }
 </style>
-<div style="height: 92vh;">
-    <div class="row-fluid" style="margin: 0% 0% 0 7%; width: 91vw;">
+<div class="ajuste-cardbox" style="width: 88vw;">
+    <div class="row-fluid" style="margin: 0% 0% 0% 10%;">
         <div class="span12">
             <div class="widget-box">
                 <div class="widget-title" style="margin: -10px 0 0">
@@ -109,7 +148,7 @@
                     <form id="formOs">
                         @csrf
                         <!-- Primeira Linha -->
-                        <div class="form-row" style="display:flex; justify-content: space-between;">
+                        <div class="form-row" style="margin-bottom:10px; display:flex; justify-content: space-between;">
                             <input type="hidden" id="os" name="os" value="{{ $os->id }}" />
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="operacao" style="margin-right: 10px;">Operação:</label>
@@ -130,7 +169,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-4" id="elementServico" style="display: flex; flex-direction: row; align-items: center;">
+                            <!-- <div class="form-group col-md-4" id="elementServico" style="display: none; flex-direction: row; align-items: center;">
                                 <label for="status_os_servico" style="margin-right: 10px;">Status Os:</label>
                                 <select type="text" class="form-control" id="status_os_servico" name="status_os_servico" style="margin-right: 20px">
                                     @foreach($statusOs as $s)
@@ -139,13 +178,13 @@
                                     @endif
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> -->
 
-                            <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="form-group col-md-4" style="display: none; flex-direction: row; align-items: center;">
                                 <label for="data" style="margin-right: 10px">Data:</label>
                                 <input type="text" class="form-control" id="data" name="data" placeholder="Data" value="{{ $data }}" style="margin-right: 20px">
                             </div>
-                            <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="form-group col-md-4" style="display: none; flex-direction: row; align-items: center;">
                                 <label for="hora" style="margin-right: 10px">Hora:</label>
                                 <input type="text" class="form-control" id="hora" name="hora" placeholder="Hora" value="{{ $hora }}">
                             </div>
@@ -154,9 +193,9 @@
                         <!-- Segunda Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between; margin-bottom:10px;">
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
-                                <label for="maquina" style="margin-right: 20px">Máquina:</label>
-                                <div class="controls">
-                                    <select id="maquina" name="maquina" class="form-control" style="width: 35vw; margin-right: 20px">
+                                <label for="maquina" style="margin-right: 10px">Máquina:</label>
+                                <div class="controls" style="margin-right: 10px">
+                                    <select id="maquina" name="maquina" class="form-control" style="width: 15vw;">
                                         <option>Selecione</option>
                                         @foreach($machines as $f)
                                         <option @if ($f->id == $machineById->id) selected @endif value="{{ $f->id }}">{{ $f->nomemodelo }}</option>
@@ -165,9 +204,9 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
-                                <label for="cliente" style="margin-right: 20px">Cliente:</label>
+                                <label for="cliente" style="margin-right: 10px">Cliente:</label>
                                 <div class="controls">
-                                    <select id="cliente" name="cliente" class="form-control" style="width: 35vw;">
+                                    <select id="cliente" name="cliente" class="form-control" style="width: 53vw;">
                                         <option>Selecione</option>
                                         @foreach($clients as $f)
                                         <option @if ($f->nome == $clientById->nome) selected @endif value="{{ $f->id }}">{{ $f->nome }}</option>
@@ -181,12 +220,12 @@
                         <!-- Terceira Linha -->
                         <div class="form-row" style="display:flex; justify-content: space-between;">
                             <div class="form-group col-md-8" style="display: flex; flex-direction: row; align-items: center;">
-                                <label for="endereco" style="margin-right: 20px">Endereço:</label>
+                                <label for="endereco" style="margin-right: 10px">Endereço:</label>
                                 <input type="text" class="form-control" readonly id="endereco" name="endereco" style="width:50vw; background-color: #EEE; margin-right: 20px" placeholder="Endereço" style="width: 60vw" value="{{$clientById->endereco}}">
                             </div>
                             <div class="form-group col-md-4" style="display: flex; flex-direction: row; align-items: center;">
-                                <label for="complemento" style="margin-right: 20px">Complemento:</label>
-                                <input type="text" class="form-control" id="complemento" name="complemento" style="background-color: #EEE; width:15vw;" readonly placeholder="Complemento" value="{{$clientById->complemento}}">
+                                <label for="complemento" style="margin-right: 10px">Complemento:</label>
+                                <input type="text" class="form-control" id="complemento" name="complemento" style="background-color: #EEE; width:12vw;" readonly placeholder="Complemento" value="{{$clientById->complemento}}">
                             </div>
                         </div>
 
@@ -207,7 +246,7 @@
                         </div>
 
                         <!-- Quinta Linha -->
-                        <div class="form-row" style="display: flex; justify-content: space-between;">
+                        <div class="form-row" style="display: none; justify-content: space-between;">
                             <div class="form-group col-md-6" style="display: flex; flex-direction: row; align-items: center;">
                                 <label for="bebidas" style="margin-right: 10px;">Nº de Bebidas Extraídas:</label>
                                 <input type="text" class="form-control" id="bebidas" name="bebidas" style="width: 35vw;" placeholder="Nº de Bebidas Extraídas" value="{{ $os->bebidas_extraidas }}">
@@ -218,7 +257,7 @@
                             </div>
                         </div>
 
-                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 84vw; margin-bottom: 10px;">
+                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 75vw; margin-bottom: 10px;">
 
                             <div class="row" style="display: flex; justify-content: space-around;">
                                 <div class="col-md-4">
@@ -265,7 +304,7 @@
                             </div>
                         </div>
 
-                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 84vw; margin-bottom: 10px;">
+                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 75vw; margin-bottom: 10px;">
 
                             <div class="row" style="display: flex; justify-content: space-around;">
                                 <div class="col-md-4">
@@ -313,7 +352,7 @@
 
                         </div>
 
-                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 84vw; margin-bottom: 10px;">
+                        <div id="panel-radio" class="container mt-4 custom-panel" style=" margin:auto; border: 1px solid #DDDDDD; padding: 10px; width: 75vw; margin-bottom: 10px;">
 
                             <div class="row" style="display: flex; justify-content: space-around;">
                                 <div class="col-md-4">
